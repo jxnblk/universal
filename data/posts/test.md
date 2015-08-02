@@ -1,10 +1,9 @@
 ---
-title: Test Post
+title: First One
 id: 1
-date: 2015-08-01
+filename: test.md
+date: '2015-08-01T00:00:00.000Z'
 ---
-
 ## h2 Test Post
 
-Can express read this file in its API?
-
+How is it sorting? Just by filename, I think.

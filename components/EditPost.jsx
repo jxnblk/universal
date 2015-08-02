@@ -20,7 +20,7 @@ class EditPost extends React.Component {
         <code>{id} {date}</code>
         <PostForm {...this.props}
           method='POST'
-          action={`/api/posts/${id}?_method=PUT`}/ >
+          action={`/${id}?_method=PUT`}/ >
       </div>
     )
   }

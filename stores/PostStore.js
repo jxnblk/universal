@@ -21,6 +21,11 @@ class PostStore {
     this.post = post
   }
 
+  onClearPost() {
+    console.log('clearPost')
+    this.post = {}
+  }
+
   onCreate(post) {
     console.log('create', post)
   }

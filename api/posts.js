@@ -5,6 +5,9 @@ import path from 'path'
 import express from 'express'
 import graymatter from 'gray-matter'
 
+// import frontmatter from 'front-matter'
+// import fmStringify from '../util/front-matter-stringify'
+
 const router = express.Router()
 const POSTDIR = path.join(__dirname, '..', 'data', 'posts/')
 
@@ -20,7 +23,7 @@ router.route('/')
     console.log('create post', req.body)
     createPost(req.body, function (err, result) {
       console.log(err, result)
-      res.redirect('.')
+      res.redirect('/' + result.id)
     })
   })
 
@@ -35,8 +38,8 @@ router.route('/:id*')
   })
   .put(function (req, res, next) {
     console.log('PUT req.body', req.body)
-    updatePost(req.params.id, req.body, function () {
-      res.redirect('.')
+    updatePost(parseFloat(req.params.id), req.body, function () {
+      res.redirect('/' + req.params.id)
     })
   })
 
@@ -46,17 +49,18 @@ function readPosts () {
     .filter(function (filename) {
       return filename.match(/\.md$/)
     })
-  postsCache = filenames.map(function (filename) {
+  let posts = filenames.map(function (filename) {
     let raw = fs.readFileSync(POSTDIR + filename, 'utf8')
     let matter = graymatter(raw)
     return {
       title: matter.data.title,
       id: matter.data.id,
+      filename: filename,
       date: matter.data.date,
       content: matter.content
     }
   })
-  return postsCache
+  return posts
 }
 
 function getPost (id) {
@@ -65,7 +69,7 @@ function getPost (id) {
 }
 
 function createPost (data, done) {
-  let ids = readPosts().map(function (post) {
+  let ids = postsCache.map(function (post) {
     return post.id
   })
   let newId = _.max(ids) + 1
@@ -73,17 +77,30 @@ function createPost (data, done) {
     done('No title provided')
   }
   let filename = _.kebabCase(data.title)
-  let md = graymatter(data.content, {
+  let post = {
     title: data.title,
     id: newId,
-    date: Date.now().toDateString()
-  })
-  fs.writeFileSync(POSTDIR + filename, md)
-  done && done(null, md)
+    filename: filename,
+    date: new Date() // .toDateString()
+  }
+  let content = data.content.replace(/^M/, '\n').trim()
+  let md = graymatter.stringify(content, post)
+  post.content = data.content
+  fs.writeFileSync(POSTDIR + filename + '.md', md)
+  postsCache = readPosts()
+  done && done(null, post)
 }
 
 function updatePost (id, data, done) {
-  console.log('update', id, data)
+  id = parseFloat(id)
+  let post = _.find(postsCache, { id: id })
+  post = _.assign(post, data)
+  let content = post.content.trim()
+  delete post.content
+  post.id = id
+  let md = graymatter.stringify(content, post)
+  fs.writeFileSync(POSTDIR + post.filename, md)
+  postsCache = readPosts()
   done && done()
 }
 
