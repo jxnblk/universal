@@ -1,0 +1,29 @@
+{
+  "name": "iso-hot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon index.js",
+    "build": "webpack -p --progress --colors",
+    "start": "NODE_ENV=production node index.js"
+  },
+  "author": "Brent Jackson",
+  "license": "MIT",
+  "dependencies": {
+    "alt": "^0.17.1",
+    "babel": "^5.8.20",
+    "babel-loader": "^5.3.2",
+    "express": "^4.13.2",
+    "express-react-views": "^0.8.2",
+    "iso": "^4.1.0",
+    "node-dev": "^2.6.2",
+    "node-libs-browser": "^0.5.2",
+    "nodemon": "^1.4.0",
+    "react": "^0.13.3",
+    "react-hot-loader": "^1.2.8",
+    "react-router": "^0.13.3",
+    "webpack": "^1.10.5",
+    "webpack-dev-server": "^1.10.1"
+  }
+}
