@@ -7,7 +7,7 @@ class Default extends React.Component {
     return (
       <div>
         <h1>Default</h1>
-        <h2>DERP DERP DERPDERP</h2>
+        <h2>DERP DERP</h2>
       </div>
     )
   }

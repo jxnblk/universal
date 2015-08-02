@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon index.js",
     "build": "webpack -p --progress --colors",
+    "dev": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=production node index.js"
   },
   "author": "Brent Jackson",
@@ -17,6 +17,7 @@
     "express": "^4.13.2",
     "express-react-views": "^0.8.2",
     "iso": "^4.1.0",
+    "lodash": "^3.10.0",
     "node-dev": "^2.6.2",
     "node-libs-browser": "^0.5.2",
     "nodemon": "^1.4.0",

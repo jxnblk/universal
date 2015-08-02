@@ -8,8 +8,9 @@ import routes from './routes'
 import alt from './alt'
 import reactViews from 'express-react-views'
 import webpackstats from './util/webpack-stats'
+import posts from './api/posts'
 
-var app = express()
+const app = express()
 
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'jsx')
@@ -23,6 +24,16 @@ if (app.get('env') === 'development') {
   require('./server')
 }
 
+app.use('/api/posts*', posts)
+
+app.use('/home', posts)
+app.use('/home', function (req, res, next) {
+  let posts = res.locals.data || []
+  res.locals.PostStore = {
+    posts: posts
+  }
+  next()
+})
 
 app.use(function(req, res, next) {
 
