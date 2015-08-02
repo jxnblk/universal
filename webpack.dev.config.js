@@ -1,7 +1,6 @@
 
 var webpack = require('webpack')
-var statsCache = require('./util/stats-cache')
-var notifyStats = require('./util/notify-stats')
+var stats = require('./util/webpack-stats')
 
 module.exports = {
 
@@ -34,10 +33,7 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     function () {
-      this.plugin('done', notifyStats)
-    },
-    function () {
-      this.plugin('done', statsCache)
+      this.plugin('done', stats.set)
     },
     new webpack.ProgressPlugin(function(percentage, message) {
       var MOVE_LEFT = new Buffer("1b5b3130303044", "hex").toString()
