@@ -3,6 +3,7 @@ import React from 'react'
 import { RouteHandler } from 'react-router'
 import PostStore from '../stores/PostStore'
 import Header from './Header'
+import styles from '../util/styles'
 
 class App extends React.Component {
 
@@ -26,9 +27,15 @@ class App extends React.Component {
 
   render() {
     let { props, state } = this
+    let s = {
+      root: {
+        fontFamily: styles.fontFamily,
+        color: styles.colors.gray[1]
+      }
+    }
 
     return (
-      <div>
+      <div style={s.root}>
         <Header />
         <RouteHandler {...props} {...state} />
       </div>

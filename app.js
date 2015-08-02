@@ -8,6 +8,7 @@ import routes from './routes'
 import alt from './alt'
 import reactViews from 'express-react-views'
 import bodyParser from 'body-parser'
+import methodOverride from 'method-override'
 import webpackstats from './util/webpack-stats'
 import posts from './api/posts'
 
@@ -23,6 +24,14 @@ if (app.get('env') === 'production') {
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(methodOverride('_method'))
+// app.use(methodOverride(function(req, res){
+//   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+//     var method = req.body._method
+//     delete req.body._method
+//     return method
+//   }
+// }))
 
 if (app.get('env') === 'development') {
   require('./server')

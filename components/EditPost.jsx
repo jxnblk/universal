@@ -1,10 +1,9 @@
 
 import React from 'react'
 import PostStore from '../stores/PostStore'
-import markdown from '../util/markdown'
-import A from './A'
+import PostForm from './PostForm'
 
-class Post extends React.Component {
+class EditPost extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
@@ -14,26 +13,24 @@ class Post extends React.Component {
   render() {
     let { post } = this.props
     let { title, id, date, content } = post
-    let html = markdown.render(content)
 
     return (
       <div>
-        <h1>{title}</h1>
+        <h1>Edit {title}</h1>
         <code>{id} {date}</code>
-        <div dangerouslySetInnerHTML={{ __html: html }} />
-        <A to='edit-post' params={{ id: id }}>
-          Edit
-        </A>
+        <PostForm {...this.props}
+          method='POST'
+          action={`/api/posts/${id}?_method=PUT`}/ >
       </div>
     )
   }
 
 }
 
-Post.defaultProps = {
+EditPost.defaultProps = {
   post: {}
 }
 
 
-export default Post
+export default EditPost
 

@@ -1,12 +1,12 @@
 
 - [ ] Posts API
-  - [ ] Read
+  - [x] Read
   - [ ] Front matter
   - [ ] Edit
   - [ ] Create
   - [ ] Destroy
-  - [ ] Body Parser
-  - [ ] axios
+  - [x] Body Parser
+  - [x] axios
 - [ ] Routes
   - [ ] New
   - [ ] Edit

@@ -24,11 +24,20 @@ router.route('/')
     })
   })
 
-router.route('/:id')
+router.route('/:id*')
   .get(function (req, res, next) {
-    res.locals.data = getPost(parseFloat(req.params.id))
-    console.log(req.params.id, res.locals.data)
-    next()
+    if (req.params.id === 'new') {
+      next('route')
+    } else {
+      res.locals.data = getPost(parseFloat(req.params.id))
+      next()
+    }
+  })
+  .put(function (req, res, next) {
+    console.log('PUT req.body', req.body)
+    updatePost(req.params.id, req.body, function () {
+      res.redirect('.')
+    })
   })
 
 // FS IO
@@ -71,6 +80,11 @@ function createPost (data, done) {
   })
   fs.writeFileSync(POSTDIR + filename, md)
   done && done(null, md)
+}
+
+function updatePost (id, data, done) {
+  console.log('update', id, data)
+  done && done()
 }
 
 function destroyPost (id) {

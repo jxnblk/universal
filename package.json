@@ -23,12 +23,15 @@
     "iso": "^4.1.0",
     "json-loader": "^0.5.2",
     "lodash": "^3.10.0",
+    "method-override": "^2.3.5",
     "node-dev": "^2.6.2",
     "node-libs-browser": "^0.5.2",
     "nodemon": "^1.4.0",
     "react": "^0.13.3",
     "react-hot-loader": "^1.2.8",
     "react-router": "^0.13.3",
+    "simple-modular-scale": "^1.0.2",
+    "spectralize": "^1.0.0",
     "webpack": "^1.10.5",
     "webpack-dev-server": "^1.10.1"
   }

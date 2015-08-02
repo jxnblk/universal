@@ -1,7 +1,8 @@
 
 import React from 'react'
-import { Link } from 'react-router'
 import PostStore from '../stores/PostStore'
+import markdown from '../util/markdown'
+import A from './A'
 
 class Posts extends React.Component {
 
@@ -17,15 +18,16 @@ class Posts extends React.Component {
         <h2>Posts</h2>
         <ul>
           {posts.map(function (post, i) {
+            let html = markdown.render(post.content)
             return (
               <li key={i}>
                 {post.id})
                 <h2>
-                  <Link to='post' params={{ id: post.id }}>
+                  <A to='post' params={{ id: post.id }}>
                     {post.title}
-                  </Link>
+                  </A>
                 </h2>
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div dangerouslySetInnerHTML={{ __html: html }} />
               </li>
             )
           }.bind(this))}

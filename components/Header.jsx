@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
+import A from './A'
 
 class Header extends React.Component {
 
@@ -8,9 +9,10 @@ class Header extends React.Component {
     return (
       <header>
         <h1>
-          <Link to='app'>iso-hot</Link>
+          <A to='app'>iso-hot</A>
         </h1>
-        <Link to='about'>About</Link>
+        <A to='new-post'>New Post</A>
+        <A to='about'>About</A>
       </header>
     )
   }
