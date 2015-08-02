@@ -4,16 +4,19 @@
   - [x] Front matter
   - [x] Edit
   - [x] Create
-  - [ ] Destroy
+  - [x] Destroy
   - [x] Body Parser
   - [x] axios
 - [ ] Routes
   - [x] New
   - [x] Edit
-  - [ ] Delete
+  - [x] Delete
 - [ ] Component Styles
   - [ ] Body
   - [ ] Button
   - [x] Label
   - [x] Input
   - [ ] Textarea
+- [ ] UI
+  - [ ] UI mode actions
+  - [ ] UI mode store

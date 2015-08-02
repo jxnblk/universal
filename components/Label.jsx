@@ -12,7 +12,7 @@ class Label extends React.Component {
         fontWeight: 'bold',
         display: 'block',
         width: '100%',
-        marginBottom: styles.scale[0]
+        marginBottom: styles.scale[0] / 2
       }
     }
 

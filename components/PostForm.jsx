@@ -3,6 +3,8 @@ import React from 'react'
 import Input from './Input'
 import Textarea from './Textarea'
 import PostActions from '../actions/PostActions'
+import Button from './Button'
+import BtnLink from './BtnLink'
 
 class PostForm extends React.Component {
 
@@ -39,7 +41,10 @@ class PostForm extends React.Component {
           rows={24}
           value={content || ''}
           onChange={this.handleChange} />
-        <button>Save</button>
+        <Button text='Save' />
+        <BtnLink to={id ? 'post' : 'home'}
+          params={id ? { id: id } : null}
+          text='Cancel' />
       </form>
     )
   }

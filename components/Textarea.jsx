@@ -1,6 +1,6 @@
 
 import React from 'react'
-import styles from '../util/styles'
+import { scale, colors, radius } from '../util/styles'
 import Label from './Label'
 
 class Textarea extends React.Component {
@@ -16,8 +16,11 @@ class Textarea extends React.Component {
         display: 'block',
         width: '100%',
         boxSizing: 'border-box',
-        padding: styles.scale[0],
-        whiteSpace: 'prewrap'
+        padding: scale[3],
+        marginBottom: scale[3],
+        whiteSpace: 'prewrap',
+        borderColor: colors.gray[9],
+        borderRadius: radius
       }
     }
 

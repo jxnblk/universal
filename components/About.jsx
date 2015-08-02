@@ -7,6 +7,12 @@ class About extends React.Component {
     return (
       <div>
         <h2>About</h2>
+        <p>
+          Isomorphic React Node Express App with hot loading
+        </p>
+        <p>
+          Made by <a href='//jxnblk.com'>Jxnblk</a>.
+        </p>
       </div>
     )
   }

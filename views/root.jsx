@@ -4,15 +4,14 @@ import React from 'react'
 class Root extends React.Component {
 
   render() {
-    let { html, children } = this.props
-    const { scripts } = this.props
+    let { html, children, scripts } = this.props
 
     return (
       <html>
         <head>
           <title>iso-hot</title>
         </head>
-        <body>
+        <body style={{ margin: 0 }}>
           <div id='app'
             dangerouslySetInnerHTML={{ __html: html }} />
           {children}

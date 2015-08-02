@@ -30,6 +30,8 @@ const grays = spectralize({
 
 export default {
   fontFamily: 'sans-serif',
+  serif: '"Hoefler Text", Georgia, serif',
+  lineHeight: 1.5,
   scale: scale,
   colors: {
     gray: grays.hues[0],
@@ -37,6 +39,7 @@ export default {
     magenta: hues[1],
     red: hues[2],
     green: hues[3],
-  }
+  },
+  radius: 3
 }
 

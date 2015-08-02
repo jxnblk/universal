@@ -11,7 +11,7 @@ import About from './components/About'
 import Default from './components/Default'
 
 const routes = (
-  <Route name='app' path='/' handler={App}>
+  <Route name='home' path='/' handler={App}>
     <Route name='about' path='about' handler={About} />
     <Route name='new-post' path='new' handler={NewPost} />
     <Route name='edit-post' path=':id/edit' handler={EditPost} />
