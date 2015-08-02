@@ -20,7 +20,6 @@
     "connect-history-api-fallback": "^1.1.0",
     "express": "^4.13.2",
     "express-react-views": "^0.8.2",
-    "front-matter": "^1.0.0",
     "gray-matter": "^2.0.1",
     "http-proxy": "^1.11.1",
     "iso": "^4.1.0",

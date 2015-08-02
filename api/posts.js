@@ -5,11 +5,9 @@ import path from 'path'
 import express from 'express'
 import graymatter from 'gray-matter'
 
-// import frontmatter from 'front-matter'
-// import fmStringify from '../util/front-matter-stringify'
-
 const router = express.Router()
 const POSTDIR = path.join(__dirname, '..', 'data', 'posts/')
+const TRASHDIR = path.join(__dirname, '..', 'data', 'trash/')
 
 let index = 0
 let postsCache = readPosts()
@@ -20,7 +18,6 @@ router.route('/')
     next()
   })
   .post(function (req, res, next) {
-    console.log('create post', req.body)
     createPost(req.body, function (err, result) {
       console.log(err, result)
       res.redirect('/' + result.id)
@@ -37,9 +34,14 @@ router.route('/:id*')
     }
   })
   .put(function (req, res, next) {
-    console.log('PUT req.body', req.body)
     updatePost(parseFloat(req.params.id), req.body, function () {
       res.redirect('/' + req.params.id)
+    })
+  })
+  .delete(function (req, res, next) {
+    destroyPost(req.params.id, function(err) {
+      res.locals.message = 'Post deleted'
+      res.redirect('/')
     })
   })
 
@@ -104,8 +106,12 @@ function updatePost (id, data, done) {
   done && done()
 }
 
-function destroyPost (id) {
-  console.log('TO DO: destroy post', id)
+function destroyPost (id, done) {
+  id = parseFloat(id)
+  let post = _.find(postsCache, { id: id })
+  fs.renameSync(POSTDIR + post.filename, TRASHDIR + post.filename)
+  postsCache = readPosts()
+  done && done()
 }
 
 export default router

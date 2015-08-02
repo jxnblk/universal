@@ -1,19 +1,19 @@
 
 - [ ] Posts API
   - [x] Read
-  - [ ] Front matter
-  - [ ] Edit
-  - [ ] Create
+  - [x] Front matter
+  - [x] Edit
+  - [x] Create
   - [ ] Destroy
   - [x] Body Parser
   - [x] axios
 - [ ] Routes
-  - [ ] New
-  - [ ] Edit
+  - [x] New
+  - [x] Edit
   - [ ] Delete
 - [ ] Component Styles
   - [ ] Body
   - [ ] Button
-  - [ ] Label
-  - [ ] Input
+  - [x] Label
+  - [x] Input
   - [ ] Textarea

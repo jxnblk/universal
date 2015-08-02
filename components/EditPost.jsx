@@ -2,6 +2,7 @@
 import React from 'react'
 import PostStore from '../stores/PostStore'
 import PostForm from './PostForm'
+import A from './A'
 
 class EditPost extends React.Component {
 
@@ -21,6 +22,10 @@ class EditPost extends React.Component {
         <PostForm {...this.props}
           method='POST'
           action={`/${id}?_method=PUT`}/ >
+        <hr />
+        <A to='delete-post'
+          params={{ id: id }}
+          text='Delete' />
       </div>
     )
   }
