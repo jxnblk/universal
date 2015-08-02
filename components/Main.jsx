@@ -7,14 +7,22 @@ class Main extends React.Component {
   render() {
     let s = {
       root: {
-        padding: scale[5],
-        minHeight: '70vh'
+        paddingTop: scale[7],
+        paddingBottom: scale[7],
+        paddingLeft: scale[5],
+        paddingRight: scale[5],
+        flex: '1 0 auto'
+      },
+      inner: {
+        maxWidth: 640,
+        margin: 'auto'
       }
     }
     return (
-      <main
-        children={this.props.children}
-        style={s.root} />
+      <main style={s.root}>
+        <div style={s.inner}
+          children={this.props.children} />
+      </main>
     )
   }
 }

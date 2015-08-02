@@ -4,6 +4,7 @@ import PostStore from '../stores/PostStore'
 import markdown from '../util/markdown'
 import A from './A'
 import BtnLink from './BtnLink'
+import { scale } from '../util/styles'
 
 class Posts extends React.Component {
 
@@ -20,13 +21,17 @@ class Posts extends React.Component {
       },
       postlink: {
         marginTop: 0,
-        marginBottom: 0,
+        marginBottom: scale[0],
+      },
+      postdate: {
+        fontSize: scale[2],
+        fontWeight: 'normal'
       }
     }
 
     return (
       <div>
-        <h2>Posts</h2>
+        <h1>Posts</h1>
         <ul style={s.ul}>
           {posts.map(function (post, i) {
             let html = markdown.render(post.content)
@@ -34,12 +39,12 @@ class Posts extends React.Component {
               <li key={i}>
                 <BtnLink to='post'
                   params={{ id: post.id }}
-                  flush
-                  text={(
+                  flush>
                     <h2 style={s.postlink}>
                       {post.title}
                     </h2>
-                  )} />
+                    <div style={s.postdate}>{new Date(post.date).toDateString()}</div>
+                </BtnLink>
               </li>
             )
           }.bind(this))}

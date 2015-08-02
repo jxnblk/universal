@@ -1,7 +1,7 @@
 
 import React from 'react'
 import BtnLink from './BtnLink'
-import { scale, colors } from '../util/styles'
+import { scale, colors, darken } from '../util/styles'
 
 class Header extends React.Component {
 
@@ -11,17 +11,21 @@ class Header extends React.Component {
     let s = {
       root: {
         padding: scale[0],
+        display: 'flex',
         borderTopStyle: 'solid',
         borderTopWidth: 1,
-        borderTopColor: colors.gray[9]
+        borderTopColor: darken[1]
+      },
+      spacer: {
+        flex: '1 0 auto'
       }
     }
 
     return (
       <footer style={s.root}>
         <BtnLink to='home' text='iso-hot' />
-        <BtnLink to='new-post' text='New Post' />
-        <BtnLink to='about' text='About' />
+        <div style={s.spacer} />
+        <BtnLink href='//jxnblk.com'>Made by Jxnblk</BtnLink>
       </footer>
     )
   }

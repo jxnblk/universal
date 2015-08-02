@@ -15,6 +15,7 @@
     "axios": "^0.5.4",
     "babel": "^5.8.20",
     "babel-loader": "^5.3.2",
+    "babel-plugin-react-autoprefix": "^0.2.1",
     "body-parser": "^1.13.3",
     "commonmark": "^0.21.0",
     "connect-history-api-fallback": "^1.1.0",

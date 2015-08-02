@@ -14,7 +14,11 @@ class DeletePost extends React.Component {
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
     PostStore.getPost(id)
-    // ModeActions.update('danger')
+    ModeActions.update('danger')
+  }
+
+  componentWillUnmount() {
+    ModeActions.update('default')
   }
 
   render() {
@@ -24,7 +28,6 @@ class DeletePost extends React.Component {
 
     let s = {
       h1: {
-        color: colors.red[5]
       }
     }
 
@@ -40,7 +43,7 @@ class DeletePost extends React.Component {
         <form
           method='POST'
           action={`/${id}?_method=DELETE`}>
-          <Button text='Delete' color={colors.red[5]} />
+          <Button text='Delete' color={colors.red[3]} />
           <BtnLink to='post' params={{ id: id }} text='Cancel' />
         </form>
       </div>

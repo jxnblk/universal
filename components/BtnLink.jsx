@@ -7,13 +7,14 @@ class BtnLink extends React.Component {
 
   render() {
     let { props } = this
-    let { text, children, color, flush } = props
+    let { text, children, href, color, flush } = props
 
+    let Comp = href ? 'a' : Link
     let s = {
       button: {
         fontFamily: 'inherit',
         fontWeight: 'bold',
-        fontSize: scale[3],
+        fontSize: 14,
         lineHeight: 1,
         textDecoration: 'none',
         display: 'inline-block',
@@ -27,10 +28,10 @@ class BtnLink extends React.Component {
     text = text || children
 
     return (
-      <Link {...props}
+      <Comp {...props}
         style={s.button}>
         {text}
-      </Link>
+      </Comp>
     )
   }
 

@@ -12,7 +12,7 @@ class Button extends React.Component {
       button: {
         fontFamily: 'inherit',
         fontWeight: 'bold',
-        fontSize: scale[3],
+        fontSize: 14,
         lineHeight: 1,
         padding: scale[2],
         cursor: 'pointer',

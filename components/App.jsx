@@ -36,11 +36,25 @@ class App extends React.Component {
 
   render() {
     let { props, state } = this
+    let backgroundColor = 'white'
+    let color = colors.gray[1]
+    switch (state.mode) {
+      case 'danger':
+        color = 'white'
+        backgroundColor = colors.red[5]
+        break
+    }
+
     let s = {
       root: {
         fontFamily: fontFamily,
         lineHeight: lineHeight,
-        color: colors.gray[1]
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        color: color,
+        backgroundColor: backgroundColor,
+        transition: 'background-color .1s ease-out'
       }
     }
 
@@ -48,7 +62,10 @@ class App extends React.Component {
       <div style={s.root}>
         <Header {...props} {...state} />
         <Main>
-          <RouteHandler {...props} {...state} />
+          <RouteHandler
+            {...props}
+            {...state}
+            key={props.pathname} />
         </Main>
         <Footer />
       </div>

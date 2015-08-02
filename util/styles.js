@@ -31,6 +31,7 @@ const grays = spectralize({
 export default {
   fontFamily: 'sans-serif',
   serif: '"Hoefler Text", Georgia, serif',
+  monospace: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
   lineHeight: 1.5,
   scale: scale,
   colors: {
@@ -40,6 +41,18 @@ export default {
     red: hues[2],
     green: hues[3],
   },
+  lighten: [
+    'rgba(255,255,255,.0625)',
+    'rgba(255,255,255,.125)',
+    'rgba(255,255,255,.25)',
+    'rgba(255,255,255,.375)',
+  ],
+  darken: [
+    'rgba(0,0,0,.0625)',
+    'rgba(0,0,0,.125)',
+    'rgba(0,0,0,.25)',
+    'rgba(0,0,0,.375)',
+  ],
   radius: 3
 }
 

@@ -5,6 +5,7 @@ import Textarea from './Textarea'
 import PostActions from '../actions/PostActions'
 import Button from './Button'
 import BtnLink from './BtnLink'
+import { scale } from '../util/styles'
 
 class PostForm extends React.Component {
 
@@ -23,22 +24,26 @@ class PostForm extends React.Component {
     let { post, children } = this.props
     let { title, id, date, content } = post
     let s = {
+      root: {
+        marginBottom: scale[7]
+      }
     }
 
     return (
-      <form {...this.props}>
+      <form {...this.props} style={s.root}>
         {children}
         <input type='hidden' name='id' value={id} />
         <input type='hidden' name='date' value={date} />
         <Input
           name='title'
           label='Title'
+          autoFocus={true}
           value={title}
           onChange={this.handleChange} />
         <Textarea
           name='content'
           label='Content'
-          rows={24}
+          rows={20}
           value={content || ''}
           onChange={this.handleChange} />
         <Button text='Save' />
@@ -49,6 +54,10 @@ class PostForm extends React.Component {
     )
   }
 
+}
+
+PostForm.defaultProps = {
+  post: {}
 }
 
 export default PostForm

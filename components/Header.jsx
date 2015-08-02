@@ -10,13 +10,20 @@ class Header extends React.Component {
     let { mode } = this.props
 
     let color = colors.gray[2]
-    if (mode == 'danger') {
-      color = colors.red[5]
+    switch (mode) {
+      case 'success':
+        color = colors.green[3]
+        break
+      case 'danger':
+        color = colors.red[4]
+        break
     }
 
     let s = {
       root: {
         padding: scale[0],
+        display: 'flex',
+        alignItems: 'center',
         color: 'white',
         backgroundColor: color,
         transition: 'background-color .2s ease-out'
@@ -24,6 +31,9 @@ class Header extends React.Component {
       h1: {
         fontSize: scale[5],
         margin: 0
+      },
+      spacer: {
+        flex: '1 0 auto'
       }
     }
 
@@ -34,6 +44,7 @@ class Header extends React.Component {
             iso-hot
           </h1>
         </BtnLink>
+        <div style={s.spacer} />
         <BtnLink to='new-post' text='New Post' />
         <BtnLink to='about' text='About' />
       </header>

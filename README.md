@@ -1,22 +1,19 @@
+# iso-hot
 
-- [ ] Posts API
-  - [x] Read
-  - [x] Front matter
-  - [x] Edit
-  - [x] Create
-  - [x] Destroy
-  - [x] Body Parser
-  - [x] axios
-- [ ] Routes
-  - [x] New
-  - [x] Edit
-  - [x] Delete
-- [ ] Component Styles
-  - [ ] Body
-  - [ ] Button
-  - [x] Label
-  - [x] Input
-  - [ ] Textarea
-- [ ] UI
-  - [ ] UI mode actions
-  - [ ] UI mode store
+WIP isomorphic Express/React app with React Hot Loader
+
+## Development mode
+
+```js
+npm i
+npm run dev
+```
+
+## Production
+
+```js
+npm i
+npm run build
+npm start
+```
+

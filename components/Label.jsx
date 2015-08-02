@@ -8,7 +8,7 @@ class Label extends React.Component {
     let { text, children } = this.props
     let s = {
       label: {
-        fontSize: styles.scale[2],
+        fontSize: 14,
         fontWeight: 'bold',
         display: 'block',
         width: '100%',

@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { scale, colors, radius } from '../util/styles'
+import { scale, colors, lighten, darken, radius } from '../util/styles'
 import Label from './Label'
 
 class Input extends React.Component {
@@ -19,7 +19,8 @@ class Input extends React.Component {
         marginBottom: scale[3],
         borderWidth: 1,
         borderStyle: 'solid',
-        borderColor: colors.gray[9],
+        borderColor: darken[1],
+        backgroundColor: lighten[1],
         borderRadius: radius
       }
     }
