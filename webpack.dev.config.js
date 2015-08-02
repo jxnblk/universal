@@ -25,6 +25,10 @@ module.exports = {
           'react-hot',
           'babel-loader'
         ]
+      },
+      {
+        test: /\.json$/,
+        loader: 'json-loader'
       }
     ]
   },

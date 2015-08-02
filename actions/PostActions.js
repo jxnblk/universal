@@ -4,9 +4,11 @@ import alt from '../alt'
 class PostActions {
   constructor() {
     this.generateActions(
-      'update',
+      'updatePosts',
+      'updatePost',
       'create',
-      'destroy'
+      'destroy',
+      'error'
     )
   }
 }

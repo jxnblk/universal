@@ -8,12 +8,8 @@ class Header extends React.Component {
     return (
       <header>
         <h1>
-          <Link to='app'>
-            ISO HOT
-            iso-hot
-          </Link>
+          <Link to='app'>iso-hot</Link>
         </h1>
-        <Link to='home'>Home</Link>
         <Link to='about'>About</Link>
       </header>
     )

@@ -7,6 +7,7 @@ import Iso from 'iso'
 import routes from './routes'
 import alt from './alt'
 import reactViews from 'express-react-views'
+import bodyParser from 'body-parser'
 import webpackstats from './util/webpack-stats'
 import posts from './api/posts'
 
@@ -20,17 +21,32 @@ if (app.get('env') === 'production') {
   app.use(express.static(path.join(__dirname, 'public')))
 }
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
 if (app.get('env') === 'development') {
   require('./server')
 }
 
-app.use('/api/posts*', posts)
+app.use('/api/posts', posts)
 
-app.use('/home', posts)
-app.use('/home', function (req, res, next) {
+app.use('/api/*', function (req, res, next) {
+  res.json(res.locals.data)
+})
+
+app.use('/', posts)
+app.use('/', function (req, res, next) {
   let posts = res.locals.data || []
   res.locals.PostStore = {
     posts: posts
+  }
+  next()
+})
+
+app.use('/:id', function (req, res, next) {
+  let post = res.locals.data || {}
+  res.locals.PostStore = {
+    post: post
   }
   next()
 })

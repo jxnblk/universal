@@ -2,35 +2,35 @@
 import { findIndex, assign } from 'lodash'
 import alt from '../alt'
 import PostActions from '../actions/PostActions'
+import PostSource from '../sources/PostSource'
 
 class PostStore {
   constructor() {
     this.posts = []
-    this.index = 0
+    this.post = {}
+    this.err = null
     this.bindActions(PostActions)
+    this.registerAsync(PostSource)
   }
 
-  updatePost(id, data) {
-    let index = findIndex(this.posts, { id: id })
-    let post = this.posts[index]
-    post = assign(post, data)
+  onUpdatePosts(posts) {
+    this.posts = posts
+  }
+
+  onUpdatePost(post) {
+    this.post = post
   }
 
   onCreate(post) {
-    post.id = this.index++
-    this.posts.push(post)
-  }
-
-  onUpdate(obj) {
-    let { id, data } = obj
-    this.updatePost(id, data)
+    console.log('create', post)
   }
 
   onDestroy(id) {
-    let index = findIndex(this.posts, { id: id })
-    if (index > -1) {
-      this.posts.splice(index, 1)
-    }
+    console.log('destroy', id)
+  }
+
+  onError(err) {
+    this.err = err
   }
 
 }
