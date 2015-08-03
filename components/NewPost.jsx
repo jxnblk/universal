@@ -4,6 +4,7 @@ import PostForm from './PostForm'
 import PostActions from '../actions/PostActions'
 import PostStore from '../stores/PostStore'
 import ModeActions from '../actions/ModeActions'
+import MessageActions from '../actions/MessageActions'
 
 class NewPost extends React.Component {
 
@@ -38,6 +39,10 @@ class NewPost extends React.Component {
       content: e.target.content.value,
     }
     PostStore.create(post)
+    // MessageActions.update({
+    //   text: 'Post created',
+    //   mode: 'success'
+    // })
   }
 
   render() {

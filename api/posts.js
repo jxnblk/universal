@@ -38,7 +38,8 @@ router.route('/:id*')
     }
   })
   .put(function (req, res, next) {
-    updatePost(parseFloat(req.params.id), req.body, function () {
+    updatePost(parseFloat(req.params.id), req.body, function (err, response) {
+      res.locals.data = response
       next()
     })
   })
@@ -82,7 +83,7 @@ function createPost (data, done) {
     return post.id
   })
   let newId = _.max(ids) + 1
-  if (!data.title) {
+  if (!data.title.length) {
     done('No title provided')
   }
   let filename = _.kebabCase(data.title)

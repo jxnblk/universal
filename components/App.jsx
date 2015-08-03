@@ -4,10 +4,12 @@ import React from 'react'
 import { RouteHandler } from 'react-router'
 import PostStore from '../stores/PostStore'
 import ModeStore from '../stores/ModeStore'
+import MessageActions from '../actions/MessageActions'
 import MessageStore from '../stores/MessageStore'
 import Main from './Main'
 import Header from './Header'
 import Footer from './Footer'
+import Message from './Message'
 import { fontFamily, colors, scale, lineHeight } from '../util/styles'
 
 class App extends React.Component {
@@ -35,7 +37,20 @@ class App extends React.Component {
   }
 
   onChange(state) {
+    console.log(state.msg)
+    if (state.message) {
+      console.log(state.message)
+    }
     this.setState(state)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.path !== nextProps.path) {
+      console.log('Clear message', this.props.path, nextProps.path)
+      setTimeout(function () {
+        // MessageActions.clear()
+      }, 300)
+    }
   }
 
   render() {
@@ -65,6 +80,7 @@ class App extends React.Component {
     return (
       <div style={s.root}>
         <Header {...props} {...state} />
+        <Message {...state} />
         <Main>
           <RouteHandler
             {...props}

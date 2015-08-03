@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import PostStore from '../stores/PostStore'
 import ModeActions from '../actions/ModeActions'
+import MessageActions from '../actions/MessageActions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
 import A from './A'
@@ -31,6 +32,10 @@ class DeletePost extends React.Component {
     let id = parseFloat(e.target.id.value)
     console.log(id)
     PostStore.destroy(id)
+    // MessageActions.update({
+    //   text: 'Post deleted',
+    //   mode: 'danger'
+    // })
     this.props.router.transitionTo('home')
   }
 

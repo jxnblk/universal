@@ -6,6 +6,7 @@ class PostActions {
     this.generateActions(
       'updatePosts',
       'updatePost',
+      'updated',
       'clearPost',
       'create',
       'destroy',

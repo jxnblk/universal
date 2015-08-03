@@ -36,7 +36,7 @@ const PostSource = {
     remote(state, id, data) {
       return axios.put(`/api/posts/${id}`, data)
     },
-    success: PostActions.updatePost,
+    success: PostActions.updated,
     error: PostActions.error
   },
 
@@ -44,7 +44,7 @@ const PostSource = {
     remote(state, id) {
       return axios.delete(`/api/posts/${id}`)
     },
-    success: PostActions.clearPost,
+    success: PostActions.destroy,
     error: PostActions.error
   }
 

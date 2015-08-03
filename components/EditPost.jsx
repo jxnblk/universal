@@ -4,6 +4,7 @@ import React from 'react'
 import PostStore from '../stores/PostStore'
 import PostForm from './PostForm'
 import ModeActions from '../actions/ModeActions'
+import MessageActions from '../actions/MessageActions'
 import BtnLink from './BtnLink'
 import A from './A'
 import { scale, colors } from '../util/styles'
@@ -32,6 +33,10 @@ class EditPost extends React.Component {
       content: e.target.content.value,
     })
     PostStore.update(post.id, post)
+    // MessageActions.update({
+    //   text: 'Updated (Component)',
+    //   mode: 'success'
+    // })
     this.props.router.transitionTo('post', { id: post.id })
   }
 

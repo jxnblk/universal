@@ -23,7 +23,8 @@ class Header extends React.Component {
 
     return (
       <footer style={s.root}>
-        <BtnLink to='home' text='iso-hot' />
+        <BtnLink to='posts' text='iso-hot' />
+        <BtnLink to='state' text='App State' />
         <div style={s.spacer} />
         <BtnLink href='//jxnblk.com'>Made by Jxnblk</BtnLink>
       </footer>

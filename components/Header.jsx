@@ -42,7 +42,7 @@ class Header extends React.Component {
 
     return (
       <header style={s.root}>
-        <BtnLink to='home'>
+        <BtnLink to='posts'>
           <h1 style={s.h1}>
             iso-hot
           </h1>

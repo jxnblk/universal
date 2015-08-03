@@ -9,10 +9,13 @@ import EditPost from './components/EditPost'
 import DeletePost from './components/DeletePost'
 import About from './components/About'
 import Default from './components/Default'
+import AppState from './components/AppState'
 
 const routes = (
   <Route name='home' path='/' handler={App}>
+    <Route name='posts' path='/' handler={Posts} />
     <Route name='about' path='about' handler={About} />
+    <Route name='state' path='state' handler={AppState} />
     <Route name='new-post' path='new' handler={NewPost} />
     <Route name='edit-post' path=':id/edit' handler={EditPost} />
     <Route name='delete-post' path=':id/delete' handler={DeletePost} />
