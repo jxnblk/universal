@@ -39,13 +39,13 @@ router.route('/:id*')
   })
   .put(function (req, res, next) {
     updatePost(parseFloat(req.params.id), req.body, function () {
-      res.redirect('/' + req.params.id)
+      next()
     })
   })
   .delete(function (req, res, next) {
     destroyPost(req.params.id, function(err) {
       res.locals.message = 'Post deleted'
-      res.redirect('/')
+      next()
     })
   })
 

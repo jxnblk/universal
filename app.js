@@ -60,6 +60,13 @@ app.post('/', function (req, res, next) {
   }
 })
 
+app.put('/', function (req, res, next) {
+  var id = res.locals.data.id
+  if (id) {
+    res.redirect('/' + id)
+  }
+})
+
 app.use(function(req, res, next) {
 
   var scripts = [ '/bundle.js' ]

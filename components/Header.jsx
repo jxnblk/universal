@@ -11,6 +11,9 @@ class Header extends React.Component {
 
     let color = colors.gray[2]
     switch (mode) {
+      case 'info':
+        color = colors.blue[4]
+        break
       case 'success':
         color = colors.green[3]
         break

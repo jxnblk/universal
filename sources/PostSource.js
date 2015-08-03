@@ -30,6 +30,14 @@ const PostSource = {
     },
     success: PostActions.create,
     error: PostActions.error
+  },
+
+  update: {
+    remote(state, id, data) {
+      return axios.put(`/api/posts/${id}`, data)
+    },
+    success: PostActions.updatePost,
+    error: PostActions.error
   }
 
 }
