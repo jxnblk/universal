@@ -54,7 +54,7 @@ class App extends React.Component {
         flexDirection: 'column',
         color: color,
         backgroundColor: backgroundColor,
-        transition: 'background-color .1s ease-out'
+        transition: 'background-color .2s ease-out'
       }
     }
 

@@ -27,6 +27,7 @@ class Post extends React.Component {
         marginBottom: 0
       },
       date: {
+        fontSize: 14,
         marginTop: scale[0],
         marginBottom: scale[0],
       }

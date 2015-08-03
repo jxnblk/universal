@@ -43,7 +43,7 @@ class PostForm extends React.Component {
         <Textarea
           name='content'
           label='Content'
-          rows={20}
+          rows={16}
           value={content || ''}
           onChange={this.handleChange} />
         <Button text='Save' />
