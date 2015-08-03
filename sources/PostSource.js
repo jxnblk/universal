@@ -22,6 +22,14 @@ const PostSource = {
     },
     success: PostActions.updatePost,
     error: PostActions.error
+  },
+
+  create: {
+    remote(state, data) {
+      return axios.post('/api/posts', data)
+    },
+    success: PostActions.create,
+    error: PostActions.error
   }
 
 }

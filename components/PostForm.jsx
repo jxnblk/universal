@@ -46,7 +46,7 @@ class PostForm extends React.Component {
           rows={16}
           value={content || ''}
           onChange={this.handleChange} />
-        <Button text='Save' />
+        <Button type='submit' text='Save' />
         <BtnLink to={id ? 'post' : 'home'}
           params={id ? { id: id } : null}
           text='Cancel' />

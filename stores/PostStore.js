@@ -22,12 +22,11 @@ class PostStore {
   }
 
   onClearPost() {
-    console.log('clearPost')
     this.post = {}
   }
 
   onCreate(post) {
-    console.log('create', post)
+    this.post = post
   }
 
   onDestroy(id) {

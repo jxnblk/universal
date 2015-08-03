@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack -p --progress --colors",
     "dev": "NODE_ENV=development nodemon index.js",
+    "clean": "rm data/trash/*",
     "start": "NODE_ENV=production node index.js"
   },
   "author": "Brent Jackson",

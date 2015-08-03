@@ -25,13 +25,6 @@ if (app.get('env') === 'production') {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
-// app.use(methodOverride(function(req, res){
-//   if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-//     var method = req.body._method
-//     delete req.body._method
-//     return method
-//   }
-// }))
 
 if (app.get('env') === 'development') {
   require('./server')
@@ -60,6 +53,13 @@ app.use('/:id', function (req, res, next) {
   next()
 })
 
+app.post('/', function (req, res, next) {
+  var id = res.locals.data.id
+  if (id) {
+    res.redirect('/' + id)
+  }
+})
+
 app.use(function(req, res, next) {
 
   var scripts = [ '/bundle.js' ]
@@ -69,7 +69,14 @@ app.use(function(req, res, next) {
 
   alt.bootstrap(JSON.stringify(res.locals || {}))
   const iso = new Iso()
-  Router.run(routes, req.url, function (Handler, state) {
+
+  const router = Router.create({
+    routes: routes,
+    location: req.url
+  })
+
+  //Router.run(routes, req.url, function (Handler, state) {
+  router.run(function (Handler, state) {
     if (!state.pathname) {
       next()
     }

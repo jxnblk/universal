@@ -19,8 +19,12 @@ router.route('/')
   })
   .post(function (req, res, next) {
     createPost(req.body, function (err, result) {
-      console.log(err, result)
-      res.redirect('/' + result.id)
+      if (err) {
+        console.log(err, result)
+        next()
+      }
+      res.locals.data = result
+      next()
     })
   })
 
@@ -61,6 +65,9 @@ function readPosts () {
       date: matter.data.date,
       content: matter.content
     }
+  })
+  .sort(function (a, b) {
+    return new Date(b.date) - new Date(a.date)
   })
   return posts
 }
@@ -103,7 +110,7 @@ function updatePost (id, data, done) {
   let md = graymatter.stringify(content, post)
   fs.writeFileSync(POSTDIR + post.filename, md)
   postsCache = readPosts()
-  done && done()
+  done && done(null, post)
 }
 
 function destroyPost (id, done) {

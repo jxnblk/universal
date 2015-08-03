@@ -4,6 +4,7 @@ import React from 'react'
 import { RouteHandler } from 'react-router'
 import PostStore from '../stores/PostStore'
 import ModeStore from '../stores/ModeStore'
+import MessageStore from '../stores/MessageStore'
 import Main from './Main'
 import Header from './Header'
 import Footer from './Footer'
@@ -15,7 +16,8 @@ class App extends React.Component {
     super()
     this.state = _.assign(
       PostStore.getState(),
-      ModeStore.getState()
+      ModeStore.getState(),
+      MessageStore.getState()
     )
     this.onChange = this.onChange.bind(this)
   }
@@ -23,11 +25,13 @@ class App extends React.Component {
   componentDidMount() {
     PostStore.listen(this.onChange)
     ModeStore.listen(this.onChange)
+    MessageStore.listen(this.onChange)
   }
 
   componentWillUnmount() {
     PostStore.unlisten(this.onChange)
     ModeStore.unlisten(this.onChange)
+    MessageStore.unlisten(this.onChange)
   }
 
   onChange(state) {

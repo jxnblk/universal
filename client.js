@@ -2,13 +2,20 @@
 import React from 'react'
 import Router from 'react-router'
 import Iso from 'iso'
-import routes from './routes'
 import alt from './alt'
+import routes from './routes'
+
+// import router from './router'
+
+const router = Router.create({
+  routes: routes,
+  location: Router.HistoryLocation
+})
 
 Iso.bootstrap(function (state, _, container) {
   alt.bootstrap(state)
-  Router.run(routes, Router.HistoryLocation, function (Handler, routerState) {
-    React.render(<Handler {...routerState} />, container)
+  router.run(function (Handler, routerState) {
+    React.render(<Handler {...routerState} router={router} />, container)
   })
 })
 
