@@ -11,6 +11,11 @@ import BtnLink from './BtnLink'
 
 class DeletePost extends React.Component {
 
+  constructor() {
+    super()
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
     PostStore.getPost(id)
@@ -19,6 +24,14 @@ class DeletePost extends React.Component {
 
   componentWillUnmount() {
     ModeActions.update('default')
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    let id = parseFloat(e.target.id.value)
+    console.log(id)
+    PostStore.destroy(id)
+    this.props.router.transitionTo('home')
   }
 
   render() {
@@ -42,7 +55,9 @@ class DeletePost extends React.Component {
         <h1 style={s.h1}>Delete {title}</h1>
         <form
           method='POST'
-          action={`/${id}?_method=DELETE`}>
+          action={`/${id}?_method=DELETE`}
+          onSubmit={this.handleSubmit}>
+          <input type='hidden' name='id' value={post.id} />
           <Button text='Delete' color={colors.red[3]} />
           <BtnLink to='post' params={{ id: id }} text='Cancel' />
         </form>

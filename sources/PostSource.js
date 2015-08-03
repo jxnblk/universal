@@ -38,6 +38,14 @@ const PostSource = {
     },
     success: PostActions.updatePost,
     error: PostActions.error
+  },
+
+  destroy: {
+    remote(state, id) {
+      return axios.delete(`/api/posts/${id}`)
+    },
+    success: PostActions.clearPost,
+    error: PostActions.error
   }
 
 }
