@@ -1,7 +1,6 @@
 {
   "watch": [
     "app.js",
-    "routes.jsx",
-    "api"
+    "routes.jsx"
   ]
 }

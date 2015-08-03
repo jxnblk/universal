@@ -10,7 +10,7 @@ import reactViews from 'express-react-views'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import webpackstats from './util/webpack-stats'
-import posts from './api/posts'
+import PostStore from './stores/PostStore'
 
 const app = express()
 
@@ -30,42 +30,46 @@ if (app.get('env') === 'development') {
   require('./server')
 }
 
-app.use('/api/posts', posts)
 
-app.use('/api/*', function (req, res, next) {
-  res.json(res.locals.data)
-})
+app.route('/')
+  .get(function (req, res, next) {
+    PostStore.getPosts()
+      .then(next)
+  })
+  .post(function (req, res, next) {
+    PostStore.create(req.body)
+      .then(function() {
+        let state = PostStore.getState()
+        res.redirect(`/${state.post.id}`)
+      })
+  })
 
-app.use('/', posts)
-app.use('/', function (req, res, next) {
-  let posts = res.locals.data || []
-  res.locals.PostStore = {
-    posts: posts
-  }
-  next()
-})
-
-app.use('/:id', function (req, res, next) {
-  let post = res.locals.data || {}
-  res.locals.PostStore = {
-    post: post
-  }
-  next()
-})
-
-app.post('/', function (req, res, next) {
-  var id = res.locals.data.id
-  if (id) {
-    res.redirect('/' + id)
-  }
-})
-
-app.put('/', function (req, res, next) {
-  var id = res.locals.data.id
-  if (id) {
-    res.redirect('/' + id)
-  }
-})
+app.route('/:id*')
+  .get(function (req, res, next) {
+    if (req.params.id === 'new') {
+      next()
+    }
+    PostStore.getPost(req.params.id)
+      .then(next)
+  })
+  .put(function (req, res, next) {
+    console.log('update')
+    PostStore.update(req.params.id, req.body)
+      .then(function(post) {
+        console.log('updated', post)
+        res.redirect(`/${req.params.id}`)
+      })
+      .catch(function(err) {
+        console.log('update catch', err)
+      })
+  })
+  .delete(function (req, res, next) {
+    PostStore.destroy(req.params.id)
+      .then(function() {
+        console.log('redirect')
+        res.redirect('/')
+      })
+  })
 
 app.use(function(req, res, next) {
 

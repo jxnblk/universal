@@ -22,27 +22,28 @@ class NewPost extends React.Component {
     ModeActions.update('default')
   }
 
-  componentDidUpdate() {
-    let { router } = this.props
-    let { id } = this.props.post
-    if (id) {
-      setTimeout(function () {
-        router.transitionTo('post', { id: id })
-      }, 200)
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault()
-    var post = {
+    let router = this.props.router
+    let post = {
       title: e.target.title.value,
       content: e.target.content.value,
     }
     PostStore.create(post)
-    // MessageActions.update({
-    //   text: 'Post created',
-    //   mode: 'success'
-    // })
+      .then(function () {
+        post = PostStore.getState().post
+        MessageActions.update({
+          text: 'Post created',
+          mode: 'success'
+        })
+        router.transitionTo('post', { id: post.id })
+      })
+      .catch(function (err) {
+        MessageActions.update({
+          text: err,
+          mode: 'danger'
+        })
+      })
   }
 
   render() {

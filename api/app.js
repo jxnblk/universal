@@ -1,10 +1,12 @@
 
 import express from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 import posts from './posts'
 
 const app = express()
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 
@@ -15,6 +17,7 @@ app.use('/', function (req, res, next) {
 })
 
 app.use(function(err, req, res, next) {
+  console.log(err)
   res.status(err.status || 500)
   res.json(err)
 })

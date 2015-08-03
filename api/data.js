@@ -9,9 +9,9 @@ const TRASHDIR = path.join(__dirname, '..', 'data', 'trash/')
 
 let postsCache
 
-const data = {
+const Data = {
 
-  readPosts: function () {
+  readPosts: function (done) {
     let filenames = fs.readdirSync(POSTDIR)
       .filter(function (filename) {
         return filename.match(/\.md$/)
@@ -34,6 +34,7 @@ const data = {
   },
 
   getPost: function(id) {
+    id = parseFloat(id)
     let post = _.find(postsCache, { id: id })
     return post
   },
@@ -44,7 +45,7 @@ const data = {
     })
     let newId = _.max(ids) + 1
     if (!data.title.length) {
-      done('No title provided')
+      done('Post must have a title')
     }
     let filename = _.kebabCase(data.title)
     let post = {
@@ -57,34 +58,40 @@ const data = {
     let md = graymatter.stringify(content, post)
     post.content = data.content
     fs.writeFileSync(POSTDIR + filename + '.md', md)
-    postsCache = readPosts()
+    postsCache = Data.readPosts()
     done && done(null, post)
   },
 
   updatePost: function(id, data, done) {
     id = parseFloat(id)
     let post = _.find(postsCache, { id: id })
+    if (!data.title.length) {
+      done('Post must have a title')
+    }
     post = _.assign(post, data)
     let content = post.content.trim()
     delete post.content
     post.id = id
     let md = graymatter.stringify(content, post)
     fs.writeFileSync(POSTDIR + post.filename, md)
-    postsCache = readPosts()
-    done && done(null, post)
+    postsCache = Data.readPosts()
+    post.content = content
+    setTimeout(function () {
+      done && done(null, post)
+    }, 800)
   },
 
   destroyPost: function(id, done) {
     id = parseFloat(id)
     let post = _.find(postsCache, { id: id })
     fs.renameSync(POSTDIR + post.filename, TRASHDIR + post.filename)
-    postsCache = readPosts()
-    done && done()
+    postsCache = Data.readPosts()
+    done && done(null, 'Post deleted ' + id)
   }
 
 }
 
-postsCache = data.readPosts()
+postsCache = Data.readPosts()
 
-export default data
+export default Data
 

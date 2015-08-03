@@ -28,16 +28,25 @@ class EditPost extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    let router = this.props.router
     let post = _.assign(this.props.post, {
       title: e.target.title.value,
       content: e.target.content.value,
     })
     PostStore.update(post.id, post)
-    // MessageActions.update({
-    //   text: 'Updated (Component)',
-    //   mode: 'success'
-    // })
-    this.props.router.transitionTo('post', { id: post.id })
+      .then(function () {
+        router.transitionTo('post', { id: post.id })
+        MessageActions.update({
+          text: 'Updated ' + post.title,
+          mode: 'success'
+        })
+      })
+      .catch(function (err) {
+        MessageActions.update({
+          text: err,
+          mode: 'danger'
+        })
+      })
   }
 
   render() {

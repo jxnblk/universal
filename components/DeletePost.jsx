@@ -29,14 +29,22 @@ class DeletePost extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
+    let router = this.props.router
     let id = parseFloat(e.target.id.value)
-    console.log(id)
     PostStore.destroy(id)
-    // MessageActions.update({
-    //   text: 'Post deleted',
-    //   mode: 'danger'
-    // })
-    this.props.router.transitionTo('home')
+      .then(function () {
+        MessageActions.update({
+          text: 'Post deleted',
+          mode: 'danger'
+        })
+        router.transitionTo('home')
+      })
+      .catch(function (err) {
+        MessageActions.update({
+          text: err,
+          mode: 'danger'
+        })
+      })
   }
 
   render() {

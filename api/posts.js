@@ -30,12 +30,14 @@ router.route('/:id*')
     if (req.params.id === 'new') {
       next('route')
     } else {
-      res.locals.data = data.getPost(parseFloat(req.params.id))
+      res.locals.data = data.getPost(req.params.id)
       next()
     }
   })
   .put(function (req, res, next) {
-    data.updatePost(parseFloat(req.params.id), req.body, function (err, response) {
+    console.log('api update post')
+    data.updatePost(req.params.id, req.body, function (err, response) {
+      console.log('api updated', response)
       res.locals.data = response
       next()
     })

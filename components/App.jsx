@@ -37,18 +37,13 @@ class App extends React.Component {
   }
 
   onChange(state) {
-    console.log(state.msg)
-    if (state.message) {
-      console.log(state.message)
-    }
     this.setState(state)
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.path !== nextProps.path) {
-      console.log('Clear message', this.props.path, nextProps.path)
       setTimeout(function () {
-        // MessageActions.clear()
+        MessageActions.clear()
       }, 300)
     }
   }
