@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "api": "node api/index.js",
     "build": "webpack -p --progress --colors",
     "dev": "NODE_ENV=development nodemon index.js",
     "clean": "rm data/trash/*",
