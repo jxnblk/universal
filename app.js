@@ -3,23 +3,17 @@ import path from 'path'
 import express from 'express'
 import React from 'react'
 import Router from 'react-router'
-import routes from './routes'
-import alt from './alt'
-import reactViews from 'express-react-views'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
-import webpackstats from './util/webpack-stats'
+import routes from './routes'
+import alt from './alt'
 import PostStore from './stores/PostStore'
+import Err from './components/Err'
+import webpackstats from './util/webpack-stats'
 
 const app = express()
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'jsx')
-app.engine('jsx', reactViews.createEngine())
-
-if (app.get('env') === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')))
-}
+app.use(express.static(path.join(__dirname, 'public')))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -82,20 +76,19 @@ app.use(function(req, res, next) {
   const snapshot = alt.takeSnapshot()
 
   router.run(function (Handler, state) {
-    var html = React.renderToString(<Handler {...state} snapshot={snapshot} />)
-    res.render('root', {
-      scripts: scripts,
-      html: html
-    })
+    var html = React.renderToString(
+      <Handler {...state}
+      snapshot={snapshot}
+      scripts={scripts} />
+    )
+    res.send(html)
   })
 })
 
 app.use(function(err, req, res, next) {
   res.status(err.status || 500)
-  res.render('error', {
-    message: err.message,
-    error: {}
-  })
+  var html = React.renderToString(<Err {...err} />)
+  res.send(html)
 })
 
 app.set('port', 3000)

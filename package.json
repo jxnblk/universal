@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack -p --progress --colors",
     "clean": "rm data/trash/*",
+    "dev": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=development forever start -c nodemon index.js",
     "stop": "forever stopall",
     "prod": "NODE_ENV=production node index.js"
@@ -23,7 +24,6 @@
     "connect-history-api-fallback": "^1.1.0",
     "cors": "^2.7.1",
     "express": "^4.13.2",
-    "express-react-views": "^0.8.2",
     "forever": "^0.15.1",
     "gray-matter": "^2.0.1",
     "http-proxy": "^1.11.1",

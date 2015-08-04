@@ -6,6 +6,7 @@ import PostStore from '../stores/PostStore'
 import ModeStore from '../stores/ModeStore'
 import MessageActions from '../actions/MessageActions'
 import MessageStore from '../stores/MessageStore'
+import Html from './Html'
 import Main from './Main'
 import Header from './Header'
 import Footer from './Footer'
@@ -53,7 +54,7 @@ class App extends React.Component {
 
   render() {
     let { props, state } = this
-    let { snapshot } = props
+    let { snapshot, scripts } = props
     let backgroundColor = 'white'
     let color = colors.gray[1]
     switch (state.mode) {
@@ -67,6 +68,7 @@ class App extends React.Component {
       root: {
         fontFamily: fontFamily,
         lineHeight: lineHeight,
+        margin: 0,
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
@@ -81,7 +83,7 @@ class App extends React.Component {
     }
 
     return (
-      <div style={s.root}>
+      <Html style={s.root}>
         <Header {...props} {...state} />
         <div style={s.inner}>
           <Message {...state} />
@@ -97,7 +99,8 @@ class App extends React.Component {
           id='init'
           type='application/json'
           dangerouslySetInnerHTML={{ __html: snapshot }} />
-      </div>
+        {scripts.map((src, i) => <script key={i} src={src} />)}
+      </Html>
     )
   }
 
