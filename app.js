@@ -3,7 +3,6 @@ import path from 'path'
 import express from 'express'
 import React from 'react'
 import Router from 'react-router'
-import Iso from 'iso'
 import routes from './routes'
 import alt from './alt'
 import reactViews from 'express-react-views'
@@ -27,9 +26,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 
 if (app.get('env') === 'development') {
+  // Webpack dev server
   require('./server')
 }
-
 
 app.route('/')
   .get(function (req, res, next) {
@@ -70,29 +69,23 @@ app.route('/:id*')
 
 app.use(function(req, res, next) {
 
-  var scripts = [ '/bundle.js' ]
+  let scripts = [ '/bundle.js' ]
   if (process.env.NODE_ENV === 'development') {
     scripts = webpackstats.get('scripts')
   }
-
-  alt.bootstrap(JSON.stringify(res.locals || {}))
-  const iso = new Iso()
 
   const router = Router.create({
     routes: routes,
     location: req.url
   })
 
-  //Router.run(routes, req.url, function (Handler, state) {
+  const snapshot = alt.takeSnapshot()
+
   router.run(function (Handler, state) {
-    if (!state.pathname) {
-      next()
-    }
-    var html = React.renderToString(<Handler {...state} />)
-    iso.add(html, alt.flush())
+    var html = React.renderToString(<Handler {...state} snapshot={snapshot} />)
     res.render('root', {
       scripts: scripts,
-      html: iso.render()
+      html: html
     })
   })
 })
@@ -105,9 +98,9 @@ app.use(function(err, req, res, next) {
   })
 })
 
-app.set('port', '3000')
+app.set('port', 3000)
 
-app.listen('3000', function () {
-  console.log('Express server listening on port 3000')
+app.listen(app.get('port'), function () {
+  console.log('Express server listening on port ' + app.get('port'))
 })
 

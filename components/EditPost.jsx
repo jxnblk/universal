@@ -69,7 +69,8 @@ class EditPost extends React.Component {
     return (
       <div>
         <h1>Edit</h1>
-        <PostForm {...this.props}
+        <PostForm
+          post={post}
           method='POST'
           action={`/${id}?_method=PUT`}
           onSubmit={this.handleSubmit} />

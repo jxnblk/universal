@@ -53,6 +53,7 @@ class App extends React.Component {
 
   render() {
     let { props, state } = this
+    let { snapshot } = props
     let backgroundColor = 'white'
     let color = colors.gray[1]
     switch (state.mode) {
@@ -92,6 +93,10 @@ class App extends React.Component {
           </Main>
         </div>
         <Footer />
+        <script
+          id='init'
+          type='application/json'
+          dangerouslySetInnerHTML={{ __html: snapshot }} />
       </div>
     )
   }

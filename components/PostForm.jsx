@@ -21,7 +21,13 @@ class PostForm extends React.Component {
   }
 
   render() {
-    let { post, children } = this.props
+    let {
+      post,
+      method,
+      action,
+      onSubmit,
+      children
+    } = this.props
     let { title, id, date, content } = post
     let s = {
       root: {
@@ -30,8 +36,11 @@ class PostForm extends React.Component {
     }
 
     return (
-      <form {...this.props} style={s.root}>
-        {children}
+      <form
+        method={method}
+        action={action}
+        onSubmit={onSubmit}
+        style={s.root}>
         <input type='hidden' name='id' value={id} />
         <input type='hidden' name='date' value={date} />
         <Input
@@ -44,7 +53,7 @@ class PostForm extends React.Component {
           name='content'
           label='Content'
           rows={16}
-          value={content || ''}
+          value={content}
           onChange={this.handleChange} />
         <Button type='submit' text='Save' />
         <BtnLink to={id ? 'post' : 'home'}
