@@ -35,7 +35,7 @@ class EditPost extends React.Component {
     })
     PostStore.update(post.id, post)
       .then(function () {
-        router.transitionTo('post', { id: post.id })
+        router.transitionTo('post', { id: post.id }, { m: true })
         MessageActions.update({
           text: 'Updated ' + post.title,
           mode: 'success'
@@ -68,7 +68,7 @@ class EditPost extends React.Component {
 
     return (
       <div>
-        <h1>Edit {title}</h1>
+        <h1>Edit</h1>
         <PostForm {...this.props}
           method='POST'
           action={`/${id}?_method=PUT`}

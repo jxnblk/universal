@@ -11,7 +11,6 @@ class Main extends React.Component {
         paddingBottom: scale[7],
         paddingLeft: scale[5],
         paddingRight: scale[5],
-        flex: '1 0 auto'
       },
       inner: {
         maxWidth: 640,

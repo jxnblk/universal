@@ -37,7 +37,7 @@ class DeletePost extends React.Component {
           text: 'Post deleted',
           mode: 'danger'
         })
-        router.transitionTo('home')
+        router.transitionTo('home', {}, { m: true })
       })
       .catch(function (err) {
         MessageActions.update({

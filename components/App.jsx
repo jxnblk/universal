@@ -40,11 +40,14 @@ class App extends React.Component {
     this.setState(state)
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.path !== nextProps.path) {
-      setTimeout(function () {
-        MessageActions.clear()
-      }, 300)
+  static willTransitionTo(transition, params, query, done) {
+    if (!query.m) {
+      MessageActions.clear()
+      setTimeout(function() {
+        done()
+      }, 10)
+    } else {
+      done()
     }
   }
 
@@ -69,19 +72,25 @@ class App extends React.Component {
         color: color,
         backgroundColor: backgroundColor,
         transition: 'background-color .2s ease-out'
+      },
+      inner: {
+        position: 'relative',
+        flex: '1 0 auto'
       }
     }
 
     return (
       <div style={s.root}>
         <Header {...props} {...state} />
-        <Message {...state} />
-        <Main>
-          <RouteHandler
-            {...props}
-            {...state}
-            key={props.pathname} />
-        </Main>
+        <div style={s.inner}>
+          <Message {...state} />
+          <Main>
+            <RouteHandler
+              {...props}
+              {...state}
+              key={props.pathname} />
+          </Main>
+        </div>
         <Footer />
       </div>
     )

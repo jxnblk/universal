@@ -21,5 +21,6 @@
 - [ ] UI
   - [x] UI mode actions
   - [x] UI mode store
-- [ ] Client-side form actions
+- [x] Client-side form actions
+- [x] Flash Messages
 

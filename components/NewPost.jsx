@@ -36,7 +36,7 @@ class NewPost extends React.Component {
           text: 'Post created',
           mode: 'success'
         })
-        router.transitionTo('post', { id: post.id })
+        router.transitionTo('post', { id: post.id }, { m: true })
       })
       .catch(function (err) {
         MessageActions.update({

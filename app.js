@@ -53,10 +53,8 @@ app.route('/:id*')
       .then(next)
   })
   .put(function (req, res, next) {
-    console.log('update')
     PostStore.update(req.params.id, req.body)
       .then(function(post) {
-        console.log('updated', post)
         res.redirect(`/${req.params.id}`)
       })
       .catch(function(err) {
@@ -66,7 +64,6 @@ app.route('/:id*')
   .delete(function (req, res, next) {
     PostStore.destroy(req.params.id)
       .then(function() {
-        console.log('redirect')
         res.redirect('/')
       })
   })

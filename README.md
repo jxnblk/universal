@@ -2,16 +2,25 @@
 
 WIP isomorphic Express/React app with React Hot Loader
 
+```sh
+npm i
+```
+
 ## Development mode
 
-```js
-npm i
-npm run dev
+```sh
+npm run forever
+```
+
+Stop:
+
+```sh
+npm stop
 ```
 
 ## Production
 
-```js
+```sh
 npm i
 npm run build
 npm start

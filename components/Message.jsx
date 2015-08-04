@@ -43,7 +43,6 @@ class Message extends React.Component {
       }
     }
 
-
     return (
       <div style={s.root}
         onClick={this.handleClick}>
