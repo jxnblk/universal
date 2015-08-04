@@ -4,13 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "api": "node api/index.js",
     "build": "webpack -p --progress --colors",
     "clean": "rm data/trash/*",
-    "dev": "NODE_ENV=development nodemon index.js",
-    "forever": "forever start api & NODE_ENV=development forever start index.js",
+    "start": "NODE_ENV=development forever start -c nodemon index.js",
     "stop": "forever stopall",
-    "start": "NODE_ENV=production node index.js"
+    "prod": "NODE_ENV=production node index.js"
   },
   "author": "Brent Jackson",
   "license": "MIT",
