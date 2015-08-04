@@ -10,7 +10,7 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    publicPath: '/public/',
+    publicPath: '/public',
     path: __dirname + '/public'
   },
 
@@ -30,7 +30,7 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.json']
-  },
+  }
 
   node: {
     fs: 'empty'

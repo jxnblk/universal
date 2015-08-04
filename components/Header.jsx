@@ -44,7 +44,7 @@ class Header extends React.Component {
       <header style={s.root}>
         <BtnLink to='posts'>
           <h1 style={s.h1}>
-            iso-hot
+            universal
           </h1>
         </BtnLink>
         <div style={s.spacer} />

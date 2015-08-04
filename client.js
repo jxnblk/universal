@@ -3,7 +3,8 @@ import React from 'react'
 import Router from 'react-router'
 import alt from './alt'
 import routes from './routes'
-import webpackstats from './util/webpack-stats'
+
+console.log('client', process.env.NODE_ENV)
 
 const router = Router.create({
   routes: routes,
@@ -12,10 +13,13 @@ const router = Router.create({
 
 const init = document.querySelector('#init').innerHTML
 
-// let scripts = [ '/bundle.js' ]
-let scripts = webpackstats.get('scripts')
-// if (process.env.NODE_ENV === 'development') {
-// }
+let scripts = [ '/bundle.js' ]
+
+if (process.env.NODE_ENV === 'development') {
+  scripts = [
+    'http://localhost:3001/public/bundle.js'
+  ]
+}
 
 router.run(function (Handler, state) {
   alt.bootstrap(init)

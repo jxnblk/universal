@@ -10,7 +10,7 @@ class Textarea extends React.Component {
     let { type, name, label } = props
 
     let s = {
-      input: {
+      textarea: {
         fontFamily: monospace,
         fontSize: 16,
         display: 'block',
@@ -21,7 +21,7 @@ class Textarea extends React.Component {
         whiteSpace: 'prewrap',
         borderColor: darken[1],
         backgroundColor: lighten[1],
-        borderRadius: radius
+        borderRadius: radius,
       }
     }
 
@@ -34,7 +34,7 @@ class Textarea extends React.Component {
           {...props}
           type={type}
           name={name}
-          style={s.input} />
+          style={s.textarea} />
       </div>
     )
   }

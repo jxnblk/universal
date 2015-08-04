@@ -1,6 +1,5 @@
 
 var webpack = require('webpack')
-var stats = require('./util/webpack-stats')
 
 module.exports = {
 
@@ -36,9 +35,11 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    function () {
-      this.plugin('done', stats.set)
-    },
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': '"development"'
+      }
+    }),
     new webpack.ProgressPlugin(function(percentage, message) {
       var MOVE_LEFT = new Buffer("1b5b3130303044", "hex").toString()
       var CLEAR_LINE = new Buffer("1b5b304b", "hex").toString()

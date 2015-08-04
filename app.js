@@ -9,7 +9,6 @@ import routes from './routes'
 import alt from './alt'
 import PostStore from './stores/PostStore'
 import Err from './components/Err'
-import webpackstats from './util/webpack-stats'
 
 const app = express()
 
@@ -65,7 +64,9 @@ app.use(function(req, res, next) {
 
   let scripts = [ '/bundle.js' ]
   if (process.env.NODE_ENV === 'development') {
-    scripts = webpackstats.get('scripts')
+    scripts = [
+      'http://localhost:3001/public/bundle.js'
+    ]
   }
 
   const router = Router.create({
