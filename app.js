@@ -6,8 +6,6 @@ import Router from 'react-router'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import routes from './routes'
-import alt from './alt'
-import PostStore from './stores/PostStore'
 import Err from './components/Err'
 
 const app = express()
@@ -23,6 +21,7 @@ if (app.get('env') === 'development') {
   require('./server')
 }
 
+/*
 app.route('/')
   .get(function (req, res, next) {
     PostStore.getPosts()
@@ -35,7 +34,9 @@ app.route('/')
         res.redirect(`/${state.post.id}`)
       })
   })
+*/
 
+/*
 app.route('/:id*')
   .get(function (req, res, next) {
     if (req.params.id === 'new') {
@@ -59,6 +60,7 @@ app.route('/:id*')
         res.redirect('/')
       })
   })
+*/
 
 app.use(function(req, res, next) {
 
@@ -74,13 +76,9 @@ app.use(function(req, res, next) {
     location: req.url
   })
 
-  const snapshot = alt.takeSnapshot()
-
   router.run(function (Handler, state) {
     var html = React.renderToString(
-      <Handler {...state}
-      snapshot={snapshot}
-      scripts={scripts} />
+      <Handler {...state} scripts={scripts} />
     )
     res.send(html)
   })

@@ -1,7 +1,6 @@
 
 import React from 'react'
 import Router from 'react-router'
-import alt from './alt'
 import routes from './routes'
 
 console.log('client', process.env.NODE_ENV)
@@ -22,10 +21,8 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 router.run(function (Handler, state) {
-  alt.bootstrap(init)
   React.render(
     <Handler {...state}
-      snapshot={init}
       scripts={scripts}
       router={router} />,
     document
