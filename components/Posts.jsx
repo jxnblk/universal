@@ -1,6 +1,6 @@
 
 import React from 'react'
-import PostStore from '../stores/PostStore'
+import { getPosts } from '../actions'
 import markdown from '../util/markdown'
 import A from './A'
 import BtnLink from './BtnLink'
@@ -9,7 +9,8 @@ import { scale } from '../util/styles'
 class Posts extends React.Component {
 
   componentDidMount() {
-    PostStore.getPosts()
+    // PostStore.getPosts()
+    this.props.dispatch(getPosts())
   }
 
   render() {

@@ -10,6 +10,7 @@ class Header extends React.Component {
     let { mode } = this.props
 
     let color = colors.gray[2]
+    /*
     switch (mode) {
       case 'info':
         color = colors.blue[4]
@@ -21,6 +22,7 @@ class Header extends React.Component {
         color = colors.red[4]
         break
     }
+    */
 
     let s = {
       root: {

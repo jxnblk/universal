@@ -1,12 +1,11 @@
 
 import React from 'react'
 import { scale, colors } from '../util/styles'
-import MessageActions from '../actions/MessageActions'
 
 class Message extends React.Component {
 
   handleClick() {
-    MessageActions.clear()
+    // MessageActions.clear()
   }
 
   render() {

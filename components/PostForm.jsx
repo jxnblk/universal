@@ -2,7 +2,6 @@
 import React from 'react'
 import Input from './Input'
 import Textarea from './Textarea'
-import PostActions from '../actions/PostActions'
 import Button from './Button'
 import BtnLink from './BtnLink'
 import { scale } from '../util/styles'
@@ -17,7 +16,7 @@ class PostForm extends React.Component {
   handleChange(e) {
     let post = this.props.post
     post[e.target.name] = e.target.value
-    PostActions.updatePost(post)
+    // PostActions.updatePost(post)
   }
 
   render() {

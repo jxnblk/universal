@@ -1,10 +1,7 @@
 
 import React from 'react'
 import PostForm from './PostForm'
-import PostActions from '../actions/PostActions'
-import PostStore from '../stores/PostStore'
-import ModeActions from '../actions/ModeActions'
-import MessageActions from '../actions/MessageActions'
+import { clearPost } from '../actions'
 
 class NewPost extends React.Component {
 
@@ -14,12 +11,12 @@ class NewPost extends React.Component {
   }
 
   componentDidMount() {
-    PostActions.clearPost()
-    ModeActions.update('success')
+    this.props.dispatch(clearPost())
+    // ModeActions.update('success')
   }
 
   componentWillUnmount() {
-    ModeActions.update('default')
+    // ModeActions.update('default')
   }
 
   handleSubmit(e) {
@@ -29,6 +26,7 @@ class NewPost extends React.Component {
       title: e.target.title.value,
       content: e.target.content.value,
     }
+    /*
     PostStore.create(post)
       .then(function () {
         post = PostStore.getState().post
@@ -44,13 +42,16 @@ class NewPost extends React.Component {
           mode: 'danger'
         })
       })
+    */
   }
 
   render() {
+    const { post } = this.props
     return (
       <div>
         <h1>New Post</h1>
-        <PostForm {...this.props}
+        <PostForm
+          post={post}
           method='POST'
           action='/'
           onSubmit={this.handleSubmit} />

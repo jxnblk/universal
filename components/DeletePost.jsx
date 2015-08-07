@@ -1,9 +1,6 @@
 
 import React from 'react'
 import { Link } from 'react-router'
-import PostStore from '../stores/PostStore'
-import ModeActions from '../actions/ModeActions'
-import MessageActions from '../actions/MessageActions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
 import A from './A'
@@ -19,18 +16,19 @@ class DeletePost extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
-    PostStore.getPost(id)
-    ModeActions.update('danger')
+    // PostStore.getPost(id)
+    // ModeActions.update('danger')
   }
 
   componentWillUnmount() {
-    ModeActions.update('default')
+    // ModeActions.update('default')
   }
 
   handleSubmit(e) {
     e.preventDefault()
     let router = this.props.router
     let id = parseFloat(e.target.id.value)
+    /*
     PostStore.destroy(id)
       .then(function () {
         MessageActions.update({
@@ -45,6 +43,7 @@ class DeletePost extends React.Component {
           mode: 'danger'
         })
       })
+    */
   }
 
   render() {

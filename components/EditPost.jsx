@@ -1,10 +1,7 @@
 
 import _ from 'lodash'
 import React from 'react'
-import PostStore from '../stores/PostStore'
 import PostForm from './PostForm'
-import ModeActions from '../actions/ModeActions'
-import MessageActions from '../actions/MessageActions'
 import BtnLink from './BtnLink'
 import A from './A'
 import { scale, colors } from '../util/styles'
@@ -18,12 +15,12 @@ class EditPost extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
-    PostStore.getPost(id)
-    ModeActions.update('info')
+    // PostStore.getPost(id)
+    // ModeActions.update('info')
   }
 
   componentWillUnmount() {
-    ModeActions.update('default')
+    // ModeActions.update('default')
   }
 
   handleSubmit(e) {
@@ -33,6 +30,7 @@ class EditPost extends React.Component {
       title: e.target.title.value,
       content: e.target.content.value,
     })
+    /*
     PostStore.update(post.id, post)
       .then(function () {
         router.transitionTo('post', { id: post.id }, { m: true })
@@ -47,6 +45,7 @@ class EditPost extends React.Component {
           mode: 'danger'
         })
       })
+    */
   }
 
   render() {

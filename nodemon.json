@@ -1,6 +1,9 @@
 {
   "watch": [
     "app.js",
-    "api"
+    "api",
+    "actions",
+    "reducers",
+    "components"
   ]
 }

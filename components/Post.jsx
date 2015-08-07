@@ -1,8 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
-import PostActions from '../actions/PostActions'
-import PostStore from '../stores/PostStore'
+import { getPost } from '../actions'
 import markdown from '../util/markdown'
 import Prose from './Prose'
 import A from './A'
@@ -13,11 +12,11 @@ class Post extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
-    PostStore.getPost(id)
+    this.props.dispatch(getPost(id))
   }
 
   componentWillUnmount() {
-    PostActions.clearPost()
+    // PostActions.clearPost()
   }
 
   render() {

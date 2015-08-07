@@ -8,6 +8,23 @@ import methodOverride from 'method-override'
 import routes from './routes'
 import Err from './components/Err'
 
+import {
+  combineReducers,
+  applyMiddleware,
+  createStore
+} from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import {
+  getPosts,
+  getPost
+} from './actions'
+import * as reducers from './reducers'
+
+const reducer = combineReducers(reducers)
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+const store = createStoreWithMiddleware(reducer)
+
 const app = express()
 
 app.use(express.static(path.join(__dirname, 'public')))
@@ -17,16 +34,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 
 if (app.get('env') === 'development') {
-  // Webpack dev server
-  require('./server')
+  require('./server') // Webpack dev server
 }
 
-/*
 app.route('/')
   .get(function (req, res, next) {
-    PostStore.getPosts()
-      .then(next)
+    store.dispatch(getPosts())
+     .then(() => next())
   })
+/*
   .post(function (req, res, next) {
     PostStore.create(req.body)
       .then(function() {
@@ -36,15 +52,17 @@ app.route('/')
   })
 */
 
-/*
 app.route('/:id*')
   .get(function (req, res, next) {
     if (req.params.id === 'new') {
       next()
     }
-    PostStore.getPost(req.params.id)
-      .then(next)
+    store.dispatch(getPost(req.params.id))
+      .then(
+        () => next()
+      )
   })
+/*
   .put(function (req, res, next) {
     PostStore.update(req.params.id, req.body)
       .then(function(post) {
@@ -78,13 +96,16 @@ app.use(function(req, res, next) {
 
   router.run(function (Handler, state) {
     var html = React.renderToString(
-      <Handler {...state} scripts={scripts} />
+      <Provider store={store}>
+        {() => <Handler scripts={scripts} />}
+      </Provider>
     )
     res.send(html)
   })
 })
 
 app.use(function(err, req, res, next) {
+  console.log(err)
   res.status(err.status || 500)
   var html = React.renderToString(<Err {...err} />)
   res.send(html)
