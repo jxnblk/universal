@@ -15,14 +15,12 @@ class App extends React.Component {
 
   static willTransitionTo(transition, params, query, done) {
     console.log('willTransitionTo', transition, this.props.dispatch)
-    // if (!query.m) {
-    //   this.props.dispatch(clearMessage())
-    //   setTimeout(function() {
-    //     done()
-    //   }, 10)
-    // } else {
-    //   done()
-    // }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.routerState.query.m && !this.props.routerState.query.m) {
+      this.props.dispatch(clearMessage())
+    }
   }
 
   render() {
