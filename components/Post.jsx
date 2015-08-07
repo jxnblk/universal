@@ -16,7 +16,7 @@ class Post extends React.Component {
   }
 
   componentWillUnmount() {
-    // PostActions.clearPost()
+    this.props.dispatch(clearPost())
   }
 
   render() {

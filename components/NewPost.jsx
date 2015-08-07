@@ -1,7 +1,7 @@
 
 import React from 'react'
 import PostForm from './PostForm'
-import { clearPost, createPost, changeMode } from '../actions'
+import { clearPost, createPost, changeMode, changeMessage } from '../actions'
 
 class NewPost extends React.Component {
 
@@ -21,33 +21,28 @@ class NewPost extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let router = this.props.router
+    let { dispatch, router } = this.props
     let post = {
       title: e.target.title.value,
       content: e.target.content.value,
     }
-    this.props.dispatch(createPost(post))
-      .then(() => {
-        post = this.props.post
-        router.transitionTo('post', { id: post.id }, { m: true })
-      })
-    /*
-    PostStore.create(post)
-      .then(function () {
-        post = PostStore.getState().post
-        MessageActions.update({
-          text: 'Post created',
-          mode: 'success'
-        })
-        router.transitionTo('post', { id: post.id }, { m: true })
-      })
-      .catch(function (err) {
-        MessageActions.update({
-          text: err,
-          mode: 'danger'
-        })
-      })
-    */
+    dispatch(createPost(post))
+      .then(
+        () => {
+          post = this.props.post
+          dispatch(changeMessage({
+            text: 'Post created',
+            mode: 'success'
+          }))
+          router.transitionTo('post', { id: post.id }, { m: true })
+        },
+        (err) => {
+          dispatch(changeMessage({
+            text: 'Error: ' + err,
+            mode: 'danger'
+          }))
+        }
+      )
   }
 
   render() {

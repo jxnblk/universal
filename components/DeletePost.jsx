@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
-import { getPost, destroyPost, changeMode } from '../actions'
+import { getPost, destroyPost, changeMessage, changeMode } from '../actions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
 import A from './A'
@@ -27,30 +27,18 @@ class DeletePost extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let router = this.props.router
+    let { dispatch, router } = this.props
     let id = parseFloat(e.target.id.value)
-    this.props.dispatch(destroyPost(id))
+    dispatch(destroyPost(id))
       .then(
         () => {
+          dispatch(changeMessage({
+            text: 'Post deleted',
+            mode: 'danger'
+          }))
           router.transitionTo('home', {}, { m: true })
         }
       )
-    /*
-    PostStore.destroy(id)
-      .then(function () {
-        MessageActions.update({
-          text: 'Post deleted',
-          mode: 'danger'
-        })
-        router.transitionTo('home', {}, { m: true })
-      })
-      .catch(function (err) {
-        MessageActions.update({
-          text: err,
-          mode: 'danger'
-        })
-      })
-    */
   }
 
   render() {

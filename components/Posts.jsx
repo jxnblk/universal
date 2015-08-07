@@ -9,7 +9,6 @@ import { scale } from '../util/styles'
 class Posts extends React.Component {
 
   componentDidMount() {
-    // PostStore.getPosts()
     this.props.dispatch(getPosts())
   }
 

@@ -6,6 +6,7 @@ import Main from './Main'
 import Header from './Header'
 import Footer from './Footer'
 import Message from './Message'
+import { clearMessage } from '../actions'
 import { fontFamily, colors, scale, lineHeight } from '../util/styles'
 
 import { connect } from 'react-redux'
@@ -13,8 +14,9 @@ import { connect } from 'react-redux'
 class App extends React.Component {
 
   static willTransitionTo(transition, params, query, done) {
+    console.log('willTransitionTo', transition, this.props.dispatch)
     if (!query.m) {
-      // MessageActions.clear()
+      this.props.dispatch(clearMessage())
       setTimeout(function() {
         done()
       }, 10)
@@ -25,7 +27,7 @@ class App extends React.Component {
 
   render() {
     let { props } = this
-    let { dispatch, scripts, mode } = props
+    let { dispatch, scripts, message, mode } = props
     let backgroundColor = 'white'
     let color = colors.gray[1]
     switch (mode) {
@@ -57,7 +59,7 @@ class App extends React.Component {
       <Html style={s.root}>
         <Header {...props} />
         <div style={s.inner}>
-          <Message />
+          <Message dispatch={dispatch} message={message} />
           <Main>
             <RouteHandler
               {...props}

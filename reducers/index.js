@@ -16,6 +16,8 @@ import {
   DESTROY_POST,
   DESTROY_POST_SUCCESS,
   DESTROY_POST_FAILED,
+  CHANGE_MESSAGE,
+  CLEAR_MESSAGE,
   CHANGE_MODE
 } from '../actions'
 
@@ -55,6 +57,17 @@ export function mode(state = 'default', action) {
   switch (action.type) {
     case CHANGE_MODE:
       return action.mode
+    default:
+      return state
+  }
+}
+
+export function message(state = false, action) {
+  switch (action.type) {
+    case CHANGE_MESSAGE:
+      return action.message
+    case CLEAR_MESSAGE:
+      return false
     default:
       return state
   }

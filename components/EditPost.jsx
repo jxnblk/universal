@@ -1,7 +1,7 @@
 
 import { assign } from 'lodash'
 import React from 'react'
-import { getPost, updatePost, changeMode } from '../actions'
+import { getPost, updatePost, changeMode, changeMessage } from '../actions'
 import PostForm from './PostForm'
 import BtnLink from './BtnLink'
 import A from './A'
@@ -26,33 +26,27 @@ class EditPost extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    let router = this.props.router
-    let post = assign(this.props.post, {
+    let { router, dispatch } = this.props
+    let post = assign({}, this.props.post, {
       title: e.target.title.value,
       content: e.target.content.value,
     })
-    this.props.dispatch(updatePost(post.id, post))
+    dispatch(updatePost(post.id, post))
       .then(
         () => {
+          dispatch(changeMessage({
+            text: 'Updated ' + post.title,
+            mode: 'success'
+          }))
           router.transitionTo('post', { id: post.id }, { m: true })
+        },
+        (err) => {
+          dispatch(changeMessage({
+            text: 'Error: ' + err,
+            mode: 'danger'
+          }))
         }
       )
-    /*
-    PostStore.update(post.id, post)
-      .then(function () {
-        router.transitionTo('post', { id: post.id }, { m: true })
-        MessageActions.update({
-          text: 'Updated ' + post.title,
-          mode: 'success'
-        })
-      })
-      .catch(function (err) {
-        MessageActions.update({
-          text: err,
-          mode: 'danger'
-        })
-      })
-    */
   }
 
   render() {
