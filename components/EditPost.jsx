@@ -90,7 +90,12 @@ class EditPost extends React.Component {
 }
 
 EditPost.defaultProps = {
-  post: {}
+  post: {
+    id: false,
+    title: '',
+    content: '',
+    date: Date.now()
+  }
 }
 
 

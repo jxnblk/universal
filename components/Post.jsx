@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
-import { getPost } from '../actions'
+import { clearPost, getPost } from '../actions'
 import markdown from '../util/markdown'
 import Prose from './Prose'
 import A from './A'

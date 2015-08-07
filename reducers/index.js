@@ -1,6 +1,7 @@
 
 import { assign } from 'lodash'
 import {
+  SET_ROUTER,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILED,
   GET_POST_SUCCESS,
@@ -20,6 +21,15 @@ import {
   CLEAR_MESSAGE,
   CHANGE_MODE
 } from '../actions'
+
+export function router(state = {}, action) {
+  switch (action.type) {
+    case SET_ROUTER:
+      return action.router
+    default:
+      return state
+  }
+}
 
 export function posts(state = [], action) {
   switch (action.type) {

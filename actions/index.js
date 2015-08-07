@@ -1,6 +1,8 @@
 
 import axios from 'axios'
 
+export const SET_ROUTER = 'SET_ROUTER'
+
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
 export const GET_POSTS_FAILED = 'GET_POSTS_FAILED'
@@ -30,6 +32,10 @@ export const CLEAR_MESSAGE = 'CLEAR_MESSAGE'
 export const CHANGE_MODE = 'CHANGE_MODE'
 
 export const PING = 'PING'
+
+export function setRouter(router) {
+  return { type: SET_ROUTER, router }
+}
 
 export function getPosts() {
   return dispatch => {

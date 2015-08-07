@@ -10,10 +10,7 @@ import {
 } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
-import {
-  getPosts,
-  getPost
-} from './actions'
+import { setRouter } from './actions'
 import * as reducers from './reducers'
 
 const init = document.querySelector('#init').innerHTML
@@ -37,10 +34,12 @@ if (process.env.NODE_ENV === 'development') {
   ]
 }
 
+store.dispatch(setRouter(router))
+
 router.run(function (Handler, state) {
   React.render(
     <Provider store={store}>
-      {() => <Handler {...state} scripts={scripts} router={router} />}
+      {() => <Handler routerState={state} scripts={scripts} />}
     </Provider>
     ,
     document

@@ -16,6 +16,7 @@ import {
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import {
+  setRouter,
   getPosts,
   getPost,
   clearPost,
@@ -103,11 +104,12 @@ app.use(function(req, res, next) {
     routes: routes,
     location: req.url
   })
+  store.dispatch(setRouter(router))
 
   router.run(function (Handler, state) {
     var html = React.renderToString(
       <Provider store={store}>
-        {() => <Handler {...state} scripts={scripts} />}
+        {() => <Handler routerState={state} scripts={scripts} />}
       </Provider>
     )
     res.send(html)
