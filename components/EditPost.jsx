@@ -1,6 +1,7 @@
 
 import { assign } from 'lodash'
 import React from 'react'
+import { getPost, updatePost } from '../actions'
 import PostForm from './PostForm'
 import BtnLink from './BtnLink'
 import A from './A'
@@ -15,6 +16,7 @@ class EditPost extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
+    this.props.dispatch(getPost(id))
     // PostStore.getPost(id)
     // ModeActions.update('info')
   }
@@ -24,12 +26,18 @@ class EditPost extends React.Component {
   }
 
   handleSubmit(e) {
-    // e.preventDefault()
+    e.preventDefault()
     let router = this.props.router
     let post = assign(this.props.post, {
       title: e.target.title.value,
       content: e.target.content.value,
     })
+    this.props.dispatch(updatePost(post.id, post))
+      .then(
+        () => {
+          router.transitionTo('post', { id: post.id }, { m: true })
+        }
+      )
     /*
     PostStore.update(post.id, post)
       .then(function () {
@@ -69,6 +77,7 @@ class EditPost extends React.Component {
       <div>
         <h1>Edit</h1>
         <PostForm
+          {...this.props}
           post={post}
           method='POST'
           action={`/${id}?_method=PUT`}

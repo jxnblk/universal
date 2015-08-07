@@ -1,5 +1,7 @@
 
+import { clone } from 'lodash'
 import React from 'react'
+import { changePost } from '../actions'
 import Input from './Input'
 import Textarea from './Textarea'
 import Button from './Button'
@@ -8,15 +10,15 @@ import { scale } from '../util/styles'
 
 class PostForm extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super()
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleChange(e) {
-    let post = this.props.post
+    let { post, dispatch } = clone(this.props)
     post[e.target.name] = e.target.value
-    // PostActions.updatePost(post)
+    dispatch(changePost(post))
   }
 
   render() {
@@ -65,7 +67,10 @@ class PostForm extends React.Component {
 }
 
 PostForm.defaultProps = {
-  post: {}
+  post: {
+    title: '',
+    content: ''
+  }
 }
 
 export default PostForm

@@ -7,7 +7,7 @@ class Textarea extends React.Component {
 
   render() {
     let { props } = this
-    let { type, name, label, value } = props
+    let { type, name, label, value, onChange } = props
 
     let s = {
       textarea: {
@@ -26,6 +26,7 @@ class Textarea extends React.Component {
     }
 
     type = type || 'text'
+    value = value ? value : ''
 
     return (
       <div>
@@ -34,7 +35,8 @@ class Textarea extends React.Component {
           {...props}
           type={type}
           name={name}
-          value={value || ''}
+          value={value}
+          onChange={onChange}
           style={s.textarea} />
       </div>
     )

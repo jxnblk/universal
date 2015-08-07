@@ -18,6 +18,7 @@ import thunk from 'redux-thunk'
 import {
   getPosts,
   getPost,
+  clearPost,
   createPost,
   updatePost,
   destroyPost
@@ -62,10 +63,12 @@ app.route('/')
 app.route('/:id*')
   .get(function (req, res, next) {
     if (req.params.id === 'new') {
+      store.dispatch(clearPost())
       next()
+    } else {
+      store.dispatch(getPost(req.params.id))
+        .then(() => next())
     }
-    store.dispatch(getPost(req.params.id))
-      .then(() => next())
   })
   .put(function (req, res, next) {
     store.dispatch(updatePost(req.params.id, req.body))

@@ -1,7 +1,7 @@
 
 import React from 'react'
 import PostForm from './PostForm'
-import { clearPost } from '../actions'
+import { clearPost, createPost } from '../actions'
 
 class NewPost extends React.Component {
 
@@ -20,12 +20,17 @@ class NewPost extends React.Component {
   }
 
   handleSubmit(e) {
-    // e.preventDefault()
-    // let router = this.props.router
+    e.preventDefault()
+    let router = this.props.router
     let post = {
       title: e.target.title.value,
       content: e.target.content.value,
     }
+    this.props.dispatch(createPost(post))
+      .then(() => {
+        post = this.props.post
+        router.transitionTo('post', { id: post.id }, { m: true })
+      })
     /*
     PostStore.create(post)
       .then(function () {
@@ -46,11 +51,12 @@ class NewPost extends React.Component {
   }
 
   render() {
-    const { post } = this.props
+    const { post, dispatch } = this.props
     return (
       <div>
         <h1>New Post</h1>
         <PostForm
+          {...this.props}
           post={post}
           method='POST'
           action='/'

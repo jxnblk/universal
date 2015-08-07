@@ -10,6 +10,7 @@ export const GET_POST_SUCCESS = 'GET_POST_SUCCESS'
 export const GET_POST_FAILED = 'GET_POST_FAILED'
 
 export const CLEAR_POST = 'CLEAR_POST'
+export const CHANGE_POST = 'CHANGE_POST'
 
 export const CREATE_POST = 'CREATE_POST'
 export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
@@ -63,6 +64,10 @@ export function getPostFailed(error) {
 
 export function clearPost() {
   return { type: CLEAR_POST }
+}
+
+export function changePost(post) {
+  return { type: CHANGE_POST, post }
 }
 
 export function ping(data) {

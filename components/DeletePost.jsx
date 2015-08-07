@@ -1,6 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
+import { getPost, destroyPost } from '../actions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
 import A from './A'
@@ -16,7 +17,7 @@ class DeletePost extends React.Component {
 
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
-    // PostStore.getPost(id)
+    this.props.dispatch(getPost(id))
     // ModeActions.update('danger')
   }
 
@@ -25,9 +26,15 @@ class DeletePost extends React.Component {
   }
 
   handleSubmit(e) {
-    // e.preventDefault()
+    e.preventDefault()
     let router = this.props.router
     let id = parseFloat(e.target.id.value)
+    this.props.dispatch(destroyPost(id))
+      .then(
+        () => {
+          router.transitionTo('home', {}, { m: true })
+        }
+      )
     /*
     PostStore.destroy(id)
       .then(function () {
