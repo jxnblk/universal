@@ -1,5 +1,4 @@
 
-import _ from 'lodash'
 import React from 'react'
 import { RouteHandler } from 'react-router'
 import Html from './Html'

@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use('/posts', posts)
 
 app.use('/', function (req, res, next) {
+  console.log('API', req.method, req.path)
   res.json(res.locals.data)
 })
 

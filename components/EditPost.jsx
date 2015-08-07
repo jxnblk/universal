@@ -1,5 +1,5 @@
 
-import _ from 'lodash'
+import { assign } from 'lodash'
 import React from 'react'
 import PostForm from './PostForm'
 import BtnLink from './BtnLink'
@@ -24,9 +24,9 @@ class EditPost extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
+    // e.preventDefault()
     let router = this.props.router
-    let post = _.assign(this.props.post, {
+    let post = assign(this.props.post, {
       title: e.target.title.value,
       content: e.target.content.value,
     })

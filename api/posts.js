@@ -35,9 +35,7 @@ router.route('/:id*')
     }
   })
   .put(function (req, res, next) {
-    console.log('api update post')
     data.updatePost(req.params.id, req.body, function (err, response) {
-      console.log('api updated', response)
       res.locals.data = response
       next()
     })

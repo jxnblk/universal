@@ -25,7 +25,7 @@ class DeletePost extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
+    // e.preventDefault()
     let router = this.props.router
     let id = parseFloat(e.target.id.value)
     /*

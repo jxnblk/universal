@@ -30,7 +30,7 @@ module.exports = {
 
   resolve: {
     extensions: ['', '.js', '.jsx', '.json']
-  }
+  },
 
   node: {
     fs: 'empty'

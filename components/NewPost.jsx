@@ -20,8 +20,8 @@ class NewPost extends React.Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault()
-    let router = this.props.router
+    // e.preventDefault()
+    // let router = this.props.router
     let post = {
       title: e.target.title.value,
       content: e.target.content.value,

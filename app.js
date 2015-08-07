@@ -17,7 +17,10 @@ import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import {
   getPosts,
-  getPost
+  getPost,
+  createPost,
+  updatePost,
+  destroyPost
 } from './actions'
 import * as reducers from './reducers'
 
@@ -42,15 +45,19 @@ app.route('/')
     store.dispatch(getPosts())
      .then(() => next())
   })
-/*
   .post(function (req, res, next) {
-    PostStore.create(req.body)
-      .then(function() {
-        let state = PostStore.getState()
-        res.redirect(`/${state.post.id}`)
-      })
+    store.dispatch(createPost(req.body))
+     .then(
+       () => {
+         let post = store.getState().post
+         res.redirect(`/${post.id}`)
+       },
+       (err) => {
+         console.log('err', err)
+         next()
+       }
+     )
   })
-*/
 
 app.route('/:id*')
   .get(function (req, res, next) {
@@ -58,27 +65,27 @@ app.route('/:id*')
       next()
     }
     store.dispatch(getPost(req.params.id))
-      .then(
-        () => next()
-      )
+      .then(() => next())
   })
-/*
   .put(function (req, res, next) {
-    PostStore.update(req.params.id, req.body)
-      .then(function(post) {
+    store.dispatch(updatePost(req.params.id, req.body))
+      .then((post) => {
         res.redirect(`/${req.params.id}`)
-      })
-      .catch(function(err) {
-        console.log('update catch', err)
+      }, (err) => {
+        console.log('error', err)
+        next()
       })
   })
   .delete(function (req, res, next) {
-    PostStore.destroy(req.params.id)
-      .then(function() {
-        res.redirect('/')
-      })
+    store.dispatch(destroyPost(req.params.id))
+      .then(
+        () => res.redirect('/'),
+        (err) => {
+          console.log('error', err)
+          next()
+        }
+      )
   })
-*/
 
 app.use(function(req, res, next) {
 

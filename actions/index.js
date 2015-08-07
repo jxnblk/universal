@@ -12,8 +12,16 @@ export const GET_POST_FAILED = 'GET_POST_FAILED'
 export const CLEAR_POST = 'CLEAR_POST'
 
 export const CREATE_POST = 'CREATE_POST'
+export const CREATE_POST_SUCCESS = 'CREATE_POST_SUCCESS'
+export const CREATE_POST_FAILED = 'CREATE_POST_FAILED'
+
 export const UPDATE_POST = 'UPDATE_POST'
+export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS'
+export const UPDATE_POST_FAILED = 'UPDATE_POST_FAILED'
+
 export const DESTROY_POST = 'DESTROY_POST'
+export const DESTROY_POST_SUCCESS = 'DESTROY_POST_SUCCESS'
+export const DESTROY_POST_FAILED = 'DESTROY_POST_FAILED'
 
 export const PING = 'PING'
 
@@ -63,17 +71,56 @@ export function ping(data) {
 }
 
 export function createPost(post) {
-  console.log('create post')
-  return { type: CREATE_POST, post }
+  return dispatch => {
+    return axios.post('http://localhost:3030/posts', post)
+      .then(
+        (response) => dispatch(createPostSuccess(response)),
+        (error) => dispatch(createPostFailed(error))
+      )
+  }
 }
 
-export function updatePost(post) {
-  console.log('update post')
-  return { type: UPDATE_POST, post }
+export function createPostSuccess(response) {
+  return { type: CREATE_POST_SUCCESS, post: response.data }
 }
 
-export function destroyPost(index) {
-  console.log('destroy post')
-  return { type: DESTROY_POST, post }
+export function createPostFailed(error) {
+  return { type: CREATE_POST_FAILED, error: error }
+}
+
+export function updatePost(id, post) {
+  return dispatch => {
+    return axios.put(`http://localhost:3030/posts/${id}`, post)
+      .then(
+        (response) => dispatch(updatePostSuccess(response)),
+        (error) => dispatch(updatePostFailed(error))
+      )
+  }
+}
+
+export function updatePostSuccess(response) {
+  return { type: UPDATE_POST_SUCCESS, post: response.data }
+}
+
+export function updatePostFailed(error) {
+  return { type: UPDATE_POST_FAILED, error: error }
+}
+
+export function destroyPost(id) {
+  return dispatch => {
+    return axios.delete(`http://localhost:3030/posts/${id}`)
+      .then(
+        (response) => dispatch(destroyPostSuccess(response)),
+        (error) => dispatch(destroyPostFailed(error))
+      )
+  }
+}
+
+export function destroyPostSuccess(response) {
+  return { type: DESTROY_POST_SUCCESS }
+}
+
+export function destroyPostFailed(error) {
+  return { type: DESTROY_POST_FAILED, error: error }
 }
 

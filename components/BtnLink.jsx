@@ -1,5 +1,5 @@
 
-import _ from 'lodash'
+import { assign, clone } from 'lodash'
 import React from 'react'
 import { Link } from 'react-router'
 import { scale, colors, radius } from '../util/styles'
@@ -30,7 +30,7 @@ class BtnLink extends React.Component {
 
     return (
       <Comp {...props}
-        activeStyle={_.assign(_.clone(s.button), {
+        activeStyle={assign(clone(s.button), {
           textDecoration: 'underline'
         })}
         style={s.button}>
