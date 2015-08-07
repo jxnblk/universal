@@ -1,7 +1,7 @@
 
 import React from 'react'
 import { Link } from 'react-router'
-import { getPost, destroyPost } from '../actions'
+import { getPost, destroyPost, changeMode } from '../actions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
 import A from './A'
@@ -18,11 +18,11 @@ class DeletePost extends React.Component {
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
     this.props.dispatch(getPost(id))
-    // ModeActions.update('danger')
+    this.props.dispatch(changeMode('danger'))
   }
 
   componentWillUnmount() {
-    // ModeActions.update('default')
+    this.props.dispatch(changeMode('default'))
   }
 
   handleSubmit(e) {

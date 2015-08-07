@@ -107,7 +107,7 @@ app.use(function(req, res, next) {
   router.run(function (Handler, state) {
     var html = React.renderToString(
       <Provider store={store}>
-        {() => <Handler scripts={scripts} />}
+        {() => <Handler {...state} scripts={scripts} />}
       </Provider>
     )
     res.send(html)

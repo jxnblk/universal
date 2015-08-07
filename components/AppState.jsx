@@ -1,12 +1,10 @@
 
 import React from 'react'
-// import alt from '../alt'
 
 class AppState extends React.Component {
 
   render() {
-    // const snapshot = JSON.parse(alt.takeSnapshot())
-    const snapsnot = this.props
+    const snapshot = this.props
 
     const s = {
       pre: {

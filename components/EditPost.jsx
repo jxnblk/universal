@@ -1,7 +1,7 @@
 
 import { assign } from 'lodash'
 import React from 'react'
-import { getPost, updatePost } from '../actions'
+import { getPost, updatePost, changeMode } from '../actions'
 import PostForm from './PostForm'
 import BtnLink from './BtnLink'
 import A from './A'
@@ -17,12 +17,11 @@ class EditPost extends React.Component {
   componentDidMount() {
     let id = parseFloat(this.props.params.id)
     this.props.dispatch(getPost(id))
-    // PostStore.getPost(id)
-    // ModeActions.update('info')
+    this.props.dispatch(changeMode('info'))
   }
 
   componentWillUnmount() {
-    // ModeActions.update('default')
+    this.props.dispatch(changeMode('default'))
   }
 
   handleSubmit(e) {

@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'development') {
 router.run(function (Handler, state) {
   React.render(
     <Provider store={store}>
-      {() => <Handler scripts={scripts} router={router} />}
+      {() => <Handler {...state} scripts={scripts} router={router} />}
     </Provider>
     ,
     document

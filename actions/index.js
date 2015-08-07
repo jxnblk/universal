@@ -24,6 +24,8 @@ export const DESTROY_POST = 'DESTROY_POST'
 export const DESTROY_POST_SUCCESS = 'DESTROY_POST_SUCCESS'
 export const DESTROY_POST_FAILED = 'DESTROY_POST_FAILED'
 
+export const CHANGE_MODE = 'CHANGE_MODE'
+
 export const PING = 'PING'
 
 export function getPosts() {
@@ -127,5 +129,9 @@ export function destroyPostSuccess(response) {
 
 export function destroyPostFailed(error) {
   return { type: DESTROY_POST_FAILED, error: error }
+}
+
+export function changeMode(mode) {
+  return { type: CHANGE_MODE, mode }
 }
 

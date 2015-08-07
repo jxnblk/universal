@@ -15,7 +15,8 @@ import {
   UPDATE_POST_FAILED,
   DESTROY_POST,
   DESTROY_POST_SUCCESS,
-  DESTROY_POST_FAILED
+  DESTROY_POST_FAILED,
+  CHANGE_MODE
 } from '../actions'
 
 export function posts(state = [], action) {
@@ -45,6 +46,15 @@ export function post(state = {}, action) {
     case UPDATE_POST_FAILED:
     case DESTROY_POST_FAILED:
       return assign({}, state, { error: action.error })
+    default:
+      return state
+  }
+}
+
+export function mode(state = 'default', action) {
+  switch (action.type) {
+    case CHANGE_MODE:
+      return action.mode
     default:
       return state
   }

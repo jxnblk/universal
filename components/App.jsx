@@ -28,14 +28,12 @@ class App extends React.Component {
     let { dispatch, scripts, mode } = props
     let backgroundColor = 'white'
     let color = colors.gray[1]
-    /*
     switch (mode) {
       case 'danger':
         color = 'white'
         backgroundColor = colors.red[5]
         break
     }
-    */
 
     let s = {
       root: {

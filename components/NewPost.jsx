@@ -1,7 +1,7 @@
 
 import React from 'react'
 import PostForm from './PostForm'
-import { clearPost, createPost } from '../actions'
+import { clearPost, createPost, changeMode } from '../actions'
 
 class NewPost extends React.Component {
 
@@ -12,11 +12,11 @@ class NewPost extends React.Component {
 
   componentDidMount() {
     this.props.dispatch(clearPost())
-    // ModeActions.update('success')
+    this.props.dispatch(changeMode('success'))
   }
 
   componentWillUnmount() {
-    // ModeActions.update('default')
+    this.props.dispatch(changeMode('default'))
   }
 
   handleSubmit(e) {
