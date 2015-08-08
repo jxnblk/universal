@@ -1,9 +1,11 @@
 
+import { findIndex } from 'lodash'
 import React from 'react'
 import Router from 'react-router'
 import { Provider } from 'react-redux'
 import routes from './routes.jsx'
 import { store } from './store'
+import data from './api/data'
 
 import {
   setRouter,
@@ -17,6 +19,7 @@ import {
 
 store.dispatch(getPosts())
 const scripts = [ '/bundle.js' ]
+const posts = data.readPosts()
 
 if (typeof window !== 'undefined') {
   const router = Router.create({
@@ -41,6 +44,12 @@ module.exports = function render(locals, callback) {
     routes: routes,
     location: locals.path
   })
+  var id = parseFloat(locals.path.split(/\//)[1]) || -1
+  var index = findIndex(posts, { id: id })
+  if (index > -1) {
+    console.log(id)
+    store.dispatch(getPost(id))
+  }
 
   store.dispatch(setRouter(router))
 
