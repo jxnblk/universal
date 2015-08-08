@@ -44,7 +44,7 @@ class Header extends React.Component {
       <header style={s.root}>
         <BtnLink to='posts'>
           <h1 style={s.h1}>
-            universal
+            Universal
           </h1>
         </BtnLink>
         <div style={s.spacer} />
