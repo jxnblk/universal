@@ -3,44 +3,50 @@ import _ from 'lodash'
 import fs from 'fs'
 import path from 'path'
 import graymatter from 'gray-matter'
+import postsJson from './posts.json'
 
 const POSTDIR = path.join(__dirname, '..', 'data', 'posts/')
 const TRASHDIR = path.join(__dirname, '..', 'data', 'trash/')
 
-let postsCache
+let CACHE = postsJson || []
 
 const Data = {
 
-  readPosts: function (done) {
-    let filenames = fs.readdirSync(POSTDIR)
-      .filter(function (filename) {
-        return filename.match(/\.md$/)
+  readPosts: function () {
+    try {
+      let filenames = fs.readdirSync(POSTDIR)
+        .filter(function (filename) {
+          return filename.match(/\.md$/)
+        })
+      CACHE = filenames.map(function (filename) {
+        let raw = fs.readFileSync(POSTDIR + filename, 'utf8')
+        let matter = graymatter(raw)
+        return {
+          title: matter.data.title,
+          id: matter.data.id,
+          filename: filename,
+          date: matter.data.date,
+          content: matter.content
+        }
       })
-    let posts = filenames.map(function (filename) {
-      let raw = fs.readFileSync(POSTDIR + filename, 'utf8')
-      let matter = graymatter(raw)
-      return {
-        title: matter.data.title,
-        id: matter.data.id,
-        filename: filename,
-        date: matter.data.date,
-        content: matter.content
-      }
-    })
-    .sort(function (a, b) {
-      return new Date(b.date) - new Date(a.date)
-    })
-    return posts
+      .sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date)
+      })
+      fs.writeFileSync(path.join(__dirname, 'posts.json'), JSON.stringify(CACHE))
+    } catch (e) {
+      console.log('Static read from memory')
+    }
+    return CACHE
   },
 
   getPost: function(id) {
     id = parseFloat(id)
-    let post = _.find(postsCache, { id: id })
+    let post = _.find(CACHE, { id: id })
     return post
   },
 
   createPost: function(data, done) {
-    let ids = postsCache.map(function (post) {
+    let ids = CACHE.map(function (post) {
       return post.id
     })
     let newId = _.max(ids) + 1
@@ -57,14 +63,20 @@ const Data = {
     let content = data.content.replace(/^M/, '\n').trim()
     let md = graymatter.stringify(content, post)
     post.content = data.content
-    fs.writeFileSync(POSTDIR + filename + '.md', md)
-    postsCache = Data.readPosts()
+    try {
+      fs.writeFileSync(POSTDIR + filename + '.md', md)
+      Data.readPosts()
+    } catch (e) {
+      console.log('Create post in memory')
+      CACHE.push(post)
+    }
     done && done(null, post)
+    return post
   },
 
   updatePost: function(id, data, done) {
     id = parseFloat(id)
-    let post = _.find(postsCache, { id: id })
+    let post = _.find(CACHE, { id: id })
     if (!data.title.length) {
       done('Post must have a title')
     }
@@ -73,25 +85,35 @@ const Data = {
     delete post.content
     post.id = id
     let md = graymatter.stringify(content, post)
-    fs.writeFileSync(POSTDIR + post.filename, md)
-    postsCache = Data.readPosts()
+    try {
+      fs.writeFileSync(POSTDIR + post.filename, md)
+      Data.readPosts()
+    } catch (e) {
+      console.log('Update post in memory')
+      // let index = _.findIndex(CACHE, { id: id })
+    }
     post.content = content
-    setTimeout(function () {
-      done && done(null, post)
-    }, 800)
+    done && done(null, post)
+    return post
   },
 
   destroyPost: function(id, done) {
     id = parseFloat(id)
-    let post = _.find(postsCache, { id: id })
-    fs.renameSync(POSTDIR + post.filename, TRASHDIR + post.filename)
-    postsCache = Data.readPosts()
+    let post = _.find(CACHE, { id: id })
+    try {
+      fs.renameSync(POSTDIR + post.filename, TRASHDIR + post.filename)
+      Data.readPosts()
+    } catch (e) {
+      console.log('Destroy post in memory')
+      let index = _.findIndex(CACHE, { id: id })
+      CACHE.splice(index, 1)
+    }
     done && done(null, 'Post deleted ' + id)
   }
 
 }
 
-postsCache = Data.readPosts()
+Data.readPosts()
 
 export default Data
 

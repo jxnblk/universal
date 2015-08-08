@@ -1,6 +1,4 @@
 
-import axios from 'axios'
-
 export const SET_ROUTER = 'SET_ROUTER'
 
 export const GET_POSTS = 'GET_POSTS'
@@ -33,44 +31,32 @@ export const CHANGE_MODE = 'CHANGE_MODE'
 
 export const PING = 'PING'
 
+var actions
+if (process.env.NODE_ENV === 'development') {
+  console.log('dev actions')
+  actions = require('./dev')
+} else {
+  actions = require('./static')
+}
+
+let {
+  getPosts,
+  getPost,
+  createPost,
+  updatePost,
+  destroyPost,
+} = actions
+
+export {
+  getPosts,
+  getPost,
+  createPost,
+  updatePost,
+  destroyPost,
+}
+
 export function setRouter(router) {
   return { type: SET_ROUTER, router }
-}
-
-export function getPosts() {
-  return dispatch => {
-    return axios.get('http://localhost:3030/posts')
-      .then(
-        (response) => dispatch(getPostsSuccess(response)),
-        (error) => dispatch(getPostsFailed(error))
-      )
-  }
-}
-
-export function getPostsSuccess(response) {
-  return { type: GET_POSTS_SUCCESS, posts: response.data }
-}
-
-export function getPostsFailed(error) {
-  return { type: GET_POSTS_FAILED, error: error }
-}
-
-export function getPost(id) {
-  return dispatch => {
-    return axios.get(`http://localhost:3030/posts/${id}`)
-      .then(
-        (response) => dispatch(getPostSuccess(response)),
-        (error) => dispatch(getPostFailed(error))
-      )
-  }
-}
-
-export function getPostSuccess(response) {
-  return { type: GET_POST_SUCCESS, post: response.data }
-}
-
-export function getPostFailed(error) {
-  return { type: GET_POST_FAILED, error: error }
 }
 
 export function clearPost() {
@@ -79,65 +65,6 @@ export function clearPost() {
 
 export function changePost(post) {
   return { type: CHANGE_POST, post }
-}
-
-export function ping(data) {
-  console.log('ping')
-  return { type: PING, data }
-}
-
-export function createPost(post) {
-  return dispatch => {
-    return axios.post('http://localhost:3030/posts', post)
-      .then(
-        (response) => dispatch(createPostSuccess(response)),
-        (error) => dispatch(createPostFailed(error))
-      )
-  }
-}
-
-export function createPostSuccess(response) {
-  return { type: CREATE_POST_SUCCESS, post: response.data }
-}
-
-export function createPostFailed(error) {
-  return { type: CREATE_POST_FAILED, error: error }
-}
-
-export function updatePost(id, post) {
-  return dispatch => {
-    return axios.put(`http://localhost:3030/posts/${id}`, post)
-      .then(
-        (response) => dispatch(updatePostSuccess(response)),
-        (error) => dispatch(updatePostFailed(error))
-      )
-  }
-}
-
-export function updatePostSuccess(response) {
-  return { type: UPDATE_POST_SUCCESS, post: response.data }
-}
-
-export function updatePostFailed(error) {
-  return { type: UPDATE_POST_FAILED, error: error }
-}
-
-export function destroyPost(id) {
-  return dispatch => {
-    return axios.delete(`http://localhost:3030/posts/${id}`)
-      .then(
-        (response) => dispatch(destroyPostSuccess(response)),
-        (error) => dispatch(destroyPostFailed(error))
-      )
-  }
-}
-
-export function destroyPostSuccess(response) {
-  return { type: DESTROY_POST_SUCCESS }
-}
-
-export function destroyPostFailed(error) {
-  return { type: DESTROY_POST_FAILED, error: error }
 }
 
 export function changeMessage(message) {
@@ -150,5 +77,10 @@ export function clearMessage() {
 
 export function changeMode(mode) {
   return { type: CHANGE_MODE, mode }
+}
+
+export function ping(data) {
+  console.log('ping')
+  return { type: PING, data }
 }
 
