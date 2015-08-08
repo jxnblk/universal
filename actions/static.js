@@ -20,12 +20,12 @@ export function getPost(id) {
 }
 
 export function createPost(post) {
-  let post = data.createPost(post)
+  post = data.createPost(post)
   return { type: CREATE_POST, post }
 }
 
 export function updatePost(id, post) {
-  let post = data.updatePost(id, post)
+  post = data.updatePost(id, post)
   return { type: UPDATE_POST, post }
 }
 

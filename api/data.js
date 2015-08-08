@@ -34,7 +34,10 @@ const Data = {
       })
       fs.writeFileSync(path.join(__dirname, 'posts.json'), JSON.stringify(CACHE))
     } catch (e) {
-      console.log('Static read from memory')
+      console.log('Static read from memory', CACHE.length)
+      CACHE = CACHE.sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date)
+      })
     }
     return CACHE
   },

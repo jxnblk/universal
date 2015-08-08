@@ -31,12 +31,13 @@ export const CHANGE_MODE = 'CHANGE_MODE'
 
 export const PING = 'PING'
 
-var actions
+var actions = require('./static')
 if (process.env.NODE_ENV === 'development') {
   console.log('dev actions')
   actions = require('./dev')
 } else {
-  actions = require('./static')
+  console.log('Not dev')
+  // actions = require('./static')
 }
 
 let {

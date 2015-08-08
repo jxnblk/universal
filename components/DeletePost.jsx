@@ -29,16 +29,25 @@ class DeletePost extends React.Component {
     e.preventDefault()
     let { dispatch, router } = this.props
     let id = parseFloat(e.target.id.value)
-    dispatch(destroyPost(id))
-      .then(
-        () => {
-          dispatch(changeMessage({
-            text: 'Post deleted',
-            mode: 'danger'
-          }))
-          router.transitionTo('home', {}, { m: true })
-        }
-      )
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(destroyPost(id))
+        .then(
+          () => {
+            dispatch(changeMessage({
+              text: 'Post deleted',
+              mode: 'danger'
+            }))
+            router.transitionTo('home', {}, { m: true })
+          }
+        )
+    } else {
+      dispatch(destroyPost(id))
+      dispatch(changeMessage({
+        text: 'Post deleted',
+        mode: 'danger'
+      }))
+      router.transitionTo('home', {}, { m: true })
+    }
   }
 
   render() {
@@ -59,7 +68,8 @@ class DeletePost extends React.Component {
 
     return (
       <div>
-        <h1 style={s.h1}>Delete {title}</h1>
+        <h1 style={s.h1}>Delete</h1>
+        <h2>Are you sure you want to delete {title}?</h2>
         <form
           method='POST'
           action={`/${id}?_method=DELETE`}

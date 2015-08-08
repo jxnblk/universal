@@ -31,22 +31,31 @@ class EditPost extends React.Component {
       title: e.target.title.value,
       content: e.target.content.value,
     })
-    dispatch(updatePost(post.id, post))
-      .then(
-        () => {
-          dispatch(changeMessage({
-            text: 'Updated ' + post.title,
-            mode: 'success'
-          }))
-          router.transitionTo('post', { id: post.id }, { m: true })
-        },
-        (err) => {
-          dispatch(changeMessage({
-            text: 'Error: ' + err,
-            mode: 'danger'
-          }))
-        }
-      )
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(updatePost(post.id, post))
+        .then(
+          () => {
+            dispatch(changeMessage({
+              text: 'Updated ' + post.title,
+              mode: 'success'
+            }))
+            router.transitionTo('post', { id: post.id }, { m: true })
+          },
+          (err) => {
+            dispatch(changeMessage({
+              text: 'Error: ' + err,
+              mode: 'danger'
+            }))
+          }
+        )
+    } else {
+      dispatch(updatePost(post.id, post))
+      dispatch(changeMessage({
+        text: 'Updated ' + post.title,
+        mode: 'success'
+      }))
+      router.transitionTo('post', { id: post.id }, { m: true })
+    }
   }
 
   render() {

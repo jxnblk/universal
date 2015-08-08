@@ -26,23 +26,35 @@ class NewPost extends React.Component {
       title: e.target.title.value,
       content: e.target.content.value,
     }
-    dispatch(createPost(post))
-      .then(
-        () => {
-          post = this.props.post
-          dispatch(changeMessage({
-            text: 'Post created',
-            mode: 'success'
-          }))
-          router.transitionTo('post', { id: post.id }, { m: true })
-        },
-        (err) => {
-          dispatch(changeMessage({
-            text: 'Error: ' + err,
-            mode: 'danger'
-          }))
-        }
-      )
+    if (process.env.NODE_ENV === 'development') {
+      dispatch(createPost(post))
+        .then(
+          () => {
+            post = this.props.post
+            dispatch(changeMessage({
+              text: 'Post created',
+              mode: 'success'
+            }))
+            router.transitionTo('post', { id: post.id }, { m: true })
+          },
+          (err) => {
+            dispatch(changeMessage({
+              text: 'Error: ' + err,
+              mode: 'danger'
+            }))
+          }
+        )
+    } else {
+      dispatch(createPost(post))
+      setTimeout(function () {
+        post = this.props.post
+        dispatch(changeMessage({
+          text: 'Post created',
+          mode: 'success'
+        }))
+        router.transitionTo('post', { id: post.id }, { m: true })
+      }.bind(this), 500)
+    }
   }
 
   render() {

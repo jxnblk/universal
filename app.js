@@ -8,13 +8,7 @@ import methodOverride from 'method-override'
 import routes from './routes'
 import Err from './components/Err'
 
-import {
-  combineReducers,
-  applyMiddleware,
-  createStore
-} from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
 import {
   setRouter,
   getPosts,
@@ -24,11 +18,8 @@ import {
   updatePost,
   destroyPost
 } from './actions'
-import * as reducers from './reducers'
 
-const reducer = combineReducers(reducers)
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-const store = createStoreWithMiddleware(reducer)
+import { store } from './store'
 
 const app = express()
 
