@@ -36685,16 +36685,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	          id: matter.data.id,
 	          filename: filename,
 	          date: matter.data.date,
+	          updated: matter.data.updated,
+	          excerpt: matter.data.excerpt,
+	          draft: matter.data.draft || false,
 	          content: matter.content
 	        };
 	      }).sort(function (a, b) {
-	        return new Date(b.date) - new Date(a.date);
+	        return a.index - b.index;
 	      });
 	      _fs2['default'].writeFileSync(_path2['default'].join(__dirname, 'posts.json'), JSON.stringify(CACHE));
 	    } catch (e) {
 	      console.log('Static read from memory', CACHE.length);
 	      CACHE = CACHE.sort(function (a, b) {
-	        return new Date(b.date) - new Date(a.date);
+	        return a.index - b.index;
 	      });
 	    }
 	    return CACHE;
@@ -36719,7 +36722,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	      title: data.title,
 	      id: newId,
 	      filename: filename,
-	      date: new Date() // .toDateString()
+	      excerpt: data.excerpt || null,
+	      updated: new Date(),
+	      date: new Date()
 	    };
 	    var content = data.content.replace(/^M/, '\n').trim();
 	    var md = _grayMatter2['default'].stringify(content, post);
@@ -36742,6 +36747,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      done('Post must have a title');
 	    }
 	    post = _lodash2['default'].assign(post, data);
+	    post.updated = new Date();
 	    var content = post.content.trim();
 	    delete post.content;
 	    post.id = id;
@@ -37647,25 +37653,43 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = [
 		{
-			"title": "Just a copy of a blog post",
-			"id": 3,
-			"filename": "blog-post.md",
-			"date": "2015-08-04T01:11:18.026Z",
-			"content": "When it comes to designing for the Web I like to follow a handful of general principles.\n\nFirst, design for the medium, or as Frank Chimero puts it, follow “the grain of the Web”. The Web is fluid - based on screens and devices of varying sizes – and typography on the Web should reflect that.\n\nSecond, design content-out, which usually means designing around a strong typographical base since the large majority of Web content and UI is text.\n\nAnd last, design with modular scales. Things built on the Web should be fluid and infinitely scalable. Using modular scales in a design compliments that idea and keeps things organized in the face of growing complexity.\n"
+			"title": "What is Universal?",
+			"id": 1,
+			"filename": "intro.md",
+			"date": "2015-08-01T00:00:00.000Z",
+			"updated": "2015-08-09T18:47:51.446Z",
+			"excerpt": "Universal is a work-in-progress React-based demonstration, boilerplate, and series of posts for exploring several current technologies. It shares code across the server and client and uses webpack hot loading for development.",
+			"draft": false,
+			"content": "This application uses\n[React](http://facebook.github.io/react/),\n[React Hot Loader](https://gaearon.github.io/react-hot-loader/),\n[Redux](https://github.com/gaearon/redux),\n[react-router](http://rackt.github.io/react-router/),\n[webpack](http://webpack.github.io/),\n[Node Express](http://expressjs.com/),\nand\n[Babel](https://babeljs.io/).\n\nUniversal has three modes: production, development, and static.\nIf you’re viewing this on <http://jxnblk.com/universal>, you’re seeing the static version,\nwhich allows CRUD operation of posts in memory.\nThis doesn’t actually save anything, and refreshing the page will bring back the original data.\n\nWhen running in production or development mode, it uses an API to read and write markdown files to disk.\nThe view layer of the application relies on React to render both static HTML and client-side JavaScript.\nWhen JavaScript is disabled, routing and form submission is handled with plain HTML.\nWith JavaScript enabled, client-side routing and form submission takes over.\nThis is meant as a rough demonstration of building progressively enhanced applications with React.\n"
 		},
 		{
-			"title": "Potatoes",
+			"title": "Potatoes!",
 			"id": 2,
 			"filename": "potatoes.md",
 			"date": "2015-08-03T02:21:10.068Z",
-			"content": "# Potatoes gonna potate\r\n\r\n![](http://media.giphy.com/media/auJjZlb3h1Ga4/giphy.gif)\n"
+			"updated": "2015-08-09T17:28:39.458Z",
+			"draft": true,
+			"content": "### Potatoes gonna potate\n\n![](http://media.giphy.com/media/auJjZlb3h1Ga4/giphy.gif)\n"
 		},
 		{
-			"title": "What is this?",
-			"id": 1,
-			"filename": "what-is-iso-hot.md",
-			"date": "2015-08-01T00:00:00.000Z",
-			"content": "Universal is a universal JavaScript application that demonstrates a handful of related technologies, including:\n\n- [React](http://facebook.github.io/react/)\n- [React Hot Loader](https://gaearon.github.io/react-hot-loader/)\n- [Redux](https://github.com/gaearon/redux)\n- [react-router](http://rackt.github.io/react-router/)\n- [webpack](http://webpack.github.io/)\n- [Node Express](http://expressjs.com/)\n- [Babel](https://babeljs.io/)\n\nIt also is a simple demonstration of handling inline styles with React and Object-Based Interface Architecture with a RESTful API.\n"
+			"title": "Running Locally",
+			"id": 3,
+			"filename": "running-locally.md",
+			"date": "2015-08-09T18:11:32.974Z",
+			"updated": "2015-08-09T18:11:32.974Z",
+			"excerpt": "Get started with development mode and React Hot Loader.",
+			"draft": false,
+			"content": "\nRunning Universal in development mode is a great way to understand the benefits of hot loading and rapid prototyping.\n\n## Installation\n\n```sh\ngit clone https://github.com/jxnblk/universal.git\ncd universal\nnpm install\n```\n\n## Run\n\n```sh\nnpm run dev\n```\n\nOpen <http://localhost:3000> in your browser. Creating, editing and deleting posts will save changes to disk.\n\n## Development\nWith React Hot Loader running, making changes to any React component should automatically refresh the page while maintaining the application state.\n\nRead more: [React Hot Loader](https://github.com/gaearon/react-hot-loader)\n"
+		},
+		{
+			"title": "Styles",
+			"id": 4,
+			"filename": "styles.md",
+			"date": "2015-08-09T18:43:20.339Z",
+			"updated": "2015-08-09T18:47:05.138Z",
+			"excerpt": "Universal uses virtually no CSS. Learn how JavaScript and React’s component architecture makes this a great option for handling styles.",
+			"draft": false,
+			"content": "With the exception of the `<Prose>` component used for each post, this application uses zero CSS and avoids any complications involved with the cascade.\n\nTo maintain consistency, fonts, colors, and a spacing scale are generated in the `util/styles.js` module. The styles module uses\n[spectralize](https://github.com/jxnblk/spectralize)\nto generate color scales\nand\n[simple-modular-scale](https://github.com/jxnblk/simple-modular-scale)\nto generate a sizing scale for fonts and spacing.\n\nAny component can import the styles module and code duplication is prevented through the use of React components.\n"
 		}
 	]
 
@@ -37692,7 +37716,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRedux = __webpack_require__(228);
 
-	var _routes = __webpack_require__(239);
+	var _routes = __webpack_require__(236);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
@@ -37746,12 +37770,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _createAll = _componentsCreateAll2['default'](_react2['default']);
 
 	var Provider = _createAll.Provider;
-	var Connector = _createAll.Connector;
-	var provide = _createAll.provide;
 	var connect = _createAll.connect;
 	exports.Provider = Provider;
-	exports.Connector = Connector;
-	exports.provide = provide;
 	exports.connect = connect;
 
 /***/ },
@@ -37769,28 +37789,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createProvider2 = _interopRequireDefault(_createProvider);
 
-	var _createProvideDecorator = __webpack_require__(232);
+	var _createConnect = __webpack_require__(232);
 
-	var _createProvideDecorator2 = _interopRequireDefault(_createProvideDecorator);
-
-	var _createConnector = __webpack_require__(234);
-
-	var _createConnector2 = _interopRequireDefault(_createConnector);
-
-	var _createConnectDecorator = __webpack_require__(237);
-
-	var _createConnectDecorator2 = _interopRequireDefault(_createConnectDecorator);
+	var _createConnect2 = _interopRequireDefault(_createConnect);
 
 	function createAll(React) {
-	  // Wrapper components
 	  var Provider = _createProvider2['default'](React);
-	  var Connector = _createConnector2['default'](React);
+	  var connect = _createConnect2['default'](React);
 
-	  // Higher-order components (decorators)
-	  var provide = _createProvideDecorator2['default'](React, Provider);
-	  var connect = _createConnectDecorator2['default'](React, Connector);
-
-	  return { Provider: Provider, Connector: Connector, provide: provide, connect: connect };
+	  return { Provider: Provider, connect: connect };
 	}
 
 	module.exports = exports['default'];
@@ -37811,7 +37818,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var _utilsCreateStoreShape = __webpack_require__(231);
 
@@ -37824,18 +37831,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var storeShape = _utilsCreateStoreShape2['default'](PropTypes);
 
 	  return (function (_Component) {
+	    _inherits(Provider, _Component);
+
+	    Provider.prototype.getChildContext = function getChildContext() {
+	      return { store: this.state.store };
+	    };
+
+	    _createClass(Provider, null, [{
+	      key: 'childContextTypes',
+	      value: {
+	        store: storeShape.isRequired
+	      },
+	      enumerable: true
+	    }, {
+	      key: 'propTypes',
+	      value: {
+	        children: PropTypes.func.isRequired
+	      },
+	      enumerable: true
+	    }]);
+
 	    function Provider(props, context) {
 	      _classCallCheck(this, Provider);
 
 	      _Component.call(this, props, context);
 	      this.state = { store: props.store };
 	    }
-
-	    _inherits(Provider, _Component);
-
-	    Provider.prototype.getChildContext = function getChildContext() {
-	      return { store: this.state.store };
-	    };
 
 	    Provider.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
 	      var store = this.state.store;
@@ -37852,20 +37873,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      return children();
 	    };
-
-	    _createClass(Provider, null, [{
-	      key: 'childContextTypes',
-	      value: {
-	        store: storeShape.isRequired
-	      },
-	      enumerable: true
-	    }, {
-	      key: 'propTypes',
-	      value: {
-	        children: PropTypes.func.isRequired
-	      },
-	      enumerable: true
-	    }]);
 
 	    return Provider;
 	  })(Component);
@@ -37902,55 +37909,229 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-	exports['default'] = createProvideDecorator;
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports['default'] = createConnect;
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _utilsGetDisplayName = __webpack_require__(233);
+	var _utilsCreateStoreShape = __webpack_require__(231);
 
-	var _utilsGetDisplayName2 = _interopRequireDefault(_utilsGetDisplayName);
+	var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
 
-	function createProvideDecorator(React, Provider) {
+	var _utilsShallowEqual = __webpack_require__(233);
+
+	var _utilsShallowEqual2 = _interopRequireDefault(_utilsShallowEqual);
+
+	var _utilsIsPlainObject = __webpack_require__(234);
+
+	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
+
+	var _utilsWrapActionCreators = __webpack_require__(235);
+
+	var _utilsWrapActionCreators2 = _interopRequireDefault(_utilsWrapActionCreators);
+
+	var _invariant = __webpack_require__(202);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
+
+	var defaultMapStateToProps = function defaultMapStateToProps() {
+	  return {};
+	};
+	var defaultMapDispatchToProps = function defaultMapDispatchToProps(dispatch) {
+	  return { dispatch: dispatch };
+	};
+	var defaultMergeProps = function defaultMergeProps(stateProps, dispatchProps, parentProps) {
+	  return _extends({}, parentProps, stateProps, dispatchProps);
+	};
+
+	function getDisplayName(Component) {
+	  return Component.displayName || Component.name || 'Component';
+	}
+
+	// Helps track hot reloading.
+	var nextVersion = 0;
+
+	function createConnect(React) {
 	  var Component = React.Component;
+	  var PropTypes = React.PropTypes;
 
-	  return function provide(store) {
+	  var storeShape = _utilsCreateStoreShape2['default'](PropTypes);
+
+	  return function connect(mapStateToProps, mapDispatchToProps, mergeProps) {
+	    var shouldSubscribe = Boolean(mapStateToProps);
+	    var finalMapStateToProps = mapStateToProps || defaultMapStateToProps;
+	    var finalMapDispatchToProps = _utilsIsPlainObject2['default'](mapDispatchToProps) ? _utilsWrapActionCreators2['default'](mapDispatchToProps) : mapDispatchToProps || defaultMapDispatchToProps;
+	    var finalMergeProps = mergeProps || defaultMergeProps;
+
+	    // Helps track hot reloading.
+	    var version = nextVersion++;
+
+	    function computeStateProps(context) {
+	      var state = context.store.getState();
+	      var stateProps = finalMapStateToProps(state);
+	      _invariant2['default'](_utilsIsPlainObject2['default'](stateProps), '`mapStateToProps` must return an object. Instead received %s.', stateProps);
+	      return stateProps;
+	    }
+
+	    function computeDispatchProps(context) {
+	      var dispatch = context.store.dispatch;
+
+	      var dispatchProps = finalMapDispatchToProps(dispatch);
+	      _invariant2['default'](_utilsIsPlainObject2['default'](dispatchProps), '`mapDispatchToProps` must return an object. Instead received %s.', dispatchProps);
+	      return dispatchProps;
+	    }
+
+	    function _computeNextState(stateProps, dispatchProps, parentProps) {
+	      var mergedProps = finalMergeProps(stateProps, dispatchProps, parentProps);
+	      _invariant2['default'](_utilsIsPlainObject2['default'](mergedProps), '`mergeProps` must return an object. Instead received %s.', mergedProps);
+	      return mergedProps;
+	    }
+
 	    return function (DecoratedComponent) {
 	      return (function (_Component) {
-	        function ProviderDecorator() {
-	          _classCallCheck(this, ProviderDecorator);
+	        _inherits(Connect, _Component);
 
-	          _Component.apply(this, arguments);
-	        }
-
-	        _inherits(ProviderDecorator, _Component);
-
-	        ProviderDecorator.prototype.render = function render() {
-	          var _this = this;
-
-	          return React.createElement(
-	            Provider,
-	            { store: store },
-	            function () {
-	              return React.createElement(DecoratedComponent, _this.props);
-	            }
-	          );
+	        Connect.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
+	          return !_utilsShallowEqual2['default'](this.state, nextState);
 	        };
 
-	        _createClass(ProviderDecorator, null, [{
+	        _createClass(Connect, null, [{
 	          key: 'displayName',
-	          value: 'Provider(' + _utilsGetDisplayName2['default'](DecoratedComponent) + ')',
+	          value: 'Connect(' + getDisplayName(DecoratedComponent) + ')',
 	          enumerable: true
 	        }, {
 	          key: 'DecoratedComponent',
 	          value: DecoratedComponent,
 	          enumerable: true
+	        }, {
+	          key: 'contextTypes',
+	          value: {
+	            store: storeShape.isRequired
+	          },
+	          enumerable: true
 	        }]);
 
-	        return ProviderDecorator;
+	        function Connect(props, context) {
+	          _classCallCheck(this, Connect);
+
+	          _Component.call(this, props, context);
+	          this.version = version;
+	          this.setUnderlyingRef = this.setUnderlyingRef.bind(this);
+
+	          this.stateProps = computeStateProps(context);
+	          this.dispatchProps = computeDispatchProps(context);
+	          this.state = this.computeNextState();
+	        }
+
+	        Connect.prototype.recomputeStateProps = function recomputeStateProps() {
+	          var nextStateProps = computeStateProps(this.context);
+	          if (_utilsShallowEqual2['default'](nextStateProps, this.stateProps)) {
+	            return false;
+	          }
+
+	          this.stateProps = nextStateProps;
+	          return true;
+	        };
+
+	        Connect.prototype.recomputeDispatchProps = function recomputeDispatchProps() {
+	          var nextDispatchProps = computeDispatchProps(this.context);
+	          if (_utilsShallowEqual2['default'](nextDispatchProps, this.dispatchProps)) {
+	            return false;
+	          }
+
+	          this.dispatchProps = nextDispatchProps;
+	          return true;
+	        };
+
+	        Connect.prototype.computeNextState = function computeNextState() {
+	          var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+
+	          return _computeNextState(this.stateProps, this.dispatchProps, props);
+	        };
+
+	        Connect.prototype.recomputeState = function recomputeState() {
+	          var props = arguments.length <= 0 || arguments[0] === undefined ? this.props : arguments[0];
+
+	          var nextState = this.computeNextState(props);
+	          if (!_utilsShallowEqual2['default'](nextState, this.state)) {
+	            this.setState(nextState);
+	          }
+	        };
+
+	        Connect.prototype.isSubscribed = function isSubscribed() {
+	          return typeof this.unsubscribe === 'function';
+	        };
+
+	        Connect.prototype.trySubscribe = function trySubscribe() {
+	          if (shouldSubscribe && !this.unsubscribe) {
+	            this.unsubscribe = this.context.store.subscribe(this.handleChange.bind(this));
+	            this.handleChange();
+	          }
+	        };
+
+	        Connect.prototype.tryUnsubscribe = function tryUnsubscribe() {
+	          if (this.unsubscribe) {
+	            this.unsubscribe();
+	            this.unsubscribe = null;
+	          }
+	        };
+
+	        Connect.prototype.componentDidMount = function componentDidMount() {
+	          this.trySubscribe();
+	        };
+
+	        Connect.prototype.componentWillUpdate = function componentWillUpdate() {
+	          if (true) {
+	            if (this.version === version) {
+	              return;
+	            }
+
+	            // We are hot reloading!
+	            this.version = version;
+
+	            // Update the state and bindings.
+	            this.trySubscribe();
+	            this.recomputeStateProps();
+	            this.recomputeDispatchProps();
+	            this.recomputeState();
+	          }
+	        };
+
+	        Connect.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+	          if (!_utilsShallowEqual2['default'](nextProps, this.props)) {
+	            this.recomputeState(nextProps);
+	          }
+	        };
+
+	        Connect.prototype.componentWillUnmount = function componentWillUnmount() {
+	          this.tryUnsubscribe();
+	        };
+
+	        Connect.prototype.handleChange = function handleChange() {
+	          if (this.recomputeStateProps()) {
+	            this.recomputeState();
+	          }
+	        };
+
+	        Connect.prototype.getUnderlyingRef = function getUnderlyingRef() {
+	          return this.underlyingRef;
+	        };
+
+	        Connect.prototype.setUnderlyingRef = function setUnderlyingRef(instance) {
+	          this.underlyingRef = instance;
+	        };
+
+	        Connect.prototype.render = function render() {
+	          return React.createElement(DecoratedComponent, _extends({ ref: this.setUnderlyingRef
+	          }, this.state));
+	        };
+
+	        return Connect;
 	      })(Component);
 	    };
 	  };
@@ -37960,158 +38141,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 233 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = getDisplayName;
-
-	function getDisplayName(Component) {
-	  return Component.displayName || Component.name || 'Component';
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 234 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	exports['default'] = createConnector;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _utilsCreateStoreShape = __webpack_require__(231);
-
-	var _utilsCreateStoreShape2 = _interopRequireDefault(_utilsCreateStoreShape);
-
-	var _utilsShallowEqual = __webpack_require__(235);
-
-	var _utilsShallowEqual2 = _interopRequireDefault(_utilsShallowEqual);
-
-	var _utilsIsPlainObject = __webpack_require__(236);
-
-	var _utilsIsPlainObject2 = _interopRequireDefault(_utilsIsPlainObject);
-
-	var _invariant = __webpack_require__(202);
-
-	var _invariant2 = _interopRequireDefault(_invariant);
-
-	function createConnector(React) {
-	  var Component = React.Component;
-	  var PropTypes = React.PropTypes;
-
-	  var storeShape = _utilsCreateStoreShape2['default'](PropTypes);
-
-	  return (function (_Component) {
-	    function Connector(props, context) {
-	      _classCallCheck(this, Connector);
-
-	      _Component.call(this, props, context);
-	      this.state = this.selectState(props, context);
-	    }
-
-	    _inherits(Connector, _Component);
-
-	    Connector.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps, nextState) {
-	      return !this.isSliceEqual(this.state.slice, nextState.slice) || !_utilsShallowEqual2['default'](this.props, nextProps);
-	    };
-
-	    Connector.prototype.isSliceEqual = function isSliceEqual(slice, nextSlice) {
-	      var isRefEqual = slice === nextSlice;
-	      if (isRefEqual) {
-	        return true;
-	      } else if (typeof slice !== 'object' || typeof nextSlice !== 'object') {
-	        return isRefEqual;
-	      }
-	      return _utilsShallowEqual2['default'](slice, nextSlice);
-	    };
-
-	    Connector.prototype.componentDidMount = function componentDidMount() {
-	      this.unsubscribe = this.context.store.subscribe(this.handleChange.bind(this));
-	      this.handleChange();
-	    };
-
-	    Connector.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-	      if (nextProps.select !== this.props.select) {
-	        // Force the state slice recalculation
-	        this.handleChange(nextProps);
-	      }
-	    };
-
-	    Connector.prototype.componentWillUnmount = function componentWillUnmount() {
-	      this.unsubscribe();
-	    };
-
-	    Connector.prototype.handleChange = function handleChange() {
-	      var props = arguments[0] === undefined ? this.props : arguments[0];
-
-	      var nextState = this.selectState(props, this.context);
-	      if (!this.isSliceEqual(this.state.slice, nextState.slice)) {
-	        this.setState(nextState);
-	      }
-	    };
-
-	    Connector.prototype.selectState = function selectState(props, context) {
-	      var state = context.store.getState();
-	      var slice = props.select(state);
-
-	      _invariant2['default'](_utilsIsPlainObject2['default'](slice), 'The return value of `select` prop must be an object. Instead received %s.', slice);
-
-	      return { slice: slice };
-	    };
-
-	    Connector.prototype.render = function render() {
-	      var children = this.props.children;
-	      var slice = this.state.slice;
-	      var dispatch = this.context.store.dispatch;
-
-	      return children(_extends({ dispatch: dispatch }, slice));
-	    };
-
-	    _createClass(Connector, null, [{
-	      key: 'contextTypes',
-	      value: {
-	        store: storeShape.isRequired
-	      },
-	      enumerable: true
-	    }, {
-	      key: 'propTypes',
-	      value: {
-	        children: PropTypes.func.isRequired,
-	        select: PropTypes.func.isRequired
-	      },
-	      enumerable: true
-	    }, {
-	      key: 'defaultProps',
-	      value: {
-	        select: function select(state) {
-	          return state;
-	        }
-	      },
-	      enumerable: true
-	    }]);
-
-	    return Connector;
-	  })(Component);
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 235 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -38145,145 +38174,61 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports["default"];
 
 /***/ },
-/* 236 */
+/* 234 */
 /***/ function(module, exports) {
 
 	'use strict';
 
 	exports.__esModule = true;
 	exports['default'] = isPlainObject;
+	var fnToString = function fnToString(fn) {
+	  return Function.prototype.toString.call(fn);
+	};
+
+	/**
+	 * @param {any} obj The object to inspect.
+	 * @returns {boolean} True if the argument appears to be a plain object.
+	 */
 
 	function isPlainObject(obj) {
-	  return obj ? typeof obj === 'object' && Object.getPrototypeOf(obj) === Object.prototype : false;
+	  if (!obj || typeof obj !== 'object') {
+	    return false;
+	  }
+
+	  var proto = typeof obj.constructor === 'function' ? Object.getPrototypeOf(obj) : Object.prototype;
+
+	  if (proto === null) {
+	    return true;
+	  }
+
+	  var constructor = proto.constructor;
+
+	  return typeof constructor === 'function' && constructor instanceof constructor && fnToString(constructor) === fnToString(Object);
 	}
 
 	module.exports = exports['default'];
 
 /***/ },
-/* 237 */
+/* 235 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	exports.__esModule = true;
+	exports['default'] = wrapActionCreators;
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _redux = __webpack_require__(199);
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	exports['default'] = createConnectDecorator;
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) subClass.__proto__ = superClass; }
-
-	var _utilsGetDisplayName = __webpack_require__(233);
-
-	var _utilsGetDisplayName2 = _interopRequireDefault(_utilsGetDisplayName);
-
-	var _utilsShallowEqualScalar = __webpack_require__(238);
-
-	var _utilsShallowEqualScalar2 = _interopRequireDefault(_utilsShallowEqualScalar);
-
-	function createConnectDecorator(React, Connector) {
-	  var Component = React.Component;
-
-	  return function connect(select) {
-	    return function (DecoratedComponent) {
-	      return (function (_Component) {
-	        function ConnectorDecorator() {
-	          _classCallCheck(this, ConnectorDecorator);
-
-	          _Component.apply(this, arguments);
-	        }
-
-	        _inherits(ConnectorDecorator, _Component);
-
-	        ConnectorDecorator.prototype.shouldComponentUpdate = function shouldComponentUpdate(nextProps) {
-	          return !_utilsShallowEqualScalar2['default'](this.props, nextProps);
-	        };
-
-	        ConnectorDecorator.prototype.render = function render() {
-	          var _this = this;
-
-	          return React.createElement(
-	            Connector,
-	            { select: function (state) {
-	                return select(state, _this.props);
-	              } },
-	            function (stuff) {
-	              return React.createElement(DecoratedComponent, _extends({}, stuff, _this.props));
-	            }
-	          );
-	        };
-
-	        _createClass(ConnectorDecorator, null, [{
-	          key: 'displayName',
-	          value: 'Connector(' + _utilsGetDisplayName2['default'](DecoratedComponent) + ')',
-	          enumerable: true
-	        }, {
-	          key: 'DecoratedComponent',
-	          value: DecoratedComponent,
-	          enumerable: true
-	        }]);
-
-	        return ConnectorDecorator;
-	      })(Component);
-	    };
+	function wrapActionCreators(actionCreators) {
+	  return function (dispatch) {
+	    return _redux.bindActionCreators(actionCreators, dispatch);
 	  };
 	}
 
 	module.exports = exports['default'];
 
 /***/ },
-/* 238 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports['default'] = shallowEqualScalar;
-
-	function shallowEqualScalar(objA, objB) {
-	  if (objA === objB) {
-	    return true;
-	  }
-
-	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-	    return false;
-	  }
-
-	  var keysA = Object.keys(objA);
-	  var keysB = Object.keys(objB);
-
-	  if (keysA.length !== keysB.length) {
-	    return false;
-	  }
-
-	  // Test for A's keys different from B.
-	  var hasOwn = Object.prototype.hasOwnProperty;
-	  for (var i = 0; i < keysA.length; i++) {
-	    if (!hasOwn.call(objB, keysA[i])) {
-	      return false;
-	    }
-
-	    var valA = objA[keysA[i]];
-	    var valB = objB[keysA[i]];
-
-	    if (valA !== valB || typeof valA === 'object' || typeof valB === 'object') {
-	      return false;
-	    }
-	  }
-
-	  return true;
-	}
-
-	module.exports = exports['default'];
-
-/***/ },
-/* 239 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38300,11 +38245,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _viewsApp = __webpack_require__(240);
+	var _viewsApp = __webpack_require__(237);
 
 	var _viewsApp2 = _interopRequireDefault(_viewsApp);
 
-	var _viewsPosts = __webpack_require__(265);
+	var _viewsPosts = __webpack_require__(263);
 
 	var _viewsPosts2 = _interopRequireDefault(_viewsPosts);
 
@@ -38361,7 +38306,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 240 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38388,29 +38333,29 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _Html = __webpack_require__(241);
+	var _Html = __webpack_require__(238);
 
 	var _Html2 = _interopRequireDefault(_Html);
 
-	var _componentsMain = __webpack_require__(242);
+	var _componentsMain = __webpack_require__(239);
 
 	var _componentsMain2 = _interopRequireDefault(_componentsMain);
 
-	var _componentsHeader = __webpack_require__(260);
+	var _componentsHeader = __webpack_require__(257);
 
 	var _componentsHeader2 = _interopRequireDefault(_componentsHeader);
 
-	var _componentsFooter = __webpack_require__(263);
+	var _componentsFooter = __webpack_require__(261);
 
 	var _componentsFooter2 = _interopRequireDefault(_componentsFooter);
 
-	var _componentsMessage = __webpack_require__(264);
+	var _componentsMessage = __webpack_require__(262);
 
 	var _componentsMessage2 = _interopRequireDefault(_componentsMessage);
 
 	var _actions = __webpack_require__(213);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var _reactRedux = __webpack_require__(228);
 
@@ -38450,7 +38395,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var s = {
 	        root: {
-	          fontFamily: _utilStyles.fontFamily,
+	          fontFamily: _utilStyles.sans,
 	          lineHeight: _utilStyles.lineHeight,
 	          margin: 0,
 	          minHeight: '100vh',
@@ -38474,12 +38419,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          'div',
 	          { style: s.inner },
 	          _react2['default'].createElement(_componentsMessage2['default'], { dispatch: dispatch, message: message }),
-	          _react2['default'].createElement(
-	            _componentsMain2['default'],
-	            null,
-	            _react2['default'].createElement(_reactRouter.RouteHandler, _extends({}, props, {
-	              key: props.pathname }))
-	          )
+	          _react2['default'].createElement(_reactRouter.RouteHandler, _extends({}, props, {
+	            key: props.pathname }))
 	        ),
 	        _react2['default'].createElement(_componentsFooter2['default'], null),
 	        _react2['default'].createElement('script', {
@@ -38509,7 +38450,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 241 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38578,7 +38519,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 242 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38601,7 +38542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var Main = (function (_React$Component) {
 	  _inherits(Main, _React$Component);
@@ -38643,7 +38584,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 243 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38654,11 +38595,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-	var _simpleModularScale = __webpack_require__(244);
+	var _simpleModularScale = __webpack_require__(241);
 
 	var _simpleModularScale2 = _interopRequireDefault(_simpleModularScale);
 
-	var _spectralize = __webpack_require__(245);
+	var _spectralize = __webpack_require__(242);
 
 	var _spectralize2 = _interopRequireDefault(_spectralize);
 
@@ -38687,9 +38628,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 
 	exports['default'] = {
-	  fontFamily: 'sans-serif',
+	  sans: '"SF UI Text", Roboto, "Helvetica Neue", Helvetica, sans-serif',
 	  serif: '"Hoefler Text", Georgia, serif',
-	  monospace: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
+	  futura: '"Futura Medium", Futura, "Avenir Next", Avenir, Helvetica, sans-serif',
+	  monospace: 'Consolas, Menlo, Courier, monospace',
+	  // 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
 	  lineHeight: 1.5,
 	  scale: scale,
 	  colors: {
@@ -38706,7 +38649,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 244 */
+/* 241 */
 /***/ function(module, exports) {
 
 	
@@ -38734,13 +38677,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 245 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	var Color = __webpack_require__(246)
+	var Color = __webpack_require__(243)
 	var defaults = __webpack_require__(2).defaults
-	var keyword = __webpack_require__(251)
+	var keyword = __webpack_require__(248)
 
 	module.exports = function(opts) {
 
@@ -38801,12 +38744,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 246 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* MIT license */
-	var convert = __webpack_require__(247),
-	    string = __webpack_require__(249);
+	var convert = __webpack_require__(244),
+	    string = __webpack_require__(246);
 
 	var Color = function(obj) {
 	  if (obj instanceof Color) return obj;
@@ -39239,10 +39182,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 247 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var conversions = __webpack_require__(248);
+	var conversions = __webpack_require__(245);
 
 	var convert = function() {
 	   return new Converter();
@@ -39336,7 +39279,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = convert;
 
 /***/ },
-/* 248 */
+/* 245 */
 /***/ function(module, exports) {
 
 	/* MIT license */
@@ -40040,11 +39983,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 249 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* MIT license */
-	var colorNames = __webpack_require__(250);
+	var colorNames = __webpack_require__(247);
 
 	module.exports = {
 	   getRgba: getRgba,
@@ -40267,7 +40210,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 250 */
+/* 247 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -41014,15 +40957,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 251 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
 	var _ = __webpack_require__(2);
-	var colorDiff = __webpack_require__(252);
-	var Color = __webpack_require__(256);
-	var colorlist = __webpack_require__(257);
-	var basicColors = __webpack_require__(259);
+	var colorDiff = __webpack_require__(249);
+	var Color = __webpack_require__(253);
+	var colorlist = __webpack_require__(254);
+	var basicColors = __webpack_require__(256);
 
 
 	var extendedPalette = colorlist().map(function(name) {
@@ -41072,14 +41015,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 252 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var diff = __webpack_require__(253);
-	var convert = __webpack_require__(254);
-	var palette = __webpack_require__(255);
+	var diff = __webpack_require__(250);
+	var convert = __webpack_require__(251);
+	var palette = __webpack_require__(252);
 
 	var color = module.exports = {};
 
@@ -41106,7 +41049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 253 */
+/* 250 */
 /***/ function(module, exports) {
 
 	/**
@@ -41276,7 +41219,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 254 */
+/* 251 */
 /***/ function(module, exports) {
 
 	/**
@@ -41395,7 +41338,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 255 */
+/* 252 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41435,8 +41378,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	* IMPORTS
 	*/
-	var color_diff    = __webpack_require__(253);
-	var color_convert = __webpack_require__(254);
+	var color_diff    = __webpack_require__(250);
+	var color_convert = __webpack_require__(251);
 
 	/**
 	 * API FUNCTIONS
@@ -41508,12 +41451,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 256 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* MIT license */
-	var convert = __webpack_require__(247),
-	    string = __webpack_require__(249);
+	var convert = __webpack_require__(244),
+	    string = __webpack_require__(246);
 
 	var Color = function(obj) {
 	  if (obj instanceof Color) return obj;
@@ -41947,12 +41890,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 257 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var cssColorNames = __webpack_require__(258);
+	var cssColorNames = __webpack_require__(255);
 
 	module.exports = function cssColorList() {
 	  return Object.keys(cssColorNames);
@@ -41960,7 +41903,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 258 */
+/* 255 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -42115,7 +42058,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 259 */
+/* 256 */
 /***/ function(module, exports) {
 
 	
@@ -42141,7 +42084,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 260 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42164,15 +42107,19 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _A = __webpack_require__(261);
+	var _A = __webpack_require__(258);
 
 	var _A2 = _interopRequireDefault(_A);
 
-	var _BtnLink = __webpack_require__(262);
+	var _BtnLink = __webpack_require__(259);
 
 	var _BtnLink2 = _interopRequireDefault(_BtnLink);
 
-	var _utilStyles = __webpack_require__(243);
+	var _NavItem = __webpack_require__(260);
+
+	var _NavItem2 = _interopRequireDefault(_NavItem);
+
+	var _utilStyles = __webpack_require__(240);
 
 	var Header = (function (_React$Component) {
 	  _inherits(Header, _React$Component);
@@ -42188,7 +42135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    value: function render() {
 	      var mode = this.props.mode;
 
-	      var color = _utilStyles.colors.gray[2];
+	      var color = _utilStyles.colors.blue[1];
 	      switch (mode) {
 	        case 'info':
 	          color = _utilStyles.colors.blue[4];
@@ -42203,16 +42150,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var s = {
 	        root: {
-	          padding: _utilStyles.scale[0],
+	          paddingLeft: _utilStyles.scale[0],
+	          paddingRight: _utilStyles.scale[0],
 	          display: 'flex',
 	          alignItems: 'center',
 	          color: 'white',
 	          backgroundColor: color,
 	          transition: 'background-color .2s ease-out'
-	        },
-	        h1: {
-	          fontSize: _utilStyles.scale[5],
-	          margin: 0
 	        },
 	        spacer: {
 	          flex: '1 0 auto'
@@ -42222,17 +42166,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2['default'].createElement(
 	        'header',
 	        { style: s.root },
-	        _react2['default'].createElement(
-	          _BtnLink2['default'],
-	          { to: 'posts' },
-	          _react2['default'].createElement(
-	            'h1',
-	            { style: s.h1 },
-	            'Universal'
-	          )
-	        ),
+	        _react2['default'].createElement(_NavItem2['default'], { to: 'posts', text: 'Universal' }),
 	        _react2['default'].createElement('div', { style: s.spacer }),
-	        _react2['default'].createElement(_BtnLink2['default'], { to: 'new-post', text: 'New Post' })
+	        _react2['default'].createElement(_NavItem2['default'], { to: 'new-post', text: 'New Post' }),
+	        _react2['default'].createElement(_NavItem2['default'], { href: 'https://github.com/jxnblk/universal', text: 'GitHub' })
 	      );
 	    }
 	  }]);
@@ -42244,7 +42181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 261 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42271,7 +42208,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var _utilStyles2 = _interopRequireDefault(_utilStyles);
 
@@ -42314,7 +42251,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 262 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42343,7 +42280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _reactRouter = __webpack_require__(159);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var BtnLink = (function (_React$Component) {
 	  _inherits(BtnLink, _React$Component);
@@ -42386,7 +42323,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Comp,
 	        _extends({}, props, {
 	          activeStyle: (0, _lodash.assign)((0, _lodash.clone)(s.button), {
-	            textDecoration: 'underline'
+	            // color: colors.blue[4],
+	            // borderBottom: `1px solid ${colors.blue[5]}`,
+	            // backgroundColor: darken[1]
 	          }),
 	          style: s.button }),
 	        text
@@ -42401,7 +42340,92 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 263 */
+/* 260 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _lodash = __webpack_require__(2);
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(159);
+
+	var _utilStyles = __webpack_require__(240);
+
+	var BtnLink = (function (_React$Component) {
+	  _inherits(BtnLink, _React$Component);
+
+	  function BtnLink() {
+	    _classCallCheck(this, BtnLink);
+
+	    _get(Object.getPrototypeOf(BtnLink.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(BtnLink, [{
+	    key: 'render',
+	    value: function render() {
+	      var props = this.props;
+	      var text = props.text;
+	      var children = props.children;
+	      var href = props.href;
+	      var color = props.color;
+
+	      var Comp = href ? 'a' : _reactRouter.Link;
+	      var s = {
+	        button: {
+	          fontFamily: 'inherit',
+	          fontWeight: 'bold',
+	          fontSize: 14,
+	          lineHeight: 1,
+	          textDecoration: 'none',
+	          display: 'inline-block',
+	          padding: _utilStyles.scale[4] + 'px ' + _utilStyles.scale[2] + 'px', // scale[2] + 'px ' ,
+	          cursor: 'pointer',
+	          color: color ? color : 'inherit'
+	        }
+	      };
+
+	      text = text || children;
+
+	      return _react2['default'].createElement(
+	        Comp,
+	        _extends({}, props, {
+	          activeStyle: (0, _lodash.assign)((0, _lodash.clone)(s.button), {
+	            backgroundColor: _utilStyles.darken[2]
+	          }),
+	          style: s.button }),
+	        text
+	      );
+	    }
+	  }]);
+
+	  return BtnLink;
+	})(_react2['default'].Component);
+
+	exports['default'] = BtnLink;
+	module.exports = exports['default'];
+
+/***/ },
+/* 261 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42424,11 +42448,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _BtnLink = __webpack_require__(262);
+	var _BtnLink = __webpack_require__(259);
 
 	var _BtnLink2 = _interopRequireDefault(_BtnLink);
 
-	var _utilStyles = __webpack_require__(243);
+	var _NavItem = __webpack_require__(260);
+
+	var _NavItem2 = _interopRequireDefault(_NavItem);
+
+	var _utilStyles = __webpack_require__(240);
 
 	var Header = (function (_React$Component) {
 	  _inherits(Header, _React$Component);
@@ -42446,7 +42474,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var s = {
 	        root: {
-	          padding: _utilStyles.scale[0],
+	          paddingLeft: _utilStyles.scale[0],
+	          paddingRight: _utilStyles.scale[0],
 	          display: 'flex',
 	          borderTopStyle: 'solid',
 	          borderTopWidth: 1,
@@ -42460,14 +42489,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2['default'].createElement(
 	        'footer',
 	        { style: s.root },
-	        _react2['default'].createElement(_BtnLink2['default'], { to: 'posts', text: 'Universal' }),
-	        _react2['default'].createElement(_BtnLink2['default'], { to: 'state', text: 'App State' }),
+	        _react2['default'].createElement(_NavItem2['default'], { to: 'posts', text: 'Universal' }),
+	        _react2['default'].createElement(_NavItem2['default'], { to: 'state', text: 'App State' }),
 	        _react2['default'].createElement('div', { style: s.spacer }),
-	        _react2['default'].createElement(
-	          _BtnLink2['default'],
-	          { href: '//jxnblk.com' },
-	          'Made by Jxnblk'
-	        )
+	        _react2['default'].createElement(_NavItem2['default'], { href: '//jxnblk.com', text: 'Made by Jxnblk' })
 	      );
 	    }
 	  }]);
@@ -42479,7 +42504,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 264 */
+/* 262 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42504,7 +42529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _actions = __webpack_require__(213);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var Message = (function (_React$Component) {
 	  _inherits(Message, _React$Component);
@@ -42574,7 +42599,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 265 */
+/* 263 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42599,15 +42624,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _actions = __webpack_require__(213);
 
-	var _componentsA = __webpack_require__(261);
+	var _componentsBanner = __webpack_require__(264);
+
+	var _componentsBanner2 = _interopRequireDefault(_componentsBanner);
+
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
+	var _componentsA = __webpack_require__(258);
 
 	var _componentsA2 = _interopRequireDefault(_componentsA);
 
-	var _componentsBtnLink = __webpack_require__(262);
+	var _componentsBtnLink = __webpack_require__(259);
 
 	var _componentsBtnLink2 = _interopRequireDefault(_componentsBtnLink);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var Posts = (function (_React$Component) {
 	  _inherits(Posts, _React$Component);
@@ -42626,16 +42659,32 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var posts = this.props.posts;
+	      var props = this.props;
+	      var posts = props.posts;
 
 	      var s = {
 	        ul: {
 	          listStyle: 'none',
-	          paddingLeft: 0
+	          paddingLeft: 0,
+	          marginBottom: _utilStyles.scale[8]
+	        },
+	        li: {
+	          marginBottom: _utilStyles.scale[6]
 	        },
 	        postlink: {
 	          marginTop: 0,
 	          marginBottom: _utilStyles.scale[0]
+	        },
+	        excerpt: {
+	          fontFamily: _utilStyles.serif,
+	          lineHeight: _utilStyles.lineHeight,
+	          fontSize: _utilStyles.scale[4],
+	          fontWeight: 'normal'
+	        },
+	        more: {
+	          fontFamily: _utilStyles.sans,
+	          fontSize: 14,
+	          fontWeight: 'bold'
 	        },
 	        postdate: {
 	          fontSize: _utilStyles.scale[2],
@@ -42646,36 +42695,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return _react2['default'].createElement(
 	        'div',
 	        null,
+	        _react2['default'].createElement(_componentsBanner2['default'], props),
 	        _react2['default'].createElement(
-	          'h1',
+	          _componentsMain2['default'],
 	          null,
-	          'Posts'
-	        ),
-	        _react2['default'].createElement(
-	          'ul',
-	          { style: s.ul },
-	          posts.map((function (post, i) {
-	            return _react2['default'].createElement(
-	              'li',
-	              { key: i },
-	              _react2['default'].createElement(
-	                _componentsBtnLink2['default'],
-	                { to: 'post',
-	                  params: { id: post.id },
-	                  flush: true },
+	          _react2['default'].createElement(
+	            'ul',
+	            { style: s.ul },
+	            posts.map((function (post, i) {
+	              if (post.draft) {
+	                return false;
+	              }
+	              return _react2['default'].createElement(
+	                'li',
+	                { key: i, style: s.li },
 	                _react2['default'].createElement(
-	                  'h2',
-	                  { style: s.postlink },
-	                  post.title
-	                ),
-	                _react2['default'].createElement(
-	                  'div',
-	                  { style: s.postdate },
-	                  new Date(post.date).toDateString()
+	                  _componentsBtnLink2['default'],
+	                  { to: 'post',
+	                    params: { id: post.id },
+	                    flush: true },
+	                  _react2['default'].createElement(
+	                    'h2',
+	                    { style: s.postlink },
+	                    post.title
+	                  ),
+	                  _react2['default'].createElement(
+	                    'div',
+	                    { style: s.excerpt },
+	                    post.excerpt,
+	                    ' ',
+	                    _react2['default'].createElement(
+	                      'div',
+	                      { style: s.more },
+	                      '(Read more...)'
+	                    )
+	                  )
 	                )
-	              )
-	            );
-	          }).bind(this))
+	              );
+	            }).bind(this))
+	          )
 	        )
 	      );
 	    }
@@ -42689,6 +42747,184 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	exports['default'] = Posts;
+	module.exports = exports['default'];
+	/*
+	 <A to='post' params={{ id: post.id }} text='Read more...' />
+	<div style={s.postdate}>{new Date(post.date).toDateString()}</div>
+	*/
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _utilStyles = __webpack_require__(240);
+
+	var _Logo = __webpack_require__(265);
+
+	var _Logo2 = _interopRequireDefault(_Logo);
+
+	var Banner = (function (_React$Component) {
+	  _inherits(Banner, _React$Component);
+
+	  function Banner() {
+	    _classCallCheck(this, Banner);
+
+	    _get(Object.getPrototypeOf(Banner.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(Banner, [{
+	    key: 'render',
+	    value: function render() {
+	      var s = {
+	        root: {
+	          textAlign: 'center',
+	          paddingTop: _utilStyles.scale[11],
+	          paddingBottom: _utilStyles.scale[11],
+	          paddingLeft: _utilStyles.scale[6],
+	          paddingRight: _utilStyles.scale[6],
+	          color: 'white',
+	          backgroundColor: _utilStyles.colors.blue[2]
+	        },
+	        logo: {
+	          color: _utilStyles.colors.blue[5]
+	        },
+	        h1: {
+	          fontFamily: _utilStyles.futura,
+	          fontWeight: 'normal',
+	          textTransform: 'uppercase',
+	          letterSpacing: '.2em',
+	          marginRight: '-.2em'
+	        },
+	        sub: {
+	          fontFamily: _utilStyles.futura,
+	          fontSize: _utilStyles.scale[2],
+	          fontWeight: 'normal',
+	          textTransform: 'uppercase',
+	          letterSpacing: '.1em'
+	        }
+	      };
+	      return _react2['default'].createElement(
+	        'div',
+	        { style: s.root },
+	        _react2['default'].createElement(_Logo2['default'], { style: s.logo }),
+	        _react2['default'].createElement(
+	          'h1',
+	          { style: s.h1 },
+	          'Universal'
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: s.sub },
+	          'Server + Client + Static'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Banner;
+	})(_react2['default'].Component);
+
+	exports['default'] = Banner;
+	module.exports = exports['default'];
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var _lodash = __webpack_require__(2);
+
+	var _react = __webpack_require__(4);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var Logo = (function (_React$Component) {
+	  _inherits(Logo, _React$Component);
+
+	  function Logo() {
+	    _classCallCheck(this, Logo);
+
+	    _get(Object.getPrototypeOf(Logo.prototype), 'constructor', this).apply(this, arguments);
+	  }
+
+	  _createClass(Logo, [{
+	    key: 'render',
+	    value: function render() {
+	      var style = this.props.style;
+
+	      var size = 128;
+	      var c = size / 2;
+	      var s1 = 5;
+	      var r1 = size / 2 - s1;
+	      var r2 = size * 2 / 5;
+
+	      var s = {
+	        svg: (0, _lodash.assign)(style, {
+	          display: 'inline-block',
+	          fill: 'currentcolor'
+	        }),
+	        c1: {
+	          fill: 'none',
+	          stroke: 'currentcolor',
+	          strokeWidth: s1,
+	          vectorEffect: 'non-scaling-stroke',
+	          opacity: .5
+	        },
+	        c2: {}
+	      };
+
+	      return _react2['default'].createElement(
+	        'svg',
+	        {
+	          width: size,
+	          height: size,
+	          viewBox: [0, 0, size, size].join(' '),
+	          style: s.svg },
+	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r1, style: s.c1 }),
+	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r2, style: s.c2 })
+	      );
+	    }
+	  }]);
+
+	  return Logo;
+	})(_react2['default'].Component);
+
+	exports['default'] = Logo;
 	module.exports = exports['default'];
 
 /***/ },
@@ -42723,19 +42959,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilMarkdown2 = _interopRequireDefault(_utilMarkdown);
 
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
 	var _componentsProse = __webpack_require__(288);
 
 	var _componentsProse2 = _interopRequireDefault(_componentsProse);
 
-	var _componentsA = __webpack_require__(261);
+	var _componentsA = __webpack_require__(258);
 
 	var _componentsA2 = _interopRequireDefault(_componentsA);
 
-	var _componentsBtnLink = __webpack_require__(262);
+	var _componentsBtnLink = __webpack_require__(259);
 
 	var _componentsBtnLink2 = _interopRequireDefault(_componentsBtnLink);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var Post = (function (_React$Component) {
 	  _inherits(Post, _React$Component);
@@ -42764,6 +43004,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var title = post.title;
 	      var id = post.id;
 	      var date = post.date;
+	      var updated = post.updated;
+	      var excerpt = post.excerpt;
 	      var content = post.content;
 
 	      var html = _utilMarkdown2['default'].render(content);
@@ -42771,9 +43013,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s = {
 	        root: {},
 	        h1: {
-	          marginBottom: 0
+	          // marginBottom: 0
 	        },
-	        date: {
+	        excerpt: {
+	          fontFamily: _utilStyles.serif,
+	          fontSize: _utilStyles.scale[5]
+	        },
+	        flex: {
+	          display: 'flex',
+	          marginTop: _utilStyles.scale[8],
+	          marginBottom: _utilStyles.scale[8]
+	        },
+	        meta: {
+	          flex: '1 0 auto',
 	          fontSize: 14,
 	          marginTop: _utilStyles.scale[0],
 	          marginBottom: _utilStyles.scale[0]
@@ -42789,25 +43041,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
 	          { style: s.h1 },
 	          title
 	        ),
-	        _react2['default'].createElement(
-	          'p',
-	          { style: s.date },
-	          new Date(date).toDateString()
-	        ),
+	        excerpt ? _react2['default'].createElement(
+	          'div',
+	          { style: s.excerpt },
+	          excerpt
+	        ) : false,
 	        _react2['default'].createElement(_componentsProse2['default'], { dangerouslySetInnerHTML: { __html: html } }),
 	        _react2['default'].createElement(
-	          _componentsBtnLink2['default'],
-	          { to: 'edit-post',
-	            params: { id: id },
-	            flush: true },
-	          'Edit'
+	          'div',
+	          { style: s.flex },
+	          _react2['default'].createElement(
+	            'p',
+	            { style: s.meta },
+	            new Date(updated).toDateString()
+	          ),
+	          _react2['default'].createElement(
+	            _componentsBtnLink2['default'],
+	            { to: 'edit-post',
+	              params: { id: id },
+	              flush: true },
+	            'Edit'
+	          )
 	        )
 	      );
 	    }
@@ -48438,7 +48699,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
+
+	var css = ('\n.Prose { }\n.Prose h1,\n.Prose h2,\n.Prose h3,\n.Prose h4,\n.Prose h5,\n.Prose h6 {\n  font-family: ' + _utilStyles.sans + ';\n}\n.Prose code,\n.Prose pre {\n  font-size: 75%;\n  font-family: ' + _utilStyles.monospace + ';\n}\n.Prose pre {\n  padding-left: ' + _utilStyles.scale[3] + 'px;\n  border-left: 3px solid;\n  border-left-color: ' + _utilStyles.darken[1] + ';\n}\n').replace(/\n/g, '').replace('  ', ' ');
 
 	var Prose = (function (_React$Component) {
 	  _inherits(Prose, _React$Component);
@@ -48457,13 +48720,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var s = {
 	        root: {
 	          fontFamily: _utilStyles.serif,
-	          fontSize: _utilStyles.scale[4]
+	          fontSize: _utilStyles.scale[4] + 2
 	        }
 	      };
 
-	      return _react2['default'].createElement('div', _extends({}, this.props, {
-	        style: s.root,
-	        children: children }));
+	      return _react2['default'].createElement(
+	        'div',
+	        null,
+	        _react2['default'].createElement('style', { dangerouslySetInnerHTML: { __html: css } }),
+	        _react2['default'].createElement('div', _extends({}, this.props, {
+	          className: 'Prose',
+	          style: s.root,
+	          children: children }))
+	      );
 	    }
 	  }]);
 
@@ -48498,6 +48767,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var _react = __webpack_require__(4);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
 
 	var _componentsPostForm = __webpack_require__(290);
 
@@ -48538,6 +48811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var post = {
 	        title: e.target.title.value,
+	        excerpt: e.target.excerpt.value,
 	        content: e.target.content.value
 	      };
 	      if (false) {
@@ -48574,7 +48848,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var dispatch = _props2.dispatch;
 
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
@@ -48636,11 +48910,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Button2 = _interopRequireDefault(_Button);
 
-	var _BtnLink = __webpack_require__(262);
+	var _BtnLink = __webpack_require__(259);
 
 	var _BtnLink2 = _interopRequireDefault(_BtnLink);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var PostForm = (function (_React$Component) {
 	  _inherits(PostForm, _React$Component);
@@ -48673,6 +48947,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var onSubmit = _props.onSubmit;
 	      var children = _props.children;
 	      var title = post.title;
+	      var excerpt = post.excerpt;
 	      var id = post.id;
 	      var date = post.date;
 	      var content = post.content;
@@ -48698,6 +48973,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          autoFocus: true,
 	          value: title,
 	          onChange: this.handleChange }),
+	        _react2['default'].createElement(_Input2['default'], {
+	          name: 'excerpt',
+	          label: 'Excerpt',
+	          value: excerpt,
+	          onChange: this.handleChange }),
 	        _react2['default'].createElement(_Textarea2['default'], {
 	          name: 'content',
 	          label: 'Content',
@@ -48705,7 +48985,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          value: content,
 	          onChange: this.handleChange }),
 	        _react2['default'].createElement(_Button2['default'], { type: 'submit', text: 'Save' }),
-	        _react2['default'].createElement(_BtnLink2['default'], { to: id ? 'post' : 'home',
+	        _react2['default'].createElement(_BtnLink2['default'], {
+	          to: id ? 'post' : 'home',
 	          params: id ? { id: id } : null,
 	          text: 'Cancel' })
 	      );
@@ -48751,7 +49032,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var _Label = __webpack_require__(292);
 
@@ -48836,7 +49117,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var _utilStyles2 = _interopRequireDefault(_utilStyles);
 
@@ -48909,7 +49190,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var _Label = __webpack_require__(292);
 
@@ -48999,7 +49280,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var Button = (function (_React$Component) {
 	  _inherits(Button, _React$Component);
@@ -49080,19 +49361,23 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _actions = __webpack_require__(213);
 
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
 	var _componentsPostForm = __webpack_require__(290);
 
 	var _componentsPostForm2 = _interopRequireDefault(_componentsPostForm);
 
-	var _componentsBtnLink = __webpack_require__(262);
+	var _componentsBtnLink = __webpack_require__(259);
 
 	var _componentsBtnLink2 = _interopRequireDefault(_componentsBtnLink);
 
-	var _componentsA = __webpack_require__(261);
+	var _componentsA = __webpack_require__(258);
 
 	var _componentsA2 = _interopRequireDefault(_componentsA);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
 	var EditPost = (function (_React$Component) {
 	  _inherits(EditPost, _React$Component);
@@ -49174,7 +49459,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
@@ -49252,9 +49537,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilMarkdown2 = _interopRequireDefault(_utilMarkdown);
 
-	var _utilStyles = __webpack_require__(243);
+	var _utilStyles = __webpack_require__(240);
 
-	var _componentsA = __webpack_require__(261);
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
+	var _componentsA = __webpack_require__(258);
 
 	var _componentsA2 = _interopRequireDefault(_componentsA);
 
@@ -49262,7 +49551,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _componentsButton2 = _interopRequireDefault(_componentsButton);
 
-	var _componentsBtnLink = __webpack_require__(262);
+	var _componentsBtnLink = __webpack_require__(259);
 
 	var _componentsBtnLink2 = _interopRequireDefault(_componentsBtnLink);
 
@@ -49338,7 +49627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
@@ -49400,6 +49689,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
 	var Default = (function (_React$Component) {
 	  _inherits(Default, _React$Component);
 
@@ -49413,17 +49706,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	    key: 'render',
 	    value: function render() {
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
 	          null,
 	          'Default'
-	        ),
-	        _react2['default'].createElement(
-	          'h2',
-	          null,
-	          'DERP DERP'
 	        )
 	      );
 	    }
@@ -49459,6 +49747,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _componentsMain = __webpack_require__(239);
+
+	var _componentsMain2 = _interopRequireDefault(_componentsMain);
+
 	var AppState = (function (_React$Component) {
 	  _inherits(AppState, _React$Component);
 
@@ -49480,7 +49772,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 
 	      return _react2['default'].createElement(
-	        'div',
+	        _componentsMain2['default'],
 	        null,
 	        _react2['default'].createElement(
 	          'h1',
