@@ -31,6 +31,7 @@ const grays = spectralize({
 export default {
   fontFamily: 'sans-serif',
   serif: '"Hoefler Text", Georgia, serif',
+  futura: '"Futura Medium", Futura, "Avenir Next", Avenir, Helvetica, sans-serif',
   monospace: 'Consolas, "Liberation Mono", Menlo, Courier, monospace',
   lineHeight: 1.5,
   scale: scale,

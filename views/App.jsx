@@ -58,11 +58,9 @@ class App extends React.Component {
         <Header {...props} />
         <div style={s.inner}>
           <Message dispatch={dispatch} message={message} />
-          <Main>
-            <RouteHandler
-              {...props}
-              key={props.pathname} />
-          </Main>
+          <RouteHandler
+            {...props}
+            key={props.pathname} />
         </div>
         <Footer />
         <script

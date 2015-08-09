@@ -1,14 +1,14 @@
 
 import React from 'react'
+import Main from '../components/Main'
 
 class Default extends React.Component {
 
   render() {
     return (
-      <div>
+      <Main>
         <h1>Default</h1>
-        <h2>DERP DERP</h2>
-      </div>
+      </Main>
     )
   }
 

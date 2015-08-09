@@ -4,6 +4,7 @@
     "api",
     "actions",
     "reducers",
-    "components"
+    "components",
+    "views"
   ]
 }

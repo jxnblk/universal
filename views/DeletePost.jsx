@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import { getPost, destroyPost, changeMessage, changeMode } from '../actions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
+import Main from '../components/Main'
 import A from '../components/A'
 import Button from '../components/Button'
 import BtnLink from '../components/BtnLink'
@@ -67,7 +68,7 @@ class DeletePost extends React.Component {
     }
 
     return (
-      <div>
+      <Main>
         <h1 style={s.h1}>Delete</h1>
         <h2>Are you sure you want to delete {title}?</h2>
         <form
@@ -78,7 +79,7 @@ class DeletePost extends React.Component {
           <Button text='Delete' color={colors.red[3]} />
           <BtnLink to='post' params={{ id: id }} text='Cancel' />
         </form>
-      </div>
+      </Main>
     )
   }
 

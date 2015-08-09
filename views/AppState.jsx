@@ -1,5 +1,6 @@
 
 import React from 'react'
+import Main from '../components/Main'
 
 class AppState extends React.Component {
 
@@ -13,10 +14,10 @@ class AppState extends React.Component {
     }
 
     return (
-      <div>
+      <Main>
         <h1>Application State</h1>
         <pre style={s.pre}>{JSON.stringify(snapshot, null, '  ')}</pre>
-      </div>
+      </Main>
     )
   }
 

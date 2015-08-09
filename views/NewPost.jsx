@@ -1,5 +1,6 @@
 
 import React from 'react'
+import Main from '../components/Main'
 import PostForm from '../components/PostForm'
 import {
   clearPost,
@@ -65,7 +66,7 @@ class NewPost extends React.Component {
   render() {
     const { post, dispatch } = this.props
     return (
-      <div>
+      <Main>
         <h1>New Post</h1>
         <PostForm
           {...this.props}
@@ -73,7 +74,7 @@ class NewPost extends React.Component {
           method='POST'
           action='/'
           onSubmit={this.handleSubmit} />
-      </div>
+      </Main>
     )
   }
 

@@ -3,6 +3,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { clearPost, getPost } from '../actions'
 import markdown from '../util/markdown'
+import Main from '../components/Main'
 import Prose from '../components/Prose'
 import A from '../components/A'
 import BtnLink from '../components/BtnLink'
@@ -44,16 +45,16 @@ class Post extends React.Component {
     }
 
     return (
-      <div>
+      <Main>
         <h1 style={s.h1}>{title}</h1>
-        <p style={s.date}>{new Date(date).toDateString()}</p>
         <Prose dangerouslySetInnerHTML={{ __html: html }} />
+        <p style={s.date}>{new Date(date).toDateString()}</p>
         <BtnLink to='edit-post'
           params={{ id: id }}
           flush>
           Edit
         </BtnLink>
-      </div>
+      </Main>
     )
   }
 

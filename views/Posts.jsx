@@ -1,6 +1,8 @@
 
 import React from 'react'
 import { getPosts } from '../actions'
+import Banner from '../components/Banner'
+import Main from '../components/Main'
 import A from '../components/A'
 import BtnLink from '../components/BtnLink'
 import { scale } from '../util/styles'
@@ -30,23 +32,26 @@ class Posts extends React.Component {
 
     return (
       <div>
-        <h1>Posts</h1>
-        <ul style={s.ul}>
-          {posts.map(function (post, i) {
-            return (
-              <li key={i}>
-                <BtnLink to='post'
-                  params={{ id: post.id }}
-                  flush>
-                    <h2 style={s.postlink}>
-                      {post.title}
-                    </h2>
-                    <div style={s.postdate}>{new Date(post.date).toDateString()}</div>
-                </BtnLink>
-              </li>
-            )
-          }.bind(this))}
-        </ul>
+        <Banner />
+        <Main>
+          <h2>Posts</h2>
+          <ul style={s.ul}>
+            {posts.map(function (post, i) {
+              return (
+                <li key={i}>
+                  <BtnLink to='post'
+                    params={{ id: post.id }}
+                    flush>
+                      <h3 style={s.postlink}>
+                        {post.title}
+                      </h3>
+                      <div style={s.postdate}>{new Date(post.date).toDateString()}</div>
+                  </BtnLink>
+                </li>
+              )
+            }.bind(this))}
+          </ul>
+        </Main>
       </div>
     )
   }

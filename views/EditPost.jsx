@@ -2,6 +2,7 @@
 import { assign } from 'lodash'
 import React from 'react'
 import { getPost, updatePost, changeMode, changeMessage } from '../actions'
+import Main from '../components/Main'
 import PostForm from '../components/PostForm'
 import BtnLink from '../components/BtnLink'
 import A from '../components/A'
@@ -76,7 +77,7 @@ class EditPost extends React.Component {
     }
 
     return (
-      <div>
+      <Main>
         <h1>Edit</h1>
         <PostForm
           {...this.props}
@@ -92,7 +93,7 @@ class EditPost extends React.Component {
             color={colors.red[5]}
             text='Delete' />
         </div>
-      </div>
+      </Main>
     )
   }
 
