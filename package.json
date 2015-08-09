@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "NODE_ENV=production webpack -p --progress --colors",
-    "clean": "rm data/trash/*",
+    "gh-pages": "git subtree push --prefix dist/universal origin gh-pages",
+    "clean": "rm -f data/trash/* && rm -r dist/universal/*",
     "dev": "NODE_ENV=development nodemon index.js",
     "start": "NODE_ENV=production nodemon index.js",
     "static": "NODE_ENV=static webpack --progress --colors --config webpack.static.config.js"
