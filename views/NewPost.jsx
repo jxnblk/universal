@@ -1,7 +1,12 @@
 
 import React from 'react'
-import PostForm from './PostForm'
-import { clearPost, createPost, changeMode, changeMessage } from '../actions'
+import PostForm from '../components/PostForm'
+import {
+  clearPost,
+  createPost,
+  changeMode,
+  changeMessage
+} from '../actions'
 
 class NewPost extends React.Component {
 

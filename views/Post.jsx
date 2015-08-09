@@ -3,9 +3,9 @@ import React from 'react'
 import { Link } from 'react-router'
 import { clearPost, getPost } from '../actions'
 import markdown from '../util/markdown'
-import Prose from './Prose'
-import A from './A'
-import BtnLink from './BtnLink'
+import Prose from '../components/Prose'
+import A from '../components/A'
+import BtnLink from '../components/BtnLink'
 import { scale } from '../util/styles'
 
 class Post extends React.Component {

@@ -4,9 +4,9 @@ import { Link } from 'react-router'
 import { getPost, destroyPost, changeMessage, changeMode } from '../actions'
 import markdown from '../util/markdown'
 import { colors } from '../util/styles'
-import A from './A'
-import Button from './Button'
-import BtnLink from './BtnLink'
+import A from '../components/A'
+import Button from '../components/Button'
+import BtnLink from '../components/BtnLink'
 
 class DeletePost extends React.Component {
 

@@ -6,7 +6,7 @@ import Router from 'react-router'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import routes from './routes'
-import Err from './components/Err'
+import Err from './views/Err'
 
 import { Provider } from 'react-redux'
 import {

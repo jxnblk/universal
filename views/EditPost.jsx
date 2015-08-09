@@ -2,9 +2,9 @@
 import { assign } from 'lodash'
 import React from 'react'
 import { getPost, updatePost, changeMode, changeMessage } from '../actions'
-import PostForm from './PostForm'
-import BtnLink from './BtnLink'
-import A from './A'
+import PostForm from '../components/PostForm'
+import BtnLink from '../components/BtnLink'
+import A from '../components/A'
 import { scale, colors } from '../util/styles'
 
 class EditPost extends React.Component {

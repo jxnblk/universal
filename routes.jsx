@@ -1,15 +1,15 @@
 
 import React from 'react'
 import { Route, DefaultRoute } from 'react-router'
-import App from './components/App'
-import Posts from './components/Posts'
-import Post from './components/Post'
-import NewPost from './components/NewPost'
-import EditPost from './components/EditPost'
-import DeletePost from './components/DeletePost'
-import About from './components/About'
-import Default from './components/Default'
-import AppState from './components/AppState'
+import App from './views/App'
+import Posts from './views/Posts'
+import Post from './views/Post'
+import NewPost from './views/NewPost'
+import EditPost from './views/EditPost'
+import DeletePost from './views/DeletePost'
+import About from './views/About'
+import Default from './views/Default'
+import AppState from './views/AppState'
 
 const routes = (
   <Route name='home' path='/' handler={App}>

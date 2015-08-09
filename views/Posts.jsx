@@ -1,8 +1,8 @@
 
 import React from 'react'
 import { getPosts } from '../actions'
-import A from './A'
-import BtnLink from './BtnLink'
+import A from '../components/A'
+import BtnLink from '../components/BtnLink'
 import { scale } from '../util/styles'
 
 class Posts extends React.Component {
