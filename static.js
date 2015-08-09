@@ -22,7 +22,7 @@ const posts = data.readPosts()
 
 if (typeof window !== 'undefined') {
   render(Router.HistoryLocation, scripts, function (component) {
-    React.render(component, doument)
+    React.render(component, document)
   })
 }
 
