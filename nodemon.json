@@ -2,6 +2,7 @@
   "watch": [
     "app.js",
     "api",
+    "data",
     "actions",
     "reducers",
     "components",

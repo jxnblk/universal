@@ -29,6 +29,10 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader'
       }
+    ],
+    noParse: [
+      /js\-yaml/,
+      // /coffee\-script/,
     ]
   },
 
@@ -48,7 +52,11 @@ module.exports = {
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx', '.json']
+    extensions: ['', '.js', '.jsx', '.json'],
+    alias: {
+      'toml': 'empty-module',
+      'coffee-script': 'empty-module'
+    }
   },
 
   node: {

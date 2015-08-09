@@ -29,7 +29,7 @@ class PostForm extends React.Component {
       onSubmit,
       children
     } = this.props
-    let { title, id, date, content } = post
+    let { title, excerpt, id, date, content } = post
     let s = {
       root: {
         marginBottom: scale[7]
@@ -50,6 +50,11 @@ class PostForm extends React.Component {
           autoFocus={true}
           value={title}
           onChange={this.handleChange} />
+        <Input
+          name='excerpt'
+          label='Excerpt'
+          value={excerpt}
+          onChange={this.handleChange} />
         <Textarea
           name='content'
           label='Content'
@@ -57,7 +62,8 @@ class PostForm extends React.Component {
           value={content}
           onChange={this.handleChange} />
         <Button type='submit' text='Save' />
-        <BtnLink to={id ? 'post' : 'home'}
+        <BtnLink
+          to={id ? 'post' : 'home'}
           params={id ? { id: id } : null}
           text='Cancel' />
       </form>

@@ -1,16 +1,18 @@
 
 import React from 'react'
 import BtnLink from './BtnLink'
+import NavItem from './NavItem'
 import { scale, colors, darken } from '../util/styles'
 
 class Header extends React.Component {
 
   render() {
-    let { mode } = this.props
+    const { mode } = this.props
 
-    let s = {
+    const s = {
       root: {
-        padding: scale[0],
+        paddingLeft: scale[0],
+        paddingRight: scale[0],
         display: 'flex',
         borderTopStyle: 'solid',
         borderTopWidth: 1,
@@ -23,10 +25,10 @@ class Header extends React.Component {
 
     return (
       <footer style={s.root}>
-        <BtnLink to='posts' text='Universal' />
-        <BtnLink to='state' text='App State' />
+        <NavItem to='posts' text='Universal' />
+        <NavItem to='state' text='App State' />
         <div style={s.spacer} />
-        <BtnLink href='//jxnblk.com'>Made by Jxnblk</BtnLink>
+        <NavItem href='//jxnblk.com' text='Made by Jxnblk' />
       </footer>
     )
   }

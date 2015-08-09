@@ -26,18 +26,22 @@ const Data = {
           id: matter.data.id,
           filename: filename,
           date: matter.data.date,
+          updated: matter.data.updated,
+          excerpt: matter.data.excerpt,
+          draft: matter.data.draft || false,
           content: matter.content
         }
       })
       .sort(function (a, b) {
-        return new Date(b.date) - new Date(a.date)
+        return a.index - b.index
       })
       fs.writeFileSync(path.join(__dirname, 'posts.json'), JSON.stringify(CACHE))
     } catch (e) {
       console.log('Static read from memory', CACHE.length)
-      CACHE = CACHE.sort(function (a, b) {
-        return new Date(b.date) - new Date(a.date)
-      })
+      CACHE = CACHE
+        .sort(function (a, b) {
+          return a.index - b.index
+        })
     }
     return CACHE
   },
@@ -61,7 +65,9 @@ const Data = {
       title: data.title,
       id: newId,
       filename: filename,
-      date: new Date() // .toDateString()
+      excerpt: data.excerpt || null,
+      updated: new Date(),
+      date: new Date()
     }
     let content = data.content.replace(/^M/, '\n').trim()
     let md = graymatter.stringify(content, post)
@@ -84,6 +90,7 @@ const Data = {
       done('Post must have a title')
     }
     post = _.assign(post, data)
+    post.updated = new Date()
     let content = post.content.trim()
     delete post.content
     post.id = id

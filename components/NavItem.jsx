@@ -2,13 +2,13 @@
 import { assign, clone } from 'lodash'
 import React from 'react'
 import { Link } from 'react-router'
-import { scale, colors, darken, radius } from '../util/styles'
+import { scale, colors, darken } from '../util/styles'
 
 class BtnLink extends React.Component {
 
   render() {
     let { props } = this
-    let { text, children, href, color, flush } = props
+    let { text, children, href, color } = props
 
     let Comp = href ? 'a' : Link
     let s = {
@@ -19,9 +19,8 @@ class BtnLink extends React.Component {
         lineHeight: 1,
         textDecoration: 'none',
         display: 'inline-block',
-        padding: flush ? scale[2] + 'px 0' : scale[2],
+        padding: `${scale[4]}px ${scale[2]}px`, // scale[2] + 'px ' ,
         cursor: 'pointer',
-        borderRadius: radius,
         color: color ? color : 'inherit'
       }
     }
@@ -31,9 +30,7 @@ class BtnLink extends React.Component {
     return (
       <Comp {...props}
         activeStyle={assign(clone(s.button), {
-          // color: colors.blue[4],
-          // borderBottom: `1px solid ${colors.blue[5]}`,
-          // backgroundColor: darken[1]
+          backgroundColor: darken[2]
         })}
         style={s.button}>
         {text}

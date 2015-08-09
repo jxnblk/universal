@@ -7,7 +7,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import Message from '../components/Message'
 import { clearMessage } from '../actions'
-import { fontFamily, colors, scale, lineHeight } from '../util/styles'
+import { sans, colors, scale, lineHeight } from '../util/styles'
 
 import { connect } from 'react-redux'
 
@@ -37,7 +37,7 @@ class App extends React.Component {
 
     let s = {
       root: {
-        fontFamily: fontFamily,
+        fontFamily: sans,
         lineHeight: lineHeight,
         margin: 0,
         minHeight: '100vh',

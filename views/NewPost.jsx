@@ -30,6 +30,7 @@ class NewPost extends React.Component {
     let { dispatch, router } = this.props
     let post = {
       title: e.target.title.value,
+      excerpt: e.target.excerpt.value,
       content: e.target.content.value,
     }
     if (process.env.NODE_ENV === 'development') {
