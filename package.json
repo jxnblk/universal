@@ -9,7 +9,7 @@
     "dev": "NODE_ENV=development nodemon index.js",
     "prod": "NODE_ENV=production node index.js",
     "start": "NODE_ENV=development forever start -c nodemon index.js",
-    "static": "NODE_ENV=static webpack --progress --colors --config webpack.static.config.js",
+    "static": "NODE_ENV=static webpack -p --progress --colors --config webpack.static.config.js",
     "stop": "forever stopall"
   },
   "author": "Brent Jackson",

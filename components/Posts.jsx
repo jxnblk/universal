@@ -1,7 +1,6 @@
 
 import React from 'react'
 import { getPosts } from '../actions'
-import markdown from '../util/markdown'
 import A from './A'
 import BtnLink from './BtnLink'
 import { scale } from '../util/styles'
@@ -34,7 +33,6 @@ class Posts extends React.Component {
         <h1>Posts</h1>
         <ul style={s.ul}>
           {posts.map(function (post, i) {
-            let html = markdown.render(post.content)
             return (
               <li key={i}>
                 <BtnLink to='post'
