@@ -1,6 +1,6 @@
-# iso-hot
+# universal
 
-WIP isomorphic Express/React app with React Hot Loader
+WIP universal (isomorphic) Express/React app with React Hot Loader
 
 ```sh
 npm i
@@ -9,20 +9,18 @@ npm i
 ## Development mode
 
 ```sh
-npm run forever
-```
-
-Stop:
-
-```sh
-npm stop
+npm run dev
 ```
 
 ## Production
 
 ```sh
-npm i
 npm run build
 npm start
 ```
 
+## Static
+
+```sh
+npm run static
+```
