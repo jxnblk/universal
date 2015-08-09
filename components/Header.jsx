@@ -49,7 +49,6 @@ class Header extends React.Component {
         </BtnLink>
         <div style={s.spacer} />
         <BtnLink to='new-post' text='New Post' />
-        <BtnLink to='about' text='About' />
       </header>
     )
   }

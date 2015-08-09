@@ -2,7 +2,7 @@
 import React from 'react'
 import Router from 'react-router'
 import { Provider } from 'react-redux'
-import routes from './routes.jsx'
+import routes from './routes'
 import { store } from './store'
 import { setRouter } from './actions'
 

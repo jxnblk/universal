@@ -2,6 +2,7 @@
 import { assign } from 'lodash'
 import {
   SET_ROUTER,
+  SET_BASE_URL,
   GET_POSTS,
   GET_POSTS_SUCCESS,
   GET_POSTS_FAILED,
@@ -28,6 +29,15 @@ export function router(state = {}, action) {
   switch (action.type) {
     case SET_ROUTER:
       return action.router
+    default:
+      return state
+  }
+}
+
+export function baseUrl(state = '', action) {
+  switch (action.type) {
+    case SET_BASE_URL:
+      return action.url
     default:
       return state
   }

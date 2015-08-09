@@ -5,11 +5,11 @@ var webpack = require('webpack')
 var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
 var data = require('./api/data')
 
+var baseUrl = '/universal'
 var routes = [
   '/',
   '/new',
   '/state',
-  '/about',
 ]
 
 var posts = data.readPosts()
@@ -28,7 +28,8 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/dist',
+    publicPath: baseUrl,
+    path: __dirname + '/dist' + baseUrl,
     libraryTarget: 'umd'
   },
 

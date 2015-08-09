@@ -1,5 +1,6 @@
 
 export const SET_ROUTER = 'SET_ROUTER'
+export const SET_BASE_URL = 'SET_BASE_URL'
 
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
@@ -58,6 +59,10 @@ export {
 
 export function setRouter(router) {
   return { type: SET_ROUTER, router }
+}
+
+export function setBaseUrl(url) {
+  return { type: SET_BASE_URL, url }
 }
 
 export function clearPost() {
