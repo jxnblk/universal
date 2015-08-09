@@ -2,16 +2,13 @@
 import path from 'path'
 import express from 'express'
 import React from 'react'
-import Router from 'react-router'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
 import render from './render'
 import routes from './routes'
 import Err from './views/Err'
 
-import { Provider } from 'react-redux'
 import {
-  setRouter,
   getPosts,
   getPost,
   clearPost,
@@ -93,9 +90,9 @@ app.use(function(req, res, next) {
   }
 
   render(req.path, scripts, function (component) {
-      var html = React.renderToString(component)
-      res.send(html)
-    })
+    var html = React.renderToString(component)
+    res.send(html)
+  })
 
 })
 
