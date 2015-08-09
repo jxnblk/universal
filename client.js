@@ -1,7 +1,6 @@
 
 import React from 'react'
 import Router from 'react-router'
-import routes from './routes'
 
 import {
   combineReducers,
@@ -10,21 +9,23 @@ import {
 } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
+import routes from './routes'
 import { setRouter } from './actions'
 import * as reducers from './reducers'
+import render from './render'
 
-const init = document.querySelector('#init').innerHTML
+// const init = document.querySelector('#init').innerHTML
 
-const reducer = combineReducers(reducers)
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
-const store = createStoreWithMiddleware(reducer, JSON.parse(init))
+// const reducer = combineReducers(reducers)
+// const createStoreWithMiddleware = applyMiddleware(thunk)(createStore)
+// const store = createStoreWithMiddleware(reducer, JSON.parse(init))
 
 console.log('client', process.env.NODE_ENV)
 
-const router = Router.create({
-  routes: routes,
-  location: Router.HistoryLocation
-})
+// const router = Router.create({
+//   routes: routes,
+//   location: Router.HistoryLocation
+// })
 
 let scripts = [ '/bundle.js' ]
 
@@ -34,8 +35,16 @@ if (process.env.NODE_ENV === 'development') {
   ]
 }
 
-store.dispatch(setRouter(router))
+// store.dispatch(setRouter(router))
 
+render(Router.HistoryLocation, scripts, function (component) {
+  console.log('client render', component)
+  React.render(component, document)
+})
+  //.then((component) => {
+  //})
+
+/*
 router.run(function (Handler, state) {
   React.render(
     <Provider store={store}>
@@ -45,4 +54,5 @@ router.run(function (Handler, state) {
     document
   )
 })
+*/
 

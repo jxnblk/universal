@@ -5,6 +5,7 @@ import React from 'react'
 import Router from 'react-router'
 import bodyParser from 'body-parser'
 import methodOverride from 'method-override'
+import render from './render'
 import routes from './routes'
 import Err from './views/Err'
 
@@ -91,20 +92,11 @@ app.use(function(req, res, next) {
     ]
   }
 
-  const router = Router.create({
-    routes: routes,
-    location: req.url
-  })
-  store.dispatch(setRouter(router))
+  render(req.path, scripts, function (component) {
+      var html = React.renderToString(component)
+      res.send(html)
+    })
 
-  router.run(function (Handler, state) {
-    var html = React.renderToString(
-      <Provider store={store}>
-        {() => <Handler routerState={state} scripts={scripts} />}
-      </Provider>
-    )
-    res.send(html)
-  })
 })
 
 app.use(function(err, req, res, next) {
