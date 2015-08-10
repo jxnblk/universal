@@ -42873,19 +42873,61 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _utilStyles = __webpack_require__(240);
+
 	var Logo = (function (_React$Component) {
 	  _inherits(Logo, _React$Component);
 
 	  function Logo() {
 	    _classCallCheck(this, Logo);
 
-	    _get(Object.getPrototypeOf(Logo.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(Logo.prototype), 'constructor', this).call(this);
+	    this.state = {
+	      rot: 0,
+	      timer: false
+	    };
+	    this.handleClick = this.handleClick.bind(this);
+	    this.incrementRotation = this.incrementRotation.bind(this);
 	  }
 
 	  _createClass(Logo, [{
+	    key: 'incrementRotation',
+	    value: function incrementRotation() {
+	      var rot = this.state.rot;
+
+	      rot += 720;
+	      this.setState({ rot: rot });
+	      var timer = window.setTimeout((function () {
+	        this.incrementRotation();
+	      }).bind(this), 5000);
+	      this.setState({ timer: timer });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.incrementRotation();
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      var timer = this.state.timer;
+
+	      window.clearTimeout(timer);
+	    }
+	  }, {
+	    key: 'handleClick',
+	    value: function handleClick(e) {
+	      console.log('click');
+	      var rot = this.state.rot;
+
+	      rot += 90;
+	      this.setState({ rot: rot });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var style = this.props.style;
+	      var rot = this.state.rot;
 
 	      var size = 128;
 	      var c = size / 2;
@@ -42901,12 +42943,31 @@ return /******/ (function(modules) { // webpackBootstrap
 	        c1: {
 	          fill: 'none',
 	          stroke: 'currentcolor',
+	          display: 'block',
 	          strokeWidth: s1,
 	          vectorEffect: 'non-scaling-stroke',
-	          opacity: .5
-	        },
-	        c2: {}
+	          opacity: .5,
+	          WebkitTransformOrigin: '50% 50%',
+	          transformOrigin: '50% 50%',
+	          WebkitTransform: 'rotate3d(0, 1, 1, ' + rot + 'deg)',
+	          transform: 'rotate3d(0, 1, 1, ' + rot + 'deg)',
+	          WebkitTransition: 'transform 5s linear',
+	          transition: 'transform 5s linear'
+	        }
 	      };
+
+	      // c4: {
+	      //   opacity: .0
+	      // }
+	      s.c2 = (0, _lodash.assign)((0, _lodash.clone)(s.c1), {
+	        WebkitTransform: 'rotate3d(1, 0, 0, ' + (-45 + rot) + 'deg)',
+	        transform: 'rotate3d(1, 0, 0, ' + (-45 + rot) + 'deg)'
+	      });
+
+	      s.c3 = (0, _lodash.assign)((0, _lodash.clone)(s.c1), {
+	        WebkitTransform: 'rotate3d(1, 0, 1, ' + (90 + rot) + 'deg)',
+	        transform: 'rotate3d(1, 0, 1, ' + (90 + rot) + 'deg)'
+	      });
 
 	      return _react2['default'].createElement(
 	        'svg',
@@ -42914,9 +42975,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	          width: size,
 	          height: size,
 	          viewBox: [0, 0, size, size].join(' '),
+	          onClick: this.handleClick,
 	          style: s.svg },
 	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r1, style: s.c1 }),
-	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r2, style: s.c2 })
+	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r1, style: s.c2 }),
+	        _react2['default'].createElement('circle', { cx: c, cy: c, r: r1, style: s.c3 })
 	      );
 	    }
 	  }]);
