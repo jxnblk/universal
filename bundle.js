@@ -40511,7 +40511,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          flexDirection: 'column',
 	          color: color,
 	          backgroundColor: backgroundColor,
-	          transition: 'background-color .2s ease-out'
+	          transition: 'background-color .3s ease-out'
 	        },
 	        inner: {
 	          position: 'relative',
@@ -44902,18 +44902,49 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _Logo2 = _interopRequireDefault(_Logo);
 
+	var _actions = __webpack_require__(213);
+
+	var modes = ['default', 'info', 'success', 'danger'];
+
 	var Banner = (function (_React$Component) {
 	  _inherits(Banner, _React$Component);
 
 	  function Banner() {
 	    _classCallCheck(this, Banner);
 
-	    _get(Object.getPrototypeOf(Banner.prototype), 'constructor', this).apply(this, arguments);
+	    _get(Object.getPrototypeOf(Banner.prototype), 'constructor', this).call(this);
+	    this.handleClick = this.handleClick.bind(this);
 	  }
 
 	  _createClass(Banner, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      var index = modes.indexOf(this.props.mode);
+	      var mode = modes[index + 1] || modes[0];
+	      this.props.dispatch((0, _actions.changeMode)(mode));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var mode = this.props.mode;
+
+	      var color = _utilStyles.colors.blue[5];
+	      var backgroundColor = _utilStyles.colors.blue[2];
+	      switch (mode) {
+	        case 'info':
+	          color = _utilStyles.colors.blue[6];
+	          backgroundColor = _utilStyles.colors.blue[3];
+	          break;
+	        case 'success':
+	          color = _utilStyles.colors.green[5];
+	          backgroundColor = _utilStyles.colors.green[2];
+	          break;
+	        case 'danger':
+	          color = _utilStyles.colors.red[5];
+	          backgroundColor = _utilStyles.colors.red[2];
+	          break;
+	      }
+
 	      var s = {
 	        root: {
 	          textAlign: 'center',
@@ -44922,10 +44953,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	          paddingLeft: _utilStyles.scale[6],
 	          paddingRight: _utilStyles.scale[6],
 	          color: 'white',
-	          backgroundColor: _utilStyles.colors.blue[2]
+	          backgroundColor: backgroundColor,
+	          transition: 'background-color .4s ease-out'
 	        },
 	        logo: {
-	          color: _utilStyles.colors.blue[5]
+	          cursor: 'pointer',
+	          color: color,
+	          transition: 'color .1s linear'
 	        },
 	        h1: {
 	          fontFamily: _utilStyles.futura,
@@ -44945,7 +44979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      };
 	      return _react2['default'].createElement(
 	        'div',
-	        { style: s.root },
+	        { style: s.root, onClick: this.handleClick },
 	        _react2['default'].createElement(_Logo2['default'], { style: s.logo }),
 	        _react2['default'].createElement(
 	          'h1',
