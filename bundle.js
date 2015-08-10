@@ -42150,26 +42150,36 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var s = {
 	        root: {
+	          overflow: 'hidden',
+	          boxSizing: 'border-box',
 	          paddingLeft: _utilStyles.scale[0],
 	          paddingRight: _utilStyles.scale[0],
-	          display: 'flex',
-	          alignItems: 'center',
 	          color: 'white',
 	          backgroundColor: color,
 	          transition: 'background-color .2s ease-out'
 	        },
-	        spacer: {
-	          flex: '1 0 auto'
+	        left: {
+	          float: 'left'
+	        },
+	        right: {
+	          float: 'right'
 	        }
 	      };
 
 	      return _react2['default'].createElement(
 	        'header',
 	        { style: s.root },
-	        _react2['default'].createElement(_NavItem2['default'], { to: 'posts', text: 'Universal' }),
-	        _react2['default'].createElement('div', { style: s.spacer }),
-	        _react2['default'].createElement(_NavItem2['default'], { to: 'new-post', text: 'New Post' }),
-	        _react2['default'].createElement(_NavItem2['default'], { href: 'https://github.com/jxnblk/universal', text: 'GitHub' })
+	        _react2['default'].createElement(
+	          'div',
+	          { style: s.left },
+	          _react2['default'].createElement(_NavItem2['default'], { to: 'posts', text: 'Universal' })
+	        ),
+	        _react2['default'].createElement(
+	          'div',
+	          { style: s.right },
+	          _react2['default'].createElement(_NavItem2['default'], { to: 'new-post', text: 'New Post' }),
+	          _react2['default'].createElement(_NavItem2['default'], { href: 'https://github.com/jxnblk/universal', text: 'GitHub' })
+	        )
 	      );
 	    }
 	  }]);
@@ -42474,15 +42484,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var s = {
 	        root: {
+	          overflow: 'hidden',
 	          paddingLeft: _utilStyles.scale[0],
 	          paddingRight: _utilStyles.scale[0],
-	          display: 'flex',
 	          borderTopStyle: 'solid',
 	          borderTopWidth: 1,
 	          borderTopColor: _utilStyles.darken[1]
 	        },
-	        spacer: {
-	          flex: '1 0 auto'
+	        right: {
+	          float: 'right'
 	        }
 	      };
 
@@ -42491,8 +42501,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	        { style: s.root },
 	        _react2['default'].createElement(_NavItem2['default'], { to: 'posts', text: 'Universal' }),
 	        _react2['default'].createElement(_NavItem2['default'], { to: 'state', text: 'App State' }),
-	        _react2['default'].createElement('div', { style: s.spacer }),
-	        _react2['default'].createElement(_NavItem2['default'], { href: '//jxnblk.com', text: 'Made by Jxnblk' })
+	        _react2['default'].createElement(
+	          'div',
+	          { style: s.right },
+	          _react2['default'].createElement(_NavItem2['default'], { href: '//jxnblk.com', text: 'Made by Jxnblk' })
+	        )
 	      );
 	    }
 	  }]);
@@ -42876,10 +42889,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utilStyles = __webpack_require__(240);
 
-	var offset1 = 15;
-	var offset2 = 45;
-	var offset3 = 60;
-	var rotationKeyframes = ('\n/* <![CDATA[ */\n@-webkit-keyframes rotate1 {\n    0% { -webkit-transform: rotate3d(0, 1, 1, ' + (0 + offset1) + 'deg) }\n   50% { -webkit-transform: rotate3d(0, 1, 1, ' + (180 + offset1) + 'deg) }\n  100% { -webkit-transform: rotate3d(0, 1, 1, ' + (360 + offset1) + 'deg) }\n}\n@keyframes rotate1 {\n    0% { transform: rotate3d(0, 1, 1, ' + (0 + offset1) + 'deg) }\n   50% { transform: rotate3d(0, 1, 1, ' + (180 + offset1) + 'deg) }\n  100% { transform: rotate3d(0, 1, 1, ' + (360 + offset1) + 'deg) }\n}\n\n@-webkit-keyframes rotate2 {\n    0% { -webkit-transform: rotate3d(1, 0, 1, ' + (0 + offset2) + 'deg) }\n   50% { -webkit-transform: rotate3d(1, 0, 1, ' + (180 + offset2) + 'deg) }\n  100% { -webkit-transform: rotate3d(1, 0, 1, ' + (360 + offset2) + 'deg) }\n}\n@keyframes rotate2 {\n    0% { transform: rotate3d(1, 0, 1, ' + (0 + offset2) + 'deg) }\n   50% { transform: rotate3d(1, 0, 1, ' + (180 + offset2) + 'deg) }\n  100% { transform: rotate3d(1, 0, 1, ' + (360 + offset2) + 'deg) }\n}\n\n@-webkit-keyframes rotate3 {\n    0% { -webkit-transform: rotate3d(1, 1, 0, ' + (0 + offset3) + 'deg) }\n   50% { -webkit-transform: rotate3d(1, 1, 0, ' + (180 + offset3) + 'deg) }\n  100% { -webkit-transform: rotate3d(1, 1, 0, ' + (360 + offset3) + 'deg) }\n}\n@keyframes rotate3 {\n    0% { transform: rotate3d(1, 1, 0, ' + (0 + offset3) + 'deg) }\n   50% { transform: rotate3d(1, 1, 0, ' + (180 + offset3) + 'deg) }\n  100% { transform: rotate3d(1, 1, 0, ' + (360 + offset3) + 'deg) }\n}\n/* ]]> */\n').replace(/\n/g, ' ').replace(/\s\s+/g, ' ');
+	var offset1 = 0;
+	var offset2 = 0;
+	var offset3 = 0;
+	var rotationKeyframes = ('\n/* <![CDATA[ */\n@-webkit-keyframes rotate1 {\n    0% { -webkit-transform: rotate3d(0, 1, 1, ' + (0 + offset1) + 'deg) }\n   50% { -webkit-transform: rotate3d(0, 1, 1, ' + (180 + offset1) + 'deg) }\n  100% { -webkit-transform: rotate3d(0, 1, 1, ' + (359 + offset1) + 'deg) }\n}\n@keyframes rotate1 {\n    0% { transform: rotate3d(0, 1, 1, ' + (0 + offset1) + 'deg) }\n   50% { transform: rotate3d(0, 1, 1, ' + (180 + offset1) + 'deg) }\n  100% { transform: rotate3d(0, 1, 1, ' + (359 + offset1) + 'deg) }\n}\n\n@-webkit-keyframes rotate2 {\n    0% { -webkit-transform: rotate3d(1, 0, 1, ' + (0 + offset2) + 'deg) }\n   50% { -webkit-transform: rotate3d(1, 0, 1, ' + (180 + offset2) + 'deg) }\n  100% { -webkit-transform: rotate3d(1, 0, 1, ' + (359 + offset2) + 'deg) }\n}\n@keyframes rotate2 {\n    0% { transform: rotate3d(1, 0, 1, ' + (0 + offset2) + 'deg) }\n   50% { transform: rotate3d(1, 0, 1, ' + (180 + offset2) + 'deg) }\n  100% { transform: rotate3d(1, 0, 1, ' + (359 + offset2) + 'deg) }\n}\n\n@-webkit-keyframes rotate3 {\n    0% { -webkit-transform: rotate3d(1, 1, 0, ' + (0 + offset3) + 'deg) }\n   50% { -webkit-transform: rotate3d(1, 1, 0, ' + (180 + offset3) + 'deg) }\n  100% { -webkit-transform: rotate3d(1, 1, 0, ' + (359 + offset3) + 'deg) }\n}\n@keyframes rotate3 {\n    0% { transform: rotate3d(1, 1, 0, ' + (0 + offset3) + 'deg) }\n   50% { transform: rotate3d(1, 1, 0, ' + (180 + offset3) + 'deg) }\n  100% { transform: rotate3d(1, 1, 0, ' + (359 + offset3) + 'deg) }\n}\n/* ]]> */\n').replace(/\n/g, ' ').replace(/\s\s+/g, ' ');
 
 	var Logo = (function (_React$Component) {
 	  _inherits(Logo, _React$Component);
@@ -42916,16 +42929,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	          fill: 'currentcolor'
 	        }),
 	        c1: (0, _lodash.assign)({}, ringStyles, {
-	          WebkitAnimation: 'rotate1 2s linear 0s infinite',
-	          animation: 'rotate1 2s linear 0s infinite'
+	          WebkitAnimation: 'rotate1 3s linear 0s infinite normal',
+	          animation: 'rotate1 3s linear 0s infinite normal'
 	        }),
 	        c2: (0, _lodash.assign)({}, ringStyles, {
-	          WebkitAnimation: 'rotate2 2s linear 0s infinite',
-	          animation: 'rotate2 2s linear 0s infinite'
+	          WebkitAnimation: 'rotate2 3s linear 1s infinite normal',
+	          animation: 'rotate2 3s linear 1s infinite normal'
 	        }),
 	        c3: (0, _lodash.assign)({}, ringStyles, {
-	          WebkitAnimation: 'rotate3 2s linear 0s infinite',
-	          animation: 'rotate3 2s linear 0s infinite'
+	          WebkitAnimation: 'rotate3 3s linear 2s infinite normal',
+	          animation: 'rotate3 3s linear 2s infinite normal'
 	        })
 	      };
 
